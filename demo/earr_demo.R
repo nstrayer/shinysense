@@ -1,7 +1,7 @@
 #
 # A small demo app for the shinyearr function
 #
-# devtools::install_github("nstrayer/shinyearr")
+# devtools::install_github("nstrayer/shinysense")
 
 library(shiny)
 library(shinysense)
