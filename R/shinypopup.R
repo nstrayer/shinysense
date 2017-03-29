@@ -15,11 +15,12 @@ shinypopupUI <- function(id, buttonText, popupDiv, ...) {
 
   #grab our javascript and css files
   popup_file <- .get_script("popup.js", "js")
+  print("loaded popupjs")
 
   tagList(
     singleton(
       tags$head( #load our javascript files for this.
-        tags$style(HTML(popup_file))
+        tags$script(HTML(popup_file))
       )
     ),
     ...,
