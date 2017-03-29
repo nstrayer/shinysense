@@ -52,6 +52,6 @@ shinypopup <- function(input, output, session) {
   # observe({ session$sendCustomMessage(type = "initializePopup", message = card_id) })
   observeEvent(input$acceptButton,{
     # print("button clicked")
-    session$sendCustomMessage(type = "killPopup", message = "killit")
+    session$sendCustomMessage(type = "killPopup", message = "killPopup")
   })
 }
