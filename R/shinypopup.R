@@ -14,18 +14,19 @@ shinypopupUI <- function(id, buttonText, popupDiv, ...) {
   if (length(list(...)) == 0) stop("You need to pass something to the card.")
 
   #grab our javascript and css files
-  popup_file <- .get_script("popup.js", "js")
-  print("loaded popupjs")
+  popup_js  <- .get_script("popup.js", "js")
+  popup_css <- .get_script("popup.css", "css")
 
   tagList(
     singleton(
       tags$head( #load our javascript files for this.
-        tags$script(HTML(popup_file))
+        tags$script(HTML(popup_js)),
+        tags$style(HTML(popup_css))
       )
     ),
     ...,
-    div(id = "background_cover"),
-    div(id = id, class = "popup",
+    div(id = "background_cover hidden"),
+    div(id = id, class = "popup hidden",
         popupDiv,
         actionButton(ns("acceptButton"),buttonText ) #button that the server watches to kill popup.
     )  #popup div goes over.

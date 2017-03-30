@@ -18,7 +18,7 @@ ui <- fixedPage(
 )
 
 server <- function(input, output, session) {
-  terms_of_use <- callModule(shinypopup, "terms", accepted = T)
+  terms_of_use <- callModule(shinypopup, "terms", accepted = F)
 
   observe({
     print("button was clicked")
