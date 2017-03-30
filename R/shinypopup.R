@@ -25,7 +25,7 @@ shinypopupUI <- function(id, buttonText, popupDiv, ...) {
       )
     ),
     ...,
-    div(id = "background_cover hidden"),
+    div(id = "background_cover",class = "hidden"),
     div(id = id, class = "popup hidden",
         popupDiv,
         actionButton(ns("acceptButton"),buttonText ) #button that the server watches to kill popup.
@@ -41,9 +41,10 @@ shinypopupUI <- function(id, buttonText, popupDiv, ...) {
 #' @param input you can ignore this as it is taken care of by shiny
 #' @param output you can ignore this as it is taken care of by shiny
 #' @param session you can ignore this as it is taken care of by shiny
+#' @param accepted Logical variable indicating if the user has accepted the terms already. Useful if the page resets for a login. Defaults to FALSE.
 #' @export
 #' @examples
-#' callModule(shinypopup, "myTerms")
+#' callModule(shinypopup, "myTerms", accepted = FALSE)
 shinypopup <- function(input, output, session, accepted = FALSE) {
 
   # #If the user has already accepted the card, don't show it again
