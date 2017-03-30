@@ -43,15 +43,33 @@ shinypopupUI <- function(id, buttonText, popupDiv, ...) {
 #' @export
 #' @examples
 #' callModule(shinypopup, "myTerms")
-shinypopup <- function(input, output, session) {
+shinypopup <- function(input, output, session, accepted = FALSE) {
 
-  #the id of our particular card. We send this to javascript.
-  card_id <- gsub("-", "", session$ns(""))
+  # #If the user has already accepted the card, don't show it again
+  if(!accepted){
+    #Send over a message to the javascript to initialize the popup code
+    observe({ session$sendCustomMessage(type = "initialize_popup", message = "hey") })
+  }
 
-  #Send over a message to the javascript to initialize the card.
-  # observe({ session$sendCustomMessage(type = "initializePopup", message = card_id) })
+  result <- reactive({ accepted })
+
+  #wait for the user to press the acceptButton
   observeEvent(input$acceptButton,{
-    # print("button clicked")
     session$sendCustomMessage(type = "killPopup", message = "killPopup")
+    result <- TRUE
   })
+  #give back the choice.
+  # The user's data, parsed into a data frame
+  result <- reactive({
+
+    if(input$acceptButton > 0){
+      session$sendCustomMessage(type = "killPopup", message = "killPopup")
+      choice = "accepted"
+    } else {
+      choice = "not accepted"
+    }
+    return(choice)
+  })
+
+  return(result)
 }

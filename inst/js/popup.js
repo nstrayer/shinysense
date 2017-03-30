@@ -47,14 +47,26 @@ class popupCard{
 }
 
 $( document ).on('shiny:connected', event => {
+  var warningPopup;
+  //make sure we can't see the popup initially.
+  $("#background_cover").hide();
+  $(".popup").hide();
 
-  //set up a new card
-  var warningPopup = new popupCard("testing");
+  //watch for message from server saying it's ready.
+  Shiny.addCustomMessageHandler("initialize_popup",
+      x => {
+        console.log("message to initialize received");
+        $("#background_cover").show();
+        $(".popup").show();
+        warningPopup = new popupCard("testing");
 
-  //delete the popup when we get the message from the server to do so.
-  Shiny.addCustomMessageHandler("killPopup",
-    message => { warningPopup.kill(); }
+        //delete the popup when we get the message from the server to do so.
+        Shiny.addCustomMessageHandler("killPopup",
+          message => { warningPopup.kill(); }
+        );
+      }
   );
+
 });
 
 
