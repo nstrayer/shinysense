@@ -14,18 +14,19 @@ shinypopupUI <- function(id, buttonText, popupDiv, ...) {
   if (length(list(...)) == 0) stop("You need to pass something to the card.")
 
   #grab our javascript and css files
-  popup_file <- .get_script("popup.js", "js")
-  print("loaded popupjs")
+  popup_js  <- .get_script("popup.js", "js")
+  popup_css <- .get_script("popup.css", "css")
 
   tagList(
     singleton(
       tags$head( #load our javascript files for this.
-        tags$script(HTML(popup_file))
+        tags$script(HTML(popup_js)),
+        tags$style(HTML(popup_css))
       )
     ),
     ...,
-    div(id = "background_cover"),
-    div(id = id, class = "popup",
+    div(id = "background_cover",class = "hidden"),
+    div(id = id, class = "popup hidden",
         popupDiv,
         actionButton(ns("acceptButton"),buttonText ) #button that the server watches to kill popup.
     )  #popup div goes over.
@@ -40,18 +41,37 @@ shinypopupUI <- function(id, buttonText, popupDiv, ...) {
 #' @param input you can ignore this as it is taken care of by shiny
 #' @param output you can ignore this as it is taken care of by shiny
 #' @param session you can ignore this as it is taken care of by shiny
+#' @param accepted Logical variable indicating if the user has accepted the terms already. Useful if the page resets for a login. Defaults to FALSE.
 #' @export
 #' @examples
-#' callModule(shinypopup, "myTerms")
-shinypopup <- function(input, output, session) {
+#' callModule(shinypopup, "myTerms", accepted = FALSE)
+shinypopup <- function(input, output, session, accepted = FALSE) {
 
-  #the id of our particular card. We send this to javascript.
-  card_id <- gsub("-", "", session$ns(""))
+  # #If the user has already accepted the card, don't show it again
+  if(!accepted){
+    #Send over a message to the javascript to initialize the popup code
+    observe({ session$sendCustomMessage(type = "initialize_popup", message = "hey") })
+  }
 
-  #Send over a message to the javascript to initialize the card.
-  # observe({ session$sendCustomMessage(type = "initializePopup", message = card_id) })
+  result <- reactive({ accepted })
+
+  #wait for the user to press the acceptButton
   observeEvent(input$acceptButton,{
-    # print("button clicked")
     session$sendCustomMessage(type = "killPopup", message = "killPopup")
+    result <- TRUE
   })
+  #give back the choice.
+  # The user's data, parsed into a data frame
+  result <- reactive({
+
+    if(input$acceptButton > 0){
+      session$sendCustomMessage(type = "killPopup", message = "killPopup")
+      choice = "accepted"
+    } else {
+      choice = "not accepted"
+    }
+    return(choice)
+  })
+
+  return(result)
 }
