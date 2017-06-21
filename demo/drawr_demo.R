@@ -2,11 +2,9 @@
 # A small demo app for the shinydrawr function
 #
 # devtools::install_github("nstrayer/shinysense")
-
 library(shiny)
 library(shinysense)
 library(tidyverse)
-library(forcats)
 
 
 ui <- fluidPage(
