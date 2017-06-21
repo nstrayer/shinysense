@@ -4,7 +4,7 @@
 \alias{shinypopup}
 \title{Listens for clicking of accept button and kills popup if clicked.}
 \usage{
-shinypopup(input, output, session)
+shinypopup(input, output, session, accepted = FALSE)
 }
 \arguments{
 \item{input}{you can ignore this as it is taken care of by shiny}
@@ -12,10 +12,12 @@ shinypopup(input, output, session)
 \item{output}{you can ignore this as it is taken care of by shiny}
 
 \item{session}{you can ignore this as it is taken care of by shiny}
+
+\item{accepted}{Logical variable indicating if the user has accepted the terms already. Useful if the page resets for a login. Defaults to FALSE.}
 }
 \description{
 Just sits there, no need to pass it anything.
 }
 \examples{
-callModule(shinypopup, "myTerms")
+callModule(shinypopup, "myTerms", accepted = FALSE)
 }
