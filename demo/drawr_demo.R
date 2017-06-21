@@ -50,28 +50,6 @@ server <- function(input, output) {
     output$displayDrawn <- renderTable(drawn_data)
   })
 
-  # observeEvent(recorder(), {
-  #   my_recording <- recorder()
-  #
-  #   rvs$counter <- rvs$counter + 1
-  #   rvs$recordings <- rbind(
-  #     data_frame(value = my_recording, frequency = 1:256, num = paste("recording", rvs$counter), label = input$label),
-  #     rvs$recordings
-  #   ) %>% mutate(num = fct_inorder(num))
-  #
-  #   # Generate a plot of the recording we just made
-  #   output$frequencyPlot <- renderPlot({
-  #
-  #     ggplot(rvs$recordings, aes(x = frequency, y = value)) +
-  #       geom_line() +
-  #       geom_text(aes(label = label), x = 255, y = 100,
-  #                 color = "steelblue", size = 16, hjust = 1) +
-  #       facet_wrap(~num) +
-  #       labs(title = "Frequency bins from recording")
-  #
-  #   })
-  # })
-
 }
 
 # Run the application

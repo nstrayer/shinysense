@@ -2,7 +2,8 @@
 % Please edit documentation in R/shinydrawr.R
 \name{shinydrawrUI}
 \alias{shinydrawrUI}
-\title{Make a you draw it line chart in the style of this [New York Times article](https://www.nytimes.com/interactive/2017/01/15/us/politics/you-draw-obama-legacy.html?mtrref=undefined&gwh=D06000A9C788821324D9EED3BCA9C3D1&gwt=pay) about  button for UI.}
+\title{Make a you draw it line chart in the style of this [New York Times article](https://www.nytimes.com/interactive/2017/01/15/us/politics/you-draw-obama-legacy.html?mtrref=undefined&gwh=D06000A9C788821324D9EED3BCA9C3D1&gwt=pay) about  button for UI.
+   Wherever this is placed in the UI it will make a line chart that can be drawn on.}
 \usage{
 shinydrawrUI(id)
 }
@@ -14,6 +15,7 @@ A blue button that you press to initiate or stop recording of sound.
 }
 \description{
 Make a you draw it line chart in the style of this [New York Times article](https://www.nytimes.com/interactive/2017/01/15/us/politics/you-draw-obama-legacy.html?mtrref=undefined&gwh=D06000A9C788821324D9EED3BCA9C3D1&gwt=pay) about  button for UI.
+   Wherever this is placed in the UI it will make a line chart that can be drawn on.
 }
 \examples{
 shinydrawrUI('myrecorder')

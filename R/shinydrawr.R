@@ -1,5 +1,5 @@
 #' Make a you draw it line chart in the style of this [New York Times article](https://www.nytimes.com/interactive/2017/01/15/us/politics/you-draw-obama-legacy.html?mtrref=undefined&gwh=D06000A9C788821324D9EED3BCA9C3D1&gwt=pay) about  button for UI.
-#'
+#'    Wherever this is placed in the UI it will make a line chart that can be drawn on.
 #' @param id the id you will use to keep track of this component in your app
 #' @return A blue button that you press to initiate or stop recording of sound.
 #' @export
@@ -30,7 +30,7 @@ shinydrawrUI <- function(id) {
 
 #' Gather recorded data from UI.
 #'
-#' Exports a reactive array of length 256, corresponding to a fourier transform of the sound waves of your recoding. This is a frequently used format for running various speech recognition algorithms on. Future edditions will allow access to the raw data.
+#' Upon completion of line draw, returns a reactive variable that contains a vector of the y coordinates of what the user has drawn. This also includes the start point specified with `draw_start`
 #'     This is the server component of shinydrawr. You never directly use this function but instead call it through the shiny function `callModule()`. See the example for how to do this.
 #'
 #' @param input you can ignore this as it is taken care of by shiny
@@ -44,7 +44,12 @@ shinydrawrUI <- function(id) {
 #' @param y_max value of the highest possible value the user is allowed to draw, defaults to highest seen in data.
 #' @export
 #' @examples
-#' callModule(shinydrawr, "myrecorder")
+#'  drawChart <- callModule(shinydrawr,
+#'     "outbreak_stats",
+#'     random_data,
+#'     draw_start = 15,
+#'     x_key = "time",
+#'     y_key = "metric")
 shinydrawr <- function(input, output, session,
                        data,
                        draw_start,

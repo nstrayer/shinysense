@@ -4,7 +4,8 @@
 \alias{shinydrawr}
 \title{Gather recorded data from UI.}
 \usage{
-shinydrawr(input, output, session)
+shinydrawr(input, output, session, data, draw_start, x_key = "x",
+  y_key = "y", y_min = NA, y_max = NA)
 }
 \arguments{
 \item{input}{you can ignore this as it is taken care of by shiny}
@@ -12,11 +13,28 @@ shinydrawr(input, output, session)
 \item{output}{you can ignore this as it is taken care of by shiny}
 
 \item{session}{you can ignore this as it is taken care of by shiny}
+
+\item{data}{dataframe containing data you want to plot in two of its columns}
+
+\item{draw_start}{position on the x-axis the true data is blocked off and the user is to draw from.}
+
+\item{x_key}{name of the x column.}
+
+\item{y_key}{name of the y column.}
+
+\item{y_min}{value of the lowest possible value the user is allowed to draw, defaults to lowest seen in data.}
+
+\item{y_max}{value of the highest possible value the user is allowed to draw, defaults to highest seen in data.}
 }
 \description{
-Exports a reactive array of length 256, corresponding to a fourier transform of the sound waves of your recoding. This is a frequently used format for running various speech recognition algorithms on. Future edditions will allow access to the raw data.
+Upon completion of line draw, returns a reactive variable that contains a vector of the y coordinates of what the user has drawn. This also includes the start point specified with `draw_start`
     This is the server component of shinydrawr. You never directly use this function but instead call it through the shiny function `callModule()`. See the example for how to do this.
 }
 \examples{
-callModule(shinydrawr, "myrecorder")
+ drawChart <- callModule(shinydrawr,
+    "outbreak_stats",
+    random_data,
+    draw_start = 15,
+    x_key = "time",
+    y_key = "metric")
 }
