@@ -26,21 +26,19 @@ server <- function(input, output) {
     metric = time*sin(time/6) + rnorm(30)
   )
 
-  #object to hold all your recordings in to plot
-  rvs <- reactiveValues(
-    user_data = "nothing yet!"
-  )
-
+  #server side call of the drawr module
   drawChart <- callModule(shinydrawr,
                           "outbreak_stats",
                           random_data,
                           draw_start = 15,
                           x_key = "time",
-                          y_key = "metric")
+                          y_key = "metric",
+                          y_max = 20)
 
+  #logic for what happens after a user has drawn their values. Note this will fire on editing again too.
   observeEvent(drawChart(), {
     drawnValues = drawChart()
-    # print(drawnValues[2])
+
     drawn_data <- random_data %>%
       filter(time >= 15) %>%
       mutate(drawn = drawnValues)
