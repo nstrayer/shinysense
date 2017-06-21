@@ -62,13 +62,12 @@ shinydrawr <- function(input, output, session,
   #the id of our given recorder button. We send this to javascript.
   chart_id <- gsub("-", "", session$ns(""))
 
-
-  # #Send over a message to the javascript with the id of the div we're placing this chart in along with the data we're placing in it.
+  #Send over a message to the javascript with the id of the div we're placing this chart in along with the data we're placing in it.
   observe({ session$sendCustomMessage(
             type    = "initialize_chart",
             message = list(
                            data          = data_jsonified,
-                           dom_target    = chart_id,
+                           id            = chart_id,
                            reveal_extent = draw_start,
                            x_key         = x_key,
                            y_key         = y_key,
@@ -76,9 +75,8 @@ shinydrawr <- function(input, output, session,
                          )
             )
       })
-  #
-  # # The user's data, parsed into a data frame
-  # result <- reactive({ input$recordingEnded })
-  #
-  # return(result)
+
+  # The user's drawn data, parsed into a data frame
+  result <- reactive({ input$doneDragging })
+  return(result)
 }

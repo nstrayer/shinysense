@@ -14,6 +14,9 @@ ui <- fluidPage(
   p("Try and guess the rest of the chart below"),
   hr(),
   shinydrawrUI("outbreak_stats"),
+  h2("Drawn values:"),
+  tableOutput("displayDrawn"),
+  hr(),
   p("If this is exciting to you make sure to head over to the project's", a(href = "https://github.com/nstrayer/shinyearr/tree/master/demo", "github page"), "where you can find all the code.")
 )
 
@@ -27,8 +30,7 @@ server <- function(input, output) {
 
   #object to hold all your recordings in to plot
   rvs <- reactiveValues(
-    true_data = random_data,
-    user_data = random_data
+    user_data = "nothing yet!"
   )
 
   drawChart <- callModule(shinydrawr,
@@ -38,6 +40,15 @@ server <- function(input, output) {
                           x_key = "time",
                           y_key = "metric")
 
+  observeEvent(drawChart(), {
+    drawnValues = drawChart()
+    # print(drawnValues[2])
+    drawn_data <- random_data %>%
+      filter(time >= 15) %>%
+      mutate(drawn = drawnValues)
+
+    output$displayDrawn <- renderTable(drawn_data)
+  })
 
   # observeEvent(recorder(), {
   #   my_recording <- recorder()

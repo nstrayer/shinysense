@@ -16,9 +16,14 @@ var data = [
   {"year": 2015, "debt": 73.6},
 ];
 
-//logic for returning to shiny goes here.
-const finishedDragging = (d) => console.log("user finished dragging, they have defined " + d.length + "datapoints")
 
+//logic for returning to shiny goes here.
+const sendToShiny = (id) => {
+  const send_dest = id + "-doneDragging";
+
+  return (data) => Shiny.onInputChange(send_dest, data.map(d=>d.y))
+
+};
 
 $(document).on('shiny:connected', event => {
     console.log("shiny is connected.");
@@ -26,21 +31,9 @@ $(document).on('shiny:connected', event => {
     //watch for message from server saying it's ready.
     Shiny.addCustomMessageHandler("initialize_chart",
         params => {
-          //const div_id = "#" + drawChartId + '-youDrawIt';
-          console.log(params);
-
-          params.dom_target = "#" + params.dom_target + '-youDrawIt';
-          const ourChart = new youDrawIt(params)
-          //  {
-          //    data: params.data,
-          //    dom_target: div_id,
-          //    on_done_drawing: finishedDragging,
-          //    x_key: "year",
-          //    y_key: "debt",
-          //    //y_max: 70,
-          //    reveal_extent: params.draw_start
-          //  }
-          //);
+          params.dom_target = "#" + params.id + '-youDrawIt'; //where we place the chart
+          params.on_done_drawing = sendToShiny(params.id);    //function that sends data back to shiny.
+          const ourChart = new youDrawIt(params);             //initialize the chart itself.
         }
     );
 
