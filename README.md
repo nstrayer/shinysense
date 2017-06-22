@@ -4,6 +4,31 @@ A series of [shiny modules](https://www.rstudio.com/resources/webinars/understan
 
 It's called `shinysense` because `shinyinputs` seemed kinda lame.
 
+## How do I use it?
+
+`shinysense` is not currently on CRAN. To install it use the `devtools` github function.
+
+```r
+devtools::install_github("nstrayer/shinysense")
+```
+
+Once the app is installed just included it in your shiny app the way you usually would:
+
+```r
+#my super cool shiny app
+library(shiny)
+library(shinysense)
+```
+
+There currently is no website for the documentation to reside in, but all the functions are documented. To figure out how to use these see the demo code posted below or just in R do the standard documentation search.
+
+```r
+#I have no idea how these ridiculous functions work!
+?shinydrawr
+?shinydrawrUI
+#oh, I still have no idea.
+```
+
 ## Senses present:
 
 ### Touch
@@ -31,3 +56,7 @@ Worse During Obama’s Presidency](https://www.nytimes.com/interactive/2017/01/1
   - `shinypopup` : A lot of times when you're developing an app using the above senses you need to let your user's know you're collecting their data. This module creates a popup that obscures a given section of your app that forces the user to accept your terms before they can go any further.
     - Used in [`papr`](https://jhubiostatistics.shinyapps.io/papr/) to force people to accept our data use agreement.
     - [Demo.](https://nickstrayer.shinyapps.io/shinypopup/)  [Code.](https://github.com/nstrayer/shinysense/blob/master/demo/popup_demo.R)
+
+
+## Nothing works, what do I do?
+The probability of there being bugs in these functions is unfortunately high. If you've found one I would be delighted if you could file a new issue [here](https://github.com/nstrayer/shinysense/issues). I'll try my best to at least respond. 
