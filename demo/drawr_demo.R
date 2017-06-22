@@ -15,7 +15,7 @@ ui <- fluidPage(
   h2("Drawn values:"),
   tableOutput("displayDrawn"),
   hr(),
-  p("If this is exciting to you make sure to head over to the project's", a(href = "https://github.com/nstrayer/shinyearr/tree/master/demo", "github page"), "where you can find all the code.")
+  p("If this is exciting to you make sure to head over to the project's", a(href = "https://github.com/nstrayer/shinysense", "github page"), "where you can find all the code.")
 )
 
 
