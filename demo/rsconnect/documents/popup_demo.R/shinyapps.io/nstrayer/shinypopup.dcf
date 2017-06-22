@@ -1,0 +1,11 @@
+name: shinypopup
+title: shinypopup
+account: nstrayer
+server: shinyapps.io
+appId: 191533
+bundleId: 878508
+url: https://nstrayer.shinyapps.io/shinypopup/
+when: 1498148784.04366
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: drawr_demo.R|earr_demo.R|swipr_demo.R
