@@ -49,6 +49,12 @@ shinymovr <- function(input, output, session){
       })
 
   # The user's drawn data, parsed into a data frame
-  result <- reactive({ input$movement })
+  result <- reactive({
+    if(class(input$movement) == "character"){
+      return(jsonlite::fromJSON(input$movement))
+    } else {
+        return(data.frame(x = 0, y = 0, z = 0))
+    }
+    })
   return(result)
 }

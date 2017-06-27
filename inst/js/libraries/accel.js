@@ -29,7 +29,6 @@ var accel = function accel(_ref) {
   };
 
   var handleMotion = function handleMotion(event) {
-    console.log(event);
     var _event$acceleration = event.acceleration,
         x = _event$acceleration.x,
         y = _event$acceleration.y,
@@ -51,7 +50,7 @@ var accel = function accel(_ref) {
     isOn = !isOn;
   };
 
-  button.addEventListener("click", toggleButton, true);
+  // button.addEventListener("click", toggleButton, true);
   return {
     turnOn: turnOn,
     turnOff: turnOff
