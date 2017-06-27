@@ -24,7 +24,7 @@ server <- function(input, output) {
 
   observeEvent(movement(), {
     my_movement <- movement()
-    print(my_movement)
+    # print(my_movement)
     rvs$movements <- rbind(
       rvs$movements,
       data_frame(index = 0, x = my_movement$x, y = my_movement$y, z = my_movement$z)
