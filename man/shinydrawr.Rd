@@ -39,4 +39,5 @@ Upon completion of line draw, returns a reactive variable that contains a vector
     x_key = "time",
     y_key = "metric")
  }
+ @importFrom jsonlite toJSON
 }

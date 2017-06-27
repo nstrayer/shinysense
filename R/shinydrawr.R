@@ -55,6 +55,7 @@ shinydrawrUI <- function(id, ...) {
 #'     x_key = "time",
 #'     y_key = "metric")
 #'  }
+#'  @importFrom jsonlite toJSON
 shinydrawr <- function(input, output, session,
                        data,
                        draw_start,

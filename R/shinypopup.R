@@ -10,7 +10,6 @@
 #' \dontrun{
 #' shinypopupUI('myTerms')
 #' }
-#' @import jsonlite
 shinypopupUI <- function(id, buttonText, popupDiv, ...) {
   ns <- NS(id)
 
