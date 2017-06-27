@@ -3,10 +3,13 @@
 #' @param id the id you will use to keep track of this component in your app
 #' @param buttonText text that appears in the button for accepting the terms of the popup
 #' @param popupDiv standard html content for the popup card. E.g. `div("my terms are")`
+#' @param ... additional argument to pass to \code{\link{tagList}}
 #' @return A popup that blurs everything behind it and dissapears upon a button click.
 #' @export
 #' @examples
+#' \dontrun{
 #' shinypopupUI('myTerms')
+#' }
 shinypopupUI <- function(id, buttonText, popupDiv, ...) {
   ns <- NS(id)
 
@@ -44,7 +47,9 @@ shinypopupUI <- function(id, buttonText, popupDiv, ...) {
 #' @param accepted Logical variable indicating if the user has accepted the terms already. Useful if the page resets for a login. Defaults to FALSE.
 #' @export
 #' @examples
-#' callModule(shinypopup, "myTerms", accepted = FALSE)
+#' \dontrun{
+#' shiny::callModule(shinypopup, "myTerms", accepted = FALSE)
+#' }
 shinypopup <- function(input, output, session, accepted = FALSE) {
 
   # #If the user has already accepted the card, don't show it again

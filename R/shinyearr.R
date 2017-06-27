@@ -34,7 +34,9 @@ shinyearrUI <- function(id) {
 #' @param session you can ignore this as it is taken care of by shiny
 #' @export
 #' @examples
-#' callModule(shinyearr, "myrecorder")
+#' \dontrun{
+#' shiny::callModule(shinyearr, "myrecorder")
+#' }
 shinyearr <- function(input, output, session){
 
   #the id of our given recorder button. We send this to javascript.

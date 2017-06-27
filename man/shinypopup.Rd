@@ -19,5 +19,7 @@ shinypopup(input, output, session, accepted = FALSE)
 Just sits there, no need to pass it anything.
 }
 \examples{
-callModule(shinypopup, "myTerms", accepted = FALSE)
+\dontrun{
+shiny::callModule(shinypopup, "myTerms", accepted = FALSE)
+}
 }

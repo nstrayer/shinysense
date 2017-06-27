@@ -18,5 +18,7 @@ Exports a reactive array of length 256, corresponding to a fourier transform of 
     This is the server component of shinyearr. You never directly use this function but instead call it through the shiny function `callModule()`. See the example for how to do this.
 }
 \examples{
-callModule(shinyearr, "myrecorder")
+\dontrun{
+shiny::callModule(shinyearr, "myrecorder")
+}
 }

@@ -15,5 +15,7 @@ shinyswiprUI(id, ...)
 This is the UI component of the shiny swipr app
 }
 \examples{
+\dontrun{
 shinyswiprUI(id = "myswipr", h1("This is my title"), p("here is some text"))
+}
 }

@@ -1,11 +1,14 @@
 #' Make a you draw it line chart in the style of this [New York Times article](https://www.nytimes.com/interactive/2017/01/15/us/politics/you-draw-obama-legacy.html?mtrref=undefined&gwh=D06000A9C788821324D9EED3BCA9C3D1&gwt=pay) about  button for UI.
 #'    Wherever this is placed in the UI it will make a line chart that can be drawn on.
 #' @param id the id you will use to keep track of this component in your app
+#' @param ... additional tags to \code{\link{div}} to display before plot is
+#' displayed
 #' @return A blue button that you press to initiate or stop recording of sound.
 #' @export
 #' @examples
 #' shinydrawrUI('myrecorder')
-shinydrawrUI <- function(id) {
+#' @import shiny
+shinydrawrUI <- function(id, ...) {
   ns <- NS(id)
 
   #Grab the external javascript and css
@@ -21,7 +24,7 @@ shinydrawrUI <- function(id) {
       )
     ),
     div(id = ns("youDrawIt"),
-        h1("hi")
+        ...
     )
 
   ) #end tag list.
@@ -44,12 +47,15 @@ shinydrawrUI <- function(id) {
 #' @param y_max value of the highest possible value the user is allowed to draw, defaults to highest seen in data.
 #' @export
 #' @examples
-#'  drawChart <- callModule(shinydrawr,
+#' \dontrun{
+#'  drawChart <- shiny::callModule(shinydrawr,
 #'     "outbreak_stats",
 #'     random_data,
 #'     draw_start = 15,
 #'     x_key = "time",
 #'     y_key = "metric")
+#'  }
+#' @importFrom jsonlite toJSON
 shinydrawr <- function(input, output, session,
                        data,
                        draw_start,
