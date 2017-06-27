@@ -31,10 +31,12 @@ Upon completion of line draw, returns a reactive variable that contains a vector
     This is the server component of shinydrawr. You never directly use this function but instead call it through the shiny function `callModule()`. See the example for how to do this.
 }
 \examples{
- drawChart <- callModule(shinydrawr,
+\dontrun{
+ drawChart <- shiny::callModule(shinydrawr,
     "outbreak_stats",
     random_data,
     draw_start = 15,
     x_key = "time",
     y_key = "metric")
+ }
 }

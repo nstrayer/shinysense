@@ -12,6 +12,8 @@ shinypopupUI(id, buttonText, popupDiv, ...)
 \item{buttonText}{text that appears in the button for accepting the terms of the popup}
 
 \item{popupDiv}{standard html content for the popup card. E.g. `div("my terms are")`}
+
+\item{...}{additional argument to pass to \code{\link{tagList}}}
 }
 \value{
 A popup that blurs everything behind it and dissapears upon a button click.
@@ -20,5 +22,7 @@ A popup that blurs everything behind it and dissapears upon a button click.
 Make a popup button that users have to accept before seeing content.
 }
 \examples{
+\dontrun{
 shinypopupUI('myTerms')
+}
 }

@@ -6,7 +6,9 @@
 #' @param ... Any other UI elements you wish to include within the swiping zone.
 #' @export
 #' @examples
+#' \dontrun{
 #' shinyswiprUI(id = "myswipr", h1("This is my title"), p("here is some text"))
+#' }
 shinyswiprUI <- function(id, ...) {
   ns <- NS(id)
 
@@ -40,7 +42,9 @@ shinyswiprUI <- function(id, ...) {
 #' @param session you can ignore this as it is taken care of by shiny
 #' @export
 #' @examples
+#' \dontrun{
 #' callModule(shinyswipr, "myswipr")
+#' }
 shinyswipr <- function(input, output, session) {
 
   #the id of our particular card. We send this to javascript.

@@ -17,5 +17,7 @@ shinyswipr(input, output, session)
 This is the server component of the shiny swipr app. You never directly use this function but instead call it through the shiny function `callModule()`. See the example for how to do this.
 }
 \examples{
+\dontrun{
 callModule(shinyswipr, "myswipr")
+}
 }
