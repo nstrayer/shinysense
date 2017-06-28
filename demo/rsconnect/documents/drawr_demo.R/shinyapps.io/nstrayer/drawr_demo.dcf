@@ -3,9 +3,9 @@ title: drawr demo
 account: nstrayer
 server: shinyapps.io
 appId: 191326
-bundleId: 877515
+bundleId: 878868
 url: https://nstrayer.shinyapps.io/drawr_demo/
-when: 1498083914.17843
+when: 1498161585.91258
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: earr_demo.R|popupDemo.R|swipr_demo.R
+ignoredFiles: earr_demo.R|popup_demo.R|swipr_demo.R

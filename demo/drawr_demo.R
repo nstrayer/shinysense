@@ -15,6 +15,7 @@ ui <- fluidPage(
   h2("Drawn values:"),
   tableOutput("displayDrawn"),
   hr(),
+  p("A big thanks to Adam Pearce who put code up for",  a(href = "https://bl.ocks.org/1wheel/07d9040c3422dac16bd5be741433ff1e", "implementing the drag to draw technique!")),
   p("If this is exciting to you make sure to head over to the project's", a(href = "https://github.com/nstrayer/shinysense", "github page"), "where you can find all the code.")
 )
 
