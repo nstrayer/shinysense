@@ -50,7 +50,7 @@ Worse During Obama’s Presidency](https://www.nytimes.com/interactive/2017/01/1
 
 ### Motion
   - `shinymovr` : Capture and return accelerometer data from your phone or tablet.
-      - Coming soon.
+        - [Demo.](https://nstrayer.shinyapps.io/shinymovr/)  [Code.](https://github.com/nstrayer/shinysense/blob/master/demo/movr_demo.R)
 
 ### Helpers
   - `shinypopup` : A lot of times when you're developing an app using the above senses you need to let your user's know you're collecting their data. This module creates a popup that obscures a given section of your app that forces the user to accept your terms before they can go any further.
@@ -59,4 +59,4 @@ Worse During Obama’s Presidency](https://www.nytimes.com/interactive/2017/01/1
 
 
 ## Nothing works, what do I do?
-The probability of there being bugs in these functions is unfortunately high. If you've found one I would be delighted if you could file a new issue [here](https://github.com/nstrayer/shinysense/issues). I'll try my best to at least respond. 
+The probability of there being bugs in these functions is unfortunately high. If you've found one I would be delighted if you could file a new issue [here](https://github.com/nstrayer/shinysense/issues). I'll try my best to at least respond.

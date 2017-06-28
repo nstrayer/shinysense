@@ -1,4 +1,5 @@
 library(shiny)
+# devtools::install_github("nstrayer/shinysense")
 library(shinysense)
 library(tidyverse)
 
