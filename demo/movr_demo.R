@@ -5,10 +5,11 @@ library(tidyverse)
 # Define UI for application that draws a histogram
 ui <- fluidPage(
   titlePanel("shinymovr demo"),
+  p("Click on the button below, shake your phone around, then click it again to see the acceloration data from your movement. In addition, you can add a label to your gesture and then export the data for all your model training desires!"),
+
   fluidRow(
     div(style = "height:100%;",
         column(4, offset = 1,
-               p("Click on the button below to record accelerometer from your phone."),
                shinymovrUI("movr_button")
         ),
         column(6,
