@@ -51,9 +51,11 @@ shinymovr <- function(input, output, session){
   # The user's drawn data, parsed into a data frame
   result <- reactive({
     if(class(input$movement) == "character"){
+      movement_data <- jsonlite::fromJSON(input$movement)
+      movement_data$time = movement_data$time - movement_data$time[1] #normalize time to from recording start.
       return(jsonlite::fromJSON(input$movement))
     } else {
-        return(data.frame(x = 0, y = 0, z = 0))
+        return(data.frame(time = 0, x = 0, y = 0, z = 0))
     }
     })
   return(result)

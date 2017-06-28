@@ -15,6 +15,7 @@ class shinymovr{
   }
 
   gather(data){
+    data.time = Date.now();
     this.movement_data.push(data);
   }
 
