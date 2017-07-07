@@ -17,5 +17,7 @@ shinymovr(input, output, session)
 Contains a reactive variable that will update as new data comes in.
 }
 \examples{
- movrData <- callModule(shinymovr)
+\dontrun{
+movrData <- callModule(shinymovr)
+}
 }
