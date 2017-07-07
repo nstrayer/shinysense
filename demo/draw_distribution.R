@@ -1,5 +1,5 @@
 #
-# A small demo app for the shinydrawr function
+# A small demo app for the shinydrawr without any data function
 #
 # devtools::install_github("nstrayer/shinysense")
 library(shiny)
@@ -9,13 +9,17 @@ library(tidyverse)
 
 ui <- fluidPage(
   titlePanel("shinydrawr demo"),
-  p("Try and guess the rest of the chart below"),
+  h4("Draw you favorite distribution below. "),
+  p("This was inspired by a talk I had with Andrew Bray of Reed College at UseR!2017. Currently you just draw a distirbution but in the future this could be used for bayesian inference with drawn priors."),
+  div(span("To enable this functionality a new argument has been added called"),
+      code(raw_draw),
+      span("to allow arbitrary drawing without a line added simple set it to true.")
+      ),
   hr(),
-  shinydrawrUI("outbreak_stats"),
+  shinydrawrUI("user_distribution"),
   h2("Drawn values:"),
   tableOutput("displayDrawn"),
   hr(),
-  p("A big thanks to Adam Pearce who put code up for",  a(href = "https://bl.ocks.org/1wheel/07d9040c3422dac16bd5be741433ff1e", "implementing the drag to draw technique!")),
   p("If this is exciting to you make sure to head over to the project's", a(href = "https://github.com/nstrayer/shinysense", "github page"), "where you can find all the code.")
 )
 
@@ -23,25 +27,26 @@ ui <- fluidPage(
 server <- function(input, output) {
 
   random_data <- data_frame(
-    time = 1:30,
-    metric = time*sin(time/6) + rnorm(30)
+    time = seq(-5, 5, length.out = 50),
+    y_value = seq(0, 1, length.out = 50)
   )
 
   #server side call of the drawr module
   drawChart <- callModule(shinydrawr,
-                          "outbreak_stats",
+                          "user_distribution",
                           random_data,
-                          draw_start = 15,
+                          raw_draw = T,
+                          draw_start = -5,
                           x_key = "time",
-                          y_key = "metric",
-                          y_max = 20)
+                          y_key = "y_value",
+                          y_max = 3)
 
   #logic for what happens after a user has drawn their values. Note this will fire on editing again too.
   observeEvent(drawChart(), {
     drawnValues = drawChart()
 
     drawn_data <- random_data %>%
-      filter(time >= 15) %>%
+      filter(time >= -5) %>%
       mutate(drawn = drawnValues)
 
     output$displayDrawn <- renderTable(drawn_data)
