@@ -16982,9 +16982,12 @@ var addToClosest = function addToClosest(_ref9) {
 //have to start user defined drawing one point after drawstart so that line is connected.
 var drawStartValue = function drawStartValue(_ref10) {
   var usersData = _ref10.usersData,
-      reveal_extent = _ref10.reveal_extent;
+      reveal_extent = _ref10.reveal_extent,
+      raw_draw = _ref10.raw_draw;
 
-  var start_index = usersData.map(function (d) {
+  var start_index = raw_draw ? usersData.map(function (d) {
+    return d.x;
+  }).indexOf(reveal_extent) : usersData.map(function (d) {
     return d.x;
   }).indexOf(reveal_extent) + 1;
   return usersData[start_index].x;
@@ -17066,10 +17069,15 @@ var drawIt = function drawIt(params) {
       reveal_extent = params.reveal_extent,
       _params$total_height = params.total_height,
       total_height = _params$total_height === undefined ? 400 : _params$total_height,
+      _params$raw_draw = params.raw_draw,
+      raw_draw = _params$raw_draw === undefined ? false : _params$raw_draw,
       _params$on_done_drawi = params.on_done_drawing,
       on_done_drawing = _params$on_done_drawi === undefined ? function (d) {
     return console.table(d);
   } : _params$on_done_drawi;
+
+  console.log("THis is working!");
+
   var sel = d3.select(dom_target).html(''),
       data = simplifyData({ fullData: fullData, x_key: x_key, y_key: y_key }),
       margin = { left: 50, right: 50, top: 30, bottom: 30 },
@@ -17094,21 +17102,27 @@ var drawIt = function drawIt(params) {
 
   var trueLine = svg.append('g').attr('clip-path', 'url(#clip)');
 
-  //The data's true line.
-  trueLine.append('path').attr("d", line(data)).style("stroke", "black").style("stroke-width", 3).style("fill", "none");
+  if (!raw_draw) {
+    //Draw the data's true line.
+    trueLine.append('path').attr("d", line(data)).style("stroke", "black").style("stroke-width", 3).style("fill", "none");
+  }
 
   //plot the axes
   drawAxes({ svg: svg, scales: scales, height: height
 
     //define the logic on user drag on the chart.
+
   });var makeDragger = function makeDragger(_ref) {
     var scales = _ref.scales,
-        reveal_extent = _ref.reveal_extent;
+        reveal_extent = _ref.reveal_extent,
+        raw_draw = _ref.raw_draw;
     return d3.drag().on('drag', function () {
+
       var pos = d3.mouse(this); //current drag position
       var drawStart = drawStartValue({ //find the x value that we can start appending values at.
         usersData: usersData,
-        reveal_extent: reveal_extent
+        reveal_extent: reveal_extent,
+        raw_draw: raw_draw
       });
 
       //append drag point to closest point on x axis in the in data.
@@ -17125,7 +17139,7 @@ var drawIt = function drawIt(params) {
       //if we've drawn for all the hidden datapoints, reveal them.
       ));if (d3.mean(usersData, function (d) {
         return d.defined;
-      }) === 1) {
+      }) === 1 && !this.raw_draw) {
         clipRect.transition().duration(1000).attr('width', scales.x(x_max));
       }
     }).on('end', function () {
@@ -17133,7 +17147,7 @@ var drawIt = function drawIt(params) {
     });
   };
 
-  var dragger = makeDragger({ scales: scales, reveal_extent: reveal_extent });
+  var dragger = makeDragger({ scales: scales, reveal_extent: reveal_extent, raw_draw: raw_draw });
   svg.call(dragger);
 };
 

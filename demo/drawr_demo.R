@@ -31,7 +31,8 @@ server <- function(input, output) {
   drawChart <- callModule(shinydrawr,
                           "outbreak_stats",
                           random_data,
-                          draw_start = 15,
+                          raw_draw = T,
+                          draw_start = 1,
                           x_key = "time",
                           y_key = "metric",
                           y_max = 20)
@@ -41,7 +42,7 @@ server <- function(input, output) {
     drawnValues = drawChart()
 
     drawn_data <- random_data %>%
-      filter(time >= 15) %>%
+      filter(time >= 1) %>%
       mutate(drawn = drawnValues)
 
     output$displayDrawn <- renderTable(drawn_data)

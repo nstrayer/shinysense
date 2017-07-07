@@ -41,6 +41,7 @@ shinydrawrUI <- function(id, ...) {
 #' @param session you can ignore this as it is taken care of by shiny
 #' @param data dataframe containing data you want to plot in two of its columns
 #' @param draw_start position on the x-axis the true data is blocked off and the user is to draw from.
+#' @param raw_draw set to true if you want to not draw any line, just let the user draw everything. Auto sets draw_start to begining of data.
 #' @param x_key name of the x column.
 #' @param y_key name of the y column.
 #' @param y_min value of the lowest possible value the user is allowed to draw, defaults to lowest seen in data.
@@ -59,6 +60,7 @@ shinydrawrUI <- function(id, ...) {
 shinydrawr <- function(input, output, session,
                        data,
                        draw_start,
+                       raw_draw = FALSE,
                        x_key = "x",
                        y_key = "y",
                        y_min = NA,
@@ -67,6 +69,7 @@ shinydrawr <- function(input, output, session,
   #set chart maximum y of the data's max y if nothing has been specified.
   if(is.na(y_min)) y_min <- min(data[y_key])
   if(is.na(y_max)) y_max <- max(data[y_key])
+  if(raw_draw) draw_start <- min(data[x_key])
 
   data_jsonified <- jsonlite::toJSON(data)
 
@@ -80,6 +83,7 @@ shinydrawr <- function(input, output, session,
                            data          = data_jsonified,
                            id            = chart_id,
                            reveal_extent = draw_start,
+                           raw_draw      = raw_draw,
                            x_key         = x_key,
                            y_key         = y_key,
                            y_domain      = c(y_min,y_max)
