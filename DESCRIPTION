@@ -1,7 +1,7 @@
 Package: shinysense
 Type: Package
 Title: Lets Shiny Sense The World Around
-Version: 0.1.1
+Version: 0.1.2
 Author: Nick Strayer
 Maintainer: Nick Strayer <n.strayer@vanderbilt.edu>
 Description: shinysense is a collection of modules written for shiny that allows the easy addition of data collection to shiny apps.

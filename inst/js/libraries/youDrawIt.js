@@ -17071,6 +17071,8 @@ var drawIt = function drawIt(params) {
       total_height = _params$total_height === undefined ? 400 : _params$total_height,
       _params$raw_draw = params.raw_draw,
       raw_draw = _params$raw_draw === undefined ? false : _params$raw_draw,
+      _params$draw_after = params.draw_after,
+      draw_after = _params$draw_after === undefined ? false : _params$draw_after,      
       _params$on_done_drawi = params.on_done_drawing,
       on_done_drawing = _params$on_done_drawi === undefined ? function (d) {
     return console.table(d);
@@ -17115,7 +17117,8 @@ var drawIt = function drawIt(params) {
   });var makeDragger = function makeDragger(_ref) {
     var scales = _ref.scales,
         reveal_extent = _ref.reveal_extent,
-        raw_draw = _ref.raw_draw;
+        raw_draw = _ref.raw_draw,
+        draw_after = _ref.draw_after;
     return d3.drag().on('drag', function () {
 
       var pos = d3.mouse(this); //current drag position
@@ -17139,7 +17142,7 @@ var drawIt = function drawIt(params) {
       //if we've drawn for all the hidden datapoints, reveal them.
       ));if (d3.mean(usersData, function (d) {
         return d.defined;
-      }) === 1 && !this.raw_draw) {
+      }) === 1 && !this.raw_draw && this.draw_after) {
         clipRect.transition().duration(1000).attr('width', scales.x(x_max));
       }
     }).on('end', function () {
@@ -17147,7 +17150,7 @@ var drawIt = function drawIt(params) {
     });
   };
 
-  var dragger = makeDragger({ scales: scales, reveal_extent: reveal_extent, raw_draw: raw_draw });
+  var dragger = makeDragger({ scales: scales, reveal_extent: reveal_extent, raw_draw: raw_draw, draw_after: draw_after });
   svg.call(dragger);
 };
 
