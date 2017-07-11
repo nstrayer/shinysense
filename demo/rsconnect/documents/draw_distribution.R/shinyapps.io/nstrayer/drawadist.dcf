@@ -1,0 +1,11 @@
+name: drawadist
+title: drawADist
+account: nstrayer
+server: shinyapps.io
+appId: 194997
+bundleId: 897182
+url: https://nstrayer.shinyapps.io/drawadist/
+when: 1499619428.26817
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: 00Index|drawr_demo.R|earr_demo.R|movr_demo.R|popup_demo.R|swipr_demo.R
