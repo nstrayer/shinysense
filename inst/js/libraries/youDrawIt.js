@@ -16893,11 +16893,22 @@ var makeScales = function makeScales(_ref3) {
   var data = _ref3.data,
       y_domain = _ref3.y_domain,
       height = _ref3.height,
-      width = _ref3.width;
-
-  var x = d3.scaleLinear().domain(d3.extent(data, function (d) {
-    return d.x;
-  })).range([0, width]);
+      width = _ref3.width,
+      x_is_date = _ref3.x_is_date; 
+  if (x_is_date) {
+    var formatter = d3.time.format("%Y-%m-%d").parse;
+    console.log("ScaleTime is running");
+    var x = d3.scaleTime()
+      .domain([new Date(2016, 0, 1), new Date(2018, 0, 1)])
+      .range([0, width]);
+    // var x = d3.scaleTime().domain(d3.extent(data, function (d) {
+    //   return formatter(d.x);
+    // }));
+  } else {
+    var x = d3.scaleLinear().domain(d3.extent(data, function (d) {
+      return d.x;
+    })).range([0, width]);
+  }
 
   var y = d3.scaleLinear().domain(y_domain).range([height, 0]);
 
@@ -16937,6 +16948,23 @@ var clamp = function clamp(a, b, c) {
   return Math.max(a, Math.min(b, c));
 };
 
+var makeSubData = function makeSubData(_ref7) {
+  var data = _ref7.data,
+      reveal_extent = _ref7.reveal_extent;
+  return data.map(function (d) {
+    return {
+      x: d.x,
+      y: d.y,
+      defined: d.x == reveal_extent
+    };
+  }).filter(function (d) {
+    return d.x <= reveal_extent;
+  }
+
+  //append invisible rectangle covering plot so d3drag can see what's going on
+  );
+};
+
 var makeUserData = function makeUserData(_ref7) {
   var data = _ref7.data,
       reveal_extent = _ref7.reveal_extent;
@@ -16956,6 +16984,7 @@ var makeUserData = function makeUserData(_ref7) {
   var svg = _ref8.svg,
       width = _ref8.width,
       height = _ref8.height;
+  console.log("Drawing a Rectangle");
   return svg.append('rect').attr("width", width).attr("height", height).attr("opacity", 0);
 };
 
@@ -17001,6 +17030,7 @@ module.exports = {
   makeClip: makeClip,
   drawAxes: drawAxes,
   makeUserData: makeUserData,
+  makeSubData: makeSubData,
   dragCanvas: dragCanvas,
   clamp: clamp,
   addToClosest: addToClosest,
@@ -17054,6 +17084,7 @@ var _require = require('./helpers'),
     drawAxes = _require.drawAxes,
     dragCanvas = _require.dragCanvas,
     makeUserData = _require.makeUserData,
+    makeSubData = _require.makeSubData,
     clamp = _require.clamp,
     addToClosest = _require.addToClosest,
     drawStartValue = _require.drawStartValue;
@@ -17072,13 +17103,15 @@ var drawIt = function drawIt(params) {
       _params$raw_draw = params.raw_draw,
       raw_draw = _params$raw_draw === undefined ? false : _params$raw_draw,
       _params$draw_after = params.draw_after,
-      draw_after = _params$draw_after === undefined ? false : _params$draw_after,      
+      draw_after = _params$draw_after === undefined ? false : _params$draw_after, 
+      _params$x_is_date = params.x_is_date,
+      x_is_date = _params$x_is_date === undefined ? false : _params$x_is_date,            
       _params$on_done_drawi = params.on_done_drawing,
       on_done_drawing = _params$on_done_drawi === undefined ? function (d) {
     return console.table(d);
   } : _params$on_done_drawi;
 
-  console.log("THis is working!");
+  console.log("This is working!");
 
   var sel = d3.select(dom_target).html(''),
       data = simplifyData({ fullData: fullData, x_key: x_key, y_key: y_key }),
@@ -17089,7 +17122,7 @@ var drawIt = function drawIt(params) {
       _y_domain = _slicedToArray(y_domain, 2),
       y_min = _y_domain[0],
       y_max = _y_domain[1],
-      scales = makeScales({ data: data, y_domain: y_domain, height: height, width: width, margin: margin }),
+      scales = makeScales({ data: data, y_domain: y_domain, height: height, width: width, margin: margin, x_is_date: x_is_date }),
       x_max = scales.x.domain()[1],
       line = makeLine({ scales: scales }),
       clipRect = makeClip({ svg: svg, scales: scales, reveal_extent: reveal_extent, height: height });
@@ -17104,9 +17137,13 @@ var drawIt = function drawIt(params) {
 
   var trueLine = svg.append('g').attr('clip-path', 'url(#clip)');
 
-  if (!raw_draw) {
+  if (!raw_draw & draw_after) {
     //Draw the data's true line.
     trueLine.append('path').attr("d", line(data)).style("stroke", "black").style("stroke-width", 3).style("fill", "none");
+  } 
+  if (!raw_draw & !draw_after) {
+    var usersData2 = makeSubData({ data: data, reveal_extent: reveal_extent });
+    trueLine.append('path').attr("d", line(usersData2)).style("stroke", "black").style("stroke-width", 3).style("fill", "none");
   }
 
   //plot the axes
@@ -17140,11 +17177,14 @@ var drawIt = function drawIt(params) {
       })(usersData
 
       //if we've drawn for all the hidden datapoints, reveal them.
-      ));if (d3.mean(usersData, function (d) {
-        return d.defined;
-      }) === 1 && !this.raw_draw && this.draw_after) {
-        clipRect.transition().duration(1000).attr('width', scales.x(x_max));
-      }
+      ));if (draw_after) {
+      		console.log("draw_after is TRUE here");
+	      	if (d3.mean(usersData, function (d) {
+	        return d.defined;
+	      }) === 1 && !this.raw_draw ) {
+	        clipRect.transition().duration(1000).attr('width', scales.x(x_max));
+	      }
+  		}
     }).on('end', function () {
       on_done_drawing(usersData);
     });

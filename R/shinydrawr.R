@@ -69,15 +69,24 @@ shinydrawr <- function(input, output, session,
                        y_max = NA){
 
   #set chart maximum y of the data's max y if nothing has been specified.
-  if(is.na(y_min)) y_min <- min(data[y_key])
-  if(is.na(y_max)) y_max <- max(data[y_key])
-  if(raw_draw) draw_start <- min(data[x_key])
+  if(is.na(y_min)) {
+    y_min <- min(data[y_key])
+  }
+  if(is.na(y_max)) {
+    y_max <- max(data[y_key])
+  }
+  if(raw_draw) {
+    draw_start <- min(data[x_key])
+  }
 
   data_jsonified <- jsonlite::toJSON(data)
 
   #the id of our given recorder button. We send this to javascript.
   chart_id <- gsub("-", "", session$ns(""))
 
+  x_is_date = is.Date(data[x_key])
+
+  data[x_key] = as.character(data[x_key])
   #Send over a message to the javascript with the id of the div we're placing this chart in along with the data we're placing in it.
   observe({ session$sendCustomMessage(
             type    = "initialize_chart",
@@ -89,7 +98,8 @@ shinydrawr <- function(input, output, session,
                            draw_after    = draw_after,
                            x_key         = x_key,
                            y_key         = y_key,
-                           y_domain      = c(y_min,y_max)
+                           y_domain      = c(y_min,y_max),
+                           x_is_date     = x_is_date
                          )
             )
       })
