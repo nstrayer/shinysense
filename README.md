@@ -55,7 +55,7 @@ Worse During Obama’s Presidency](https://www.nytimes.com/interactive/2017/01/1
 ### Helpers
   - `shinypopup` : A lot of times when you're developing an app using the above senses you need to let your user's know you're collecting their data. This module creates a popup that obscures a given section of your app that forces the user to accept your terms before they can go any further.
     - Used in [`papr`](https://jhubiostatistics.shinyapps.io/papr/) to force people to accept our data use agreement.
-    - [Demo.](https://nickstrayer.shinyapps.io/shinypopup/)  [Code.](https://github.com/nstrayer/shinysense/blob/master/demo/popup_demo.R)
+    - [Demo.](https://nstrayer.shinyapps.io/shinypopup/)  [Code.](https://github.com/nstrayer/shinysense/blob/master/demo/popup_demo.R)
 
 
 ## Nothing works, what do I do?
