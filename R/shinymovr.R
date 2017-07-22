@@ -34,8 +34,9 @@ shinymovrUI <- function(id) {
 #' @param output you can ignore this as it is taken care of by shiny
 #' @param session you can ignore this as it is taken care of by shiny
 #' @export
-#' @examples
-#'  movrData <- callModule(shinymovr)
+#' @examples \dontrun{
+#' movrData <- callModule(shinymovr)
+#' }
 shinymovr <- function(input, output, session){
 
 

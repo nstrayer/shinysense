@@ -4,8 +4,8 @@
 \alias{shinydrawr}
 \title{Gather recorded data from UI.}
 \usage{
-shinydrawr(input, output, session, data, draw_start, x_key = "x",
-  y_key = "y", y_min = NA, y_max = NA)
+shinydrawr(input, output, session, data, draw_start, raw_draw = FALSE,
+  draw_after = TRUE, x_key = "x", y_key = "y", y_min = NA, y_max = NA)
 }
 \arguments{
 \item{input}{you can ignore this as it is taken care of by shiny}
@@ -17,6 +17,10 @@ shinydrawr(input, output, session, data, draw_start, x_key = "x",
 \item{data}{dataframe containing data you want to plot in two of its columns}
 
 \item{draw_start}{position on the x-axis the true data is blocked off and the user is to draw from.}
+
+\item{raw_draw}{set to true if you want to not draw any line, just let the user draw everything. Auto sets draw_start to begining of data.}
+
+\item{draw_after}{set to true of you want the true data drawn after all points are drawn by the user.}
 
 \item{x_key}{name of the x column.}
 

@@ -42,6 +42,7 @@ shinydrawrUI <- function(id, ...) {
 #' @param data dataframe containing data you want to plot in two of its columns
 #' @param draw_start position on the x-axis the true data is blocked off and the user is to draw from.
 #' @param raw_draw set to true if you want to not draw any line, just let the user draw everything. Auto sets draw_start to begining of data.
+#' @param draw_after set to true of you want the true data drawn after all points are drawn by the user.
 #' @param x_key name of the x column.
 #' @param y_key name of the y column.
 #' @param y_min value of the lowest possible value the user is allowed to draw, defaults to lowest seen in data.
@@ -61,21 +62,31 @@ shinydrawr <- function(input, output, session,
                        data,
                        draw_start,
                        raw_draw = FALSE,
+                       draw_after = TRUE,
                        x_key = "x",
                        y_key = "y",
                        y_min = NA,
                        y_max = NA){
 
   #set chart maximum y of the data's max y if nothing has been specified.
-  if(is.na(y_min)) y_min <- min(data[y_key])
-  if(is.na(y_max)) y_max <- max(data[y_key])
-  if(raw_draw) draw_start <- min(data[x_key])
+  if(is.na(y_min)) {
+    y_min <- min(data[y_key])
+  }
+  if(is.na(y_max)) {
+    y_max <- max(data[y_key])
+  }
+  if(raw_draw) {
+    draw_start <- min(data[x_key])
+  }
 
   data_jsonified <- jsonlite::toJSON(data)
 
   #the id of our given recorder button. We send this to javascript.
   chart_id <- gsub("-", "", session$ns(""))
 
+  x_is_date = is.Date(data[x_key])
+
+  data[x_key] = as.character(data[x_key])
   #Send over a message to the javascript with the id of the div we're placing this chart in along with the data we're placing in it.
   observe({ session$sendCustomMessage(
             type    = "initialize_chart",
@@ -84,9 +95,11 @@ shinydrawr <- function(input, output, session,
                            id            = chart_id,
                            reveal_extent = draw_start,
                            raw_draw      = raw_draw,
+                           draw_after    = draw_after,
                            x_key         = x_key,
                            y_key         = y_key,
-                           y_domain      = c(y_min,y_max)
+                           y_domain      = c(y_min,y_max),
+                           x_is_date     = x_is_date
                          )
             )
       })
