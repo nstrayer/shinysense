@@ -5,7 +5,8 @@
   "main": "src/main.js",
   "scripts": {
     "test": "browserify -t [ babelify --presets [ es2015 ] ] src/*.test.js | tape-run | tap-spec",
-    "start": "watchify src/main.js -t [ babelify --presets [ es2015 ] ] --standalone drawr -o demo/drawr.js -v --debug"
+    "start": "watchify src/main.js -t [ babelify --presets [ es2015 ] ] --standalone drawr -o demo/drawr.js -v --debug",
+    "package": "cp demo/drawr.js ../../../htmlwidgets/libs/drawr.js"
   },
   "dependencies": {
     "d3": "^4.9.1"
