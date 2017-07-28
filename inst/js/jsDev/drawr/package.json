@@ -20,6 +20,7 @@
     "eslint-config-google": "0.9.1",
     "prettier-eslint": "6.4.2",
     "tap-spec": "4.1.1",
+    "tape": "4.7.0",
     "watchify": "^3.9.0"
   },
   "author": "Nick Strayer <nick.strayer@gmail.com> (http://nickstrayer.me)",

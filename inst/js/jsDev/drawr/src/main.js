@@ -28,6 +28,8 @@ function drawr(config) {
     data: originalData,
     xKey = 'x',
     yKey = 'y',
+    yMin,
+    yMax,
     timeX = false,
     onDoneDrawing = (drawn) => console.log(drawn),
     freeDraw = false,
@@ -53,6 +55,15 @@ function drawr(config) {
   const xDomain = d3.extent(data, (d) => d.x);
   const yDomain = d3.extent(data, (d) => d.y);
 
+  // Javascript sees 0 as falsy, but we also want to have that be an options for setting the axis values. 
+  const valueExists = (val) => {
+    if (val === 0) return true;
+    return val;
+  };
+
+  if (valueExists(yMin)) yDomain[0] = yMin;
+  if (valueExists(yMax)) yDomain[1] = yMax;
+
   const {svg, xScale, yScale, resize: chartResize} = ChartSetup({
     domTarget,
     width: chartWidth,
@@ -75,7 +86,10 @@ function drawr(config) {
   const dataLineGen = MakelineGenerator({
     xScale,
     yScale,
-    definedFunc: (d) => !isNaN(d.y),
+    definedFunc: (d) => {
+      const NanOrNull = isNaN(d.y) || d.y === null;
+      return !NanOrNull;
+    },
   });
   const userLineGen = MakelineGenerator({
     xScale,

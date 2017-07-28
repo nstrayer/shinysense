@@ -37,6 +37,8 @@ drawr_widget <- function(
     data = data,
     xKey = x_key,
     yKey = y_key,
+    yMin = y_min,
+    yMax = y_max,
     timeX = hasTimeX,
     revealExtent = draw_start,
     freeDraw = raw_draw
@@ -78,5 +80,8 @@ drawr_widgetOutput <- function(outputId, width = '100%', height = '400px'){
 #' @export
 renderDrawr_widget <- function(expr, env = parent.frame(), quoted = FALSE) {
   if (!quoted) { expr <- substitute(expr) } # force quoted
+  # # The user's drawn data, parsed into a data frame
+  # result <- reactive({ input$doneDragging })
+
   htmlwidgets::shinyRenderWidget(expr, drawr_widgetOutput, env, quoted = TRUE)
 }

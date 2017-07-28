@@ -15,19 +15,24 @@ HTMLWidgets.widget({
         // convert data frame to d3 friendly format
         var data = HTMLWidgets.dataframeToD3(x.data);
         var domTarget = '#' + el.id;
+        console.log('passed the following config', x);
+        console.log('data came in like this', data);
 
-        function finishedDrawing(d) {
-          console.log('done drawing', d)
+        function finishedDrawing(drawnData) {
+          var payload = drawnData.map(function(datum){return datum.y});
+          if(HTMLWidgets.shinyMode) {
+            console.log("shiny detected, sending to " + el.id + "_drawnData, with payload", payload);
+            Shiny.onInputChange(el.id + "_drawnData",payload)
+          }
         }
-
-        // TODO: code to render the widget, e.g.
-        el.innerText = 'hiya';
 
         myDrawr = drawr({
             domTarget: domTarget,
             data: data,
             xKey: x.xKey,
             yKey: x.yKey,
+            yMin: x.yMin,
+            yMax: x.yMax,
             timeX: x.timeX,
             onDoneDrawing: finishedDrawing,
             revealExtent: x.revealExtent,
