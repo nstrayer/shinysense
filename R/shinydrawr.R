@@ -8,26 +8,12 @@
 #' @examples
 #' shinydrawrUI('myrecorder')
 #' @import shiny
-shinydrawrUI <- function(id, ...) {
+shinydrawrUI <- function(id){
+  # Create a namespace function using the provided id
   ns <- NS(id)
 
-  #Grab the external javascript and css
-  youDrawItjs <- .get_script("libraries/youDrawIt.js", "js")
-  drawrjs     <- .get_script("drawr.js", "js")
-  # drawrcss <- .get_script("drawr.css", "css")
-
-  tagList(
-    singleton(
-      tags$head( #load external scripts.
-        tags$script(HTML(youDrawItjs)),
-        tags$script(HTML(drawrjs))
-      )
-    ),
-    div(id = ns("youDrawIt"),
-        ...
-    )
-
-  ) #end tag list.
+  #set up output
+  drawr_widgetOutput(ns('myDrawr'))
 }
 
 
@@ -64,34 +50,12 @@ shinydrawr <- function(input, output, session,
                        x_key = "x",
                        y_key = "y",
                        y_min = NA,
-                       y_max = NA){
+                       y_max = NA) {
 
-  #set chart maximum y of the data's max y if nothing has been specified.
-  if(is.na(y_min)) y_min <- min(data[y_key])
-  if(is.na(y_max)) y_max <- max(data[y_key])
-  if(raw_draw) draw_start <- min(data[x_key])
+  output$myDrawr <- renderDrawr_widget(
+    drawr_widget(data = data, draw_start = draw_start, x_key = x_key, y_key = y_key, y_min = y_min, y_max = y_max)
+  )
 
-  data_jsonified <- jsonlite::toJSON(data)
-
-  #the id of our given recorder button. We send this to javascript.
-  chart_id <- gsub("-", "", session$ns(""))
-
-  #Send over a message to the javascript with the id of the div we're placing this chart in along with the data we're placing in it.
-  observe({ session$sendCustomMessage(
-            type    = "initialize_chart",
-            message = list(
-                           data          = data_jsonified,
-                           id            = chart_id,
-                           reveal_extent = draw_start,
-                           raw_draw      = raw_draw,
-                           x_key         = x_key,
-                           y_key         = y_key,
-                           y_domain      = c(y_min,y_max)
-                         )
-            )
-      })
-
-  # The user's drawn data, parsed into a data frame
-  result <- reactive({ input$doneDragging })
+  result <- reactive({ input$myDrawr_drawnData })
   return(result)
 }
