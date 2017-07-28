@@ -33,7 +33,7 @@ export function ChartSetup(config) {
   const sel = d3.select(domTarget).html('');
 
   // append the svg to the div
-  const svg = sel.append('svg');
+  const svg = sel.append('svg').style('cursor', 'default');
 
   // append a g element shifted up by margins
   const svgG = svg

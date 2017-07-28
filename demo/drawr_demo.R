@@ -33,7 +33,7 @@ server <- function(input, output) {
   random_data <- data_frame(time = 1:30,
                             metric = time * sin(time / 6) + rnorm(30))
 
-  random_data$metric[c(3,4,5)] = NA
+  # random_data$metric[c(3,4,5)] = NA
 
   #server side call of the drawr module
   drawChart <- callModule(
