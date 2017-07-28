@@ -42,6 +42,7 @@ There currently is no website for the documentation to reside in, but all the fu
       - Used in our app [`papr`.](https://jhubiostatistics.shinyapps.io/papr/)
       - [Demo.](https://nickstrayer.shinyapps.io/shinysense_swipr_demo/) [Code for demo.](https://github.com/nstrayer/shinysense/blob/master/demo/swipr_demo.R)
   - `shinydrawr` : Draws a line chart that obscures the end of the results, the user then draws what they think the rest of the chart is and then the rest of the chart is revealed.
+      - See [this blog post](http://livefreeordichotomize.com/2017/07/27/new-and-improved-draw-charts-in-shinysense/) on how to use draw charts inside and outside of shiny.
       - Blatently stolen from the New York Times article [You Draw It: What Got Better or
 Worse During Obama’s Presidency](https://www.nytimes.com/interactive/2017/01/15/us/politics/you-draw-obama-legacy.html).
       - [Demo.](https://nstrayer.shinyapps.io/drawr_demo/) [Code.](https://github.com/nstrayer/shinysense/blob/master/demo/drawr_demo.R)
