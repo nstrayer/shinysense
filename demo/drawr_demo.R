@@ -10,15 +10,7 @@ library(tidyverse)
 
 ui <- fluidPage(
   theme = shinytheme("flatly"),
-  titlePanel("shinydrawr demo"),
-  p("Try and guess the rest of the chart below"),
-  p(
-    "A big thanks to Adam Pearce who put code up for",
-    a(href = "https://bl.ocks.org/1wheel/07d9040c3422dac16bd5be741433ff1e", "implementing the drag to draw technique!"),
-    "If this is exciting to you make sure to head over to the project's",
-    a(href = "https://github.com/nstrayer/shinysense", "github page"),
-    "where you can find all the code."
-  ),
+  titlePanel("shinydrawr no reveal"),
   hr(),
   fluidRow(
     column(width = 8,
@@ -30,17 +22,17 @@ ui <- fluidPage(
 
 
 server <- function(input, output) {
-  random_data <- data_frame(time = 1:30,
-                            metric = time * sin(time / 6) + rnorm(30))
+  random_data <- data_frame(time = 1:30, metric = time * sin(time / 6) + rnorm(30)) %>%
+    mutate(metric = ifelse(time > 20, NA, metric))
 
   # random_data$metric[c(3,4,5)] = NA
-
+  cutoff <- 20
   #server side call of the drawr module
   drawChart <- callModule(
     shinydrawr,
     "outbreak_stats",
     data = random_data,
-    draw_start = 15,
+    draw_start = cutoff,
     x_key = "time",
     y_key = "metric",
     y_max = 20,
@@ -52,7 +44,7 @@ server <- function(input, output) {
     drawnValues = drawChart()
 
     drawn_data <- random_data %>%
-      filter(time >= 15) %>%
+      filter(time >= cutoff) %>%
       mutate(drawn = drawnValues)
 
     output$displayDrawn <- renderTable(drawn_data)
