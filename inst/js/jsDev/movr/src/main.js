@@ -2,8 +2,15 @@
 // can't get the webpack build working so I am using a script tag.
 /* global GyroNorm */
 
+// const pick_fields = (obj, fields) => fields
+//   .reduce((subset, key) => ({...subset, [key]: obj[key]}) , {});
+  
 const pick_fields = (obj, fields) => fields
-  .reduce((subset, key) => ({...subset, [key]: obj[key]}) , {});
+  .reduce((subset, key) => Object.assign(
+    subset, {[key]: obj[key]} 
+  ));
+  
+
  
 function movr_recorder({
   target,                // button we are attaching the start and stop to.
@@ -80,7 +87,9 @@ function movr_recorder({
   function log_data(data){
     const seconds_since_start = (Date.now() - start_time) / 1000;
     
-    data_store.push({...pick_fields(data.dm, desired_fields), time: seconds_since_start});
+    data_store.push(
+      Object.assign(pick_fields(data.dm, desired_fields), {time: seconds_since_start})
+    );
 
     const timer_on_and_done = timed && (seconds_since_start  > time_lim);
     if(timer_on_and_done){
