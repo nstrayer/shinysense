@@ -2,7 +2,7 @@
 
 const pick_fields = (obj, fields, prepend) => fields
   .reduce((subset, key) => Object.assign(
-    subset, {[`${key}_${prepend}`]: obj[key]}
+    subset, {[`${prepend}_${key}`]: obj[key]}
   ), {});
 
 function movr_recorder({
@@ -36,8 +36,7 @@ function movr_recorder({
 
   // Sets up event listener on button (or whatever object passed)
   function initialize_recorder(){
-/*    alert('button is being observed!');
-*/    target.addEventListener('click', click_behavior);
+    target.addEventListener('click', click_behavior);
   }
 
   function click_behavior(){
@@ -45,7 +44,6 @@ function movr_recorder({
       gn.stop();
 
       // pass accumulated data to the callback
-      console.log('sending data', data_store)
       after_recording(data_store);
 
       // empty data store for next recording

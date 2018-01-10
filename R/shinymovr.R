@@ -37,6 +37,7 @@ shinymovrUI <- function(id) {
 #' @param orientations list of desired orientation directions from sensor (good when not used on phone)
 #' @param time_limit number of seconds for data gathering, defaults to until button pressed again.
 #' @param recording_message text for the button when recording is taking place.
+#' @param normalized Do you want the data for each output normalized by this samples mean and standard deviation? Defaults to true.
 #' @export
 #' @examples
 #'  movrData <- callModule(shinymovr)
@@ -45,7 +46,8 @@ shinymovr <- function(
   movements = c('x', 'y', 'z', 'gamma', 'beta', 'alpha'),
   orientations = c('alpha', 'beta', 'gamma'),
   time_limit = -1,
-  recording_message = 'Recording Movement...'
+  recording_message = 'Recording Movement...',
+  normalized = TRUE
 ){
 
   #Send over a message to the javascript with the id of the div we're placing this chart in along with the data we're placing in it.
@@ -66,10 +68,20 @@ shinymovr <- function(
   result <- reactive({
     if(class(input$movement) == "character"){
       movement_data <- jsonlite::fromJSON(input$movement)
-      return(jsonlite::fromJSON(input$movement))
+
+      if(normalized){
+        movement_data[-1] <- scale(movement_data[-1])
+      }
+      return(movement_data)
     } else {
-        return(data.frame(time = 0, x = 0, y = 0, z = 0))
-    }
+      # when initializing just return an empty dataframe with the correct columns
+        result_columns <- c(
+          'time',
+          paste0('m_',movements),
+          paste0('o_',orientations)
+        )
+        return(setNames(data.frame(matrix(ncol = length(result_columns), nrow = 0)), result_columns))
+      }
     })
   return(result)
 }
