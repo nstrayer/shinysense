@@ -34,7 +34,11 @@ server <- function(input, output) {
     counter = 0
   )
 
-  movement <- callModule(shinymovr, "movr_button")
+  movement <- callModule(
+    shinymovr, "movr_button",
+    time_limit = 2,
+    recording_message = 'RECORDING!'
+  )
 
 
   observeEvent(movement(), {
@@ -42,6 +46,10 @@ server <- function(input, output) {
     new_movement <- movement() %>%
       gather(direction, accel, -time) %>%
       mutate(label = input$label, recording_num =  paste("gesture", rvs$counter))
+
+    print(new_movement %>% group_by(direction) %>% summarise(
+      max_val = max(accel)
+    ))
 
     # rvs$movements <- new_movement
     if(rvs$counter == 0){
@@ -51,7 +59,6 @@ server <- function(input, output) {
         bind_rows( new_movement ) %>%
         filter(recording_num != "gesture 0")
     }
-
 
     rvs$counter <- rvs$counter + 1
 

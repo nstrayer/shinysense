@@ -2,16 +2,12 @@
 // can't get the webpack build working so I am using a script tag.
 /* global GyroNorm */
 
-// const pick_fields = (obj, fields) => fields
-//   .reduce((subset, key) => ({...subset, [key]: obj[key]}) , {});
-  
+ 
 const pick_fields = (obj, fields) => fields
   .reduce((subset, key) => Object.assign(
     subset, {[key]: obj[key]} 
-  ));
+  ), {});
   
-
- 
 function movr_recorder({
   target,                // button we are attaching the start and stop to.
   after_recording,       // function called after recording has finished

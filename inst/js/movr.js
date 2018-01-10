@@ -1,61 +1,124 @@
-class shinymovr{
-  constructor(params){
+/*global Shiny */
 
-    this.isOn = false;       //are we currently recording data?
-    this.movement_data = []; //holds the most recent recordings data.
-    this.send_dest = params.destination + "movement";
-    this.watcher = this.make_watcher(params);
-    document.getElementById(params.id).addEventListener("click", this.toggleButton.bind(this), true);
+const pick_fields = (obj, fields, prepend) => fields
+  .reduce((subset, key) => Object.assign(
+    subset, {[`${key}_${prepend}`]: obj[key]}
+  ), {});
+
+function movr_recorder({
+  target,                // button we are attaching the start and stop to.
+  after_recording,       // function called after recording has finished
+  movement_directions = ['x', 'y', 'z', 'alpha', 'beta', 'gamma'], // controls what data is given back.
+  orientation_directions = ['alpha', 'beta', 'gamma'],
+  graceful_fail = false, // do we give the user a loud alert when their device doesn't support motion?
+  time_lim = -1, // is this a timed recording? Aka record for 2 seconds then stop? If yes pass number of seconds to record for.
+  recording_message = 'Recording Movement...'
+}){
+
+  // keep track of if recording is happening
+  let recording = false;
+
+  const timed = time_lim > 0;
+  let start_time = 0;
+
+  // gather default button text
+  const resting_text = target.innerHTML;
+
+  // object that holds all the data for a given recording session.
+  let data_store = [];
+
+  // setup the object
+  const gn = new GyroNorm();
+
+  gn.init()
+    .then(initialize_recorder)
+    .catch(error_handler);
+
+  // Sets up event listener on button (or whatever object passed)
+  function initialize_recorder(){
+/*    alert('button is being observed!');
+*/    target.addEventListener('click', click_behavior);
   }
 
-  make_watcher(params){
-    params.dom_target     = params.id;
-    params.onMoveFunction = this.gather.bind(this);    //function that accumulates data while recording.
-    return acceljs.accel(params);
-  }
+  function click_behavior(){
+    if(recording){
+      gn.stop();
 
-  gather(data){
-    data.time = Date.now();
-    this.movement_data.push(data);
-  }
+      // pass accumulated data to the callback
+      console.log('sending data', data_store)
+      after_recording(data_store);
 
-  dump(){
-    return this.movement_data;
-  }
+      // empty data store for next recording
+      data_store = [];
 
-  clear_data(){
-    this.movement_data = [];
-  }
-
-  sendToShiny(){
-    //alert(JSON.stringify(this.movement_data));
-    //const move_data = this.movement_data;
-    const destination = this.send_dest;
-    Shiny.onInputChange(destination, JSON.stringify(this.movement_data));
-  }
-
-  toggleButton(){
-    if(this.isOn){
-      this.watcher.turnOff();
-      this.sendToShiny();
+      // reset the button text
+      target.innerHTML = resting_text;
     } else {
-      this.clear_data();          //reset the data for a new recording.
-      this.watcher.turnOn(); //turn on the motion tracking again.
+      // setup new start time
+      start_time = Date.now();
+
+      // kick off data logging
+      gn.start(log_data);
+
+      // change button text to indicate recording status
+      target.innerHTML = recording_message;
     }
-    this.isOn = !this.isOn;
-  };
+
+    // flip recording indicator
+    recording = !recording;
+  }
+
+  // if the browser doesn't suport the motion capture give an error
+  function error_handler(e){
+    const error_msg = 'looks like no device motion is supported on this device :(';
+    console.log(e);
+    if(graceful_fail){
+        console.log(error_msg);
+    } else {
+       alert(error_msg);
+    }
+  }
+
+  function log_data(data){
+    const seconds_since_start = (Date.now() - start_time) / 1000;
+
+    data_store.push(
+      Object.assign(
+        pick_fields(data.dm, movement_directions, 'm'),
+        pick_fields(data.do, orientation_directions, 'o'),
+        {time: seconds_since_start}
+      )
+    );
+
+    const timer_on_and_done = timed && (seconds_since_start  > time_lim);
+    if(timer_on_and_done){
+      click_behavior()
+    }
+  }
 
 }
 
-
-
 $(document).on('shiny:connected', event => {
-    console.log("shiny is connected.");
+  console.log("shiny is connected.");
+
 
     //watch for message from server saying it's ready.
-    Shiny.addCustomMessageHandler("initialize_movr",
-        params =>  new shinymovr(params)
-    );
+  Shiny.addCustomMessageHandler("initialize_movr", params => {
 
+    // callback for sending data back to server
+    const sendToShiny = (data) => {
+      const destination = params.destination + "movement";
+      Shiny.onInputChange(destination, JSON.stringify(data))
+    };
 
-});
+    // select dom element we're targeting
+    const target = document.getElementById(params.id);
+
+    // call recorder
+    movr_recorder(Object.assign(
+      {target, after_recording: sendToShiny},
+      params
+    )
+  );
+  })
+})

@@ -8,13 +8,13 @@ shinymovrUI <- function(id) {
   ns <- NS(id)
 
   #Grab the external javascript and css
-  acceljs <- .get_script("libraries/accel.js", "js")
+  gyronorm <- .get_script("libraries/gyronorm.js", "js")
   movrjs  <- .get_script("movr.js", "js")
 
   tagList(
     singleton(
       tags$head( #load external scripts.
-        tags$script(HTML(acceljs)),
+        tags$script(HTML(gyronorm)),
         tags$script(HTML(movrjs))
       )
     ),
@@ -33,26 +33,39 @@ shinymovrUI <- function(id) {
 #' @param input you can ignore this as it is taken care of by shiny
 #' @param output you can ignore this as it is taken care of by shiny
 #' @param session you can ignore this as it is taken care of by shiny
+#' @param movements list of desired movement directions from sensor
+#' @param orientations list of desired orientation directions from sensor (good when not used on phone)
+#' @param time_limit number of seconds for data gathering, defaults to until button pressed again.
+#' @param recording_message text for the button when recording is taking place.
 #' @export
 #' @examples
 #'  movrData <- callModule(shinymovr)
-shinymovr <- function(input, output, session){
-
+shinymovr <- function(
+  input, output, session,
+  movements = c('x', 'y', 'z', 'gamma', 'beta', 'alpha'),
+  orientations = c('alpha', 'beta', 'gamma'),
+  time_limit = -1,
+  recording_message = 'Recording Movement...'
+){
 
   #Send over a message to the javascript with the id of the div we're placing this chart in along with the data we're placing in it.
   observe({ session$sendCustomMessage(
             type    = "initialize_movr",
             message = list(
               destination = session$ns(""),
-              id = session$ns("movr"))
+              id = session$ns("movr"),
+              movement_directions = movements,
+              orientation_directions = orientations,
+              time_lim = time_limit,
+              recording_message = recording_message
             )
+          )
       })
 
   # The user's drawn data, parsed into a data frame
   result <- reactive({
     if(class(input$movement) == "character"){
       movement_data <- jsonlite::fromJSON(input$movement)
-      movement_data$time = movement_data$time - movement_data$time[1] #normalize time to from recording start.
       return(jsonlite::fromJSON(input$movement))
     } else {
         return(data.frame(time = 0, x = 0, y = 0, z = 0))
