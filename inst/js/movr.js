@@ -1,8 +1,11 @@
 /*global Shiny */
+// we need the gx gy gz fields, not the plain x,y,z so we can check and add this if neccesary when picking.
+const add_g = (d) => ['x', 'y', 'z'].includes(d) ? `g${d}`: d;
 
 const pick_fields = (obj, fields, prepend) => fields
   .reduce((subset, key) => Object.assign(
-    subset, {[`${prepend}_${key}`]: obj[key]}
+    subset,
+    {[`${prepend}_${key}`]: obj[key]}
   ), {});
 
 function movr_recorder({
@@ -14,6 +17,8 @@ function movr_recorder({
   time_lim = -1, // is this a timed recording? Aka record for 2 seconds then stop? If yes pass number of seconds to record for.
   recording_message = 'Recording Movement...'
 }){
+
+  console.log('using the new version of shinsense')
 
   // keep track of if recording is happening
   let recording = false;
@@ -82,8 +87,8 @@ function movr_recorder({
 
     data_store.push(
       Object.assign(
-        pick_fields(data.dm, movement_directions, 'm'),
-        pick_fields(data.do, orientation_directions, 'o'),
+        movement_directions ? pick_fields(data.dm, movement_directions, 'm'): {},
+        orientation_directions ? pick_fields(data.do, orientation_directions, 'o'): {},
         {time: seconds_since_start}
       )
     );
@@ -93,7 +98,6 @@ function movr_recorder({
       click_behavior()
     }
   }
-
 }
 
 $(document).on('shiny:connected', event => {
