@@ -4,10 +4,19 @@
 \alias{shinymovrUI}
 \title{Use shiny on your mobile phone to gather accelorameter data for whatever your heart could desire.}
 \usage{
-shinymovrUI(id)
+shinymovrUI(id, resting_msg = "Turn On", button_width = "130px",
+  button_height = "50px", button_color = "steelblue")
 }
 \arguments{
 \item{id}{the id you will use to keep track of this component in your app}
+
+\item{resting_msg}{the string displayed when the button is not pressed. Defaults to "Turn On"}
+
+\item{button_width}{width of the button in a valid css string. E.g. needs to have pixels appended to it.}
+
+\item{button_height}{height of the button, again in valid css string.}
+
+\item{button_color}{valid css string to control the button color.}
 }
 \value{
 A blue button that you press to initiate or stop recording of acceloration data.
@@ -16,5 +25,5 @@ A blue button that you press to initiate or stop recording of acceloration data.
 Use shiny on your mobile phone to gather accelorameter data for whatever your heart could desire.
 }
 \examples{
-shinymovrUI('movrButton')
+shinymovrUI('movrButton', resting_msg = 'Click me to record', button_width = '200px')
 }
