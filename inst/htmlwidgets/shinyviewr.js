@@ -9,7 +9,6 @@ HTMLWidgets.widget({
     // TODO: define shared variables for this instance
     const container = d3.select(el).html('');
 
-    debugger;
 
     return {
 
@@ -50,6 +49,7 @@ HTMLWidgets.widget({
                shutter.on('click', () => {
                  const canvas = photoDeck
                    .append('canvas')
+                   .style('display', 'none')
                    .style('width', '180px')
                    .style('height', '140px')
                    .style('margin', '10px');
@@ -57,11 +57,12 @@ HTMLWidgets.widget({
 
                  const ctx = canvas.node().getContext('2d');
                  ctx.drawImage(video, 0,0, 180, 140);
-
-                 const data = ctx.getImageData(0, 0, 180, 140);
-                 console.log(JSON.stringify(data));
+                 const data = JSON.stringify(ctx.getImageData(0, 0, 180, 140));
+                 Shiny.onInputChange(
+                  el.id + "_photo",
+                  canvas.node().toDataURL("image/png")
+                );
                }); // end on('click')
-
             }); // end .then
           } // end if
 
