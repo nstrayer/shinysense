@@ -14,4 +14,6 @@ RoxygenNote: 6.0.1.9000
 Imports:
     jsonlite,
     shiny,
-    htmlwidgets
+    htmlwidgets,
+    png,
+    base64enc
