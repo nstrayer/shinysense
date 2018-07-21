@@ -15,7 +15,7 @@ ui <- fluidPage(
   hr(),
   fluidRow(
     column(width = 8,
-           shinyviewrOutput("myVideo"))
+           viewr_widgetOutput("myVideo"))
   ),
   imageOutput("snapshot")
 )
@@ -24,8 +24,8 @@ ui <- fluidPage(
 server <- function(input, output) {
 
   #server side call of the viewr module
-  output$myVideo <- renderShinyviewr({
-    shinyviewr(message = 'hi')
+  output$myVideo <- renderViewr_widget({
+    viewr_widget(message = 'hi')
   })
 
   observeEvent(input$myVideo_photo, {
@@ -41,7 +41,6 @@ server <- function(input, output) {
       plot(rastered_photo, main = 'My Photo!')
     })
   })
-
 
 }
 
