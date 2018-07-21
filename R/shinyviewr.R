@@ -5,7 +5,9 @@
 #' @return A video overlay and a 'shutter' button.
 #' @export
 #' @examples
+#' \dontrun{
 #' shinyviewrUI('myrecorder')
+#' }
 #' @import shiny
 shinyviewrUI <- function(id){
   # Create a namespace function using the provided id

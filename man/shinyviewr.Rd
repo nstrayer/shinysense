@@ -2,10 +2,23 @@
 % Please edit documentation in R/shinyviewr.R
 \name{shinyviewr}
 \alias{shinyviewr}
-\title{<Add Title>}
+\title{Gather recorded data from UI.}
 \usage{
-shinyviewr(message, width = NULL, height = NULL, elementId = NULL)
+shinyviewr(input, output, session)
+}
+\arguments{
+\item{input}{you can ignore this as it is taken care of by shiny}
+
+\item{output}{you can ignore this as it is taken care of by shiny}
+
+\item{session}{you can ignore this as it is taken care of by shiny}
 }
 \description{
-<Add Description>
+Upon completion of line draw, returns a reactive variable that contains a vector of the y coordinates of what the user has drawn. This also includes the start point specified with `draw_start`
+    This is the server component of shinyviewr. You never directly use this function but instead call it through the shiny function `callModule()`. See the example for how to do this.
+}
+\examples{
+\dontrun{
+ drawChart <- shiny::callModule(shinyviewr, "myCamera")
+ }
 }
