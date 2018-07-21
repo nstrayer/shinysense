@@ -30,13 +30,7 @@ server <- function(input, output) {
 
   #logic for what happens after a user has drawn their values. Note this will fire on editing again too.
   observeEvent(myCamera(), {
-    photo <- myCamera() %>%
-      str_remove('data:image/png;base64,') %>%
-      str_replace(' ', '+') %>%
-      base64enc::base64decode() %>%
-      png::readPNG()
-
-    rastered_photo <- as.raster(photo)
+    rastered_photo <- as.raster(myCamera())
     output$snapshot <- renderPlot({plot(rastered_photo, main = 'My Photo!')})
 })
 

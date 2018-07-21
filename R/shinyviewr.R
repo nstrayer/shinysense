@@ -38,6 +38,15 @@ shinyviewr <- function(input, output, session){
     viewr_widget(message= 'take me out')
   )
 
-  result <- reactive({ input$myCamera_photo })
+  result <- reactive({
+    if(is.null(input$myCamera_photo)){
+      return(NULL)
+    }
+    input$myCamera_photo %>%
+      str_remove('data:image/png;base64,') %>%
+      str_replace(' ', '+') %>%
+      base64enc::base64decode() %>%
+      png::readPNG()
+  })
   return(result)
 }
