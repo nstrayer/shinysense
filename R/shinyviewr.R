@@ -1,7 +1,8 @@
 #' A webcam view and snapshot function. Will send a 3d array (width, height, colors+opacity) back to your computer of the frame when you click take photo.
 #' @param id the id you will use to keep track of this component in your app
-#' @param ... additional tags to \code{\link{div}} to display before plot is
-#' displayed
+#' @param width,height Must be a valid CSS unit (like \code{'100\%'},
+#'   \code{'400px'}, \code{'auto'}) or a number, which will be coerced to a
+#'   string and have \code{'px'} appended. (Taken from htmlwidgets docs).
 #' @return A video overlay and a 'shutter' button.
 #' @export
 #' @examples
@@ -9,12 +10,12 @@
 #' shinyviewrUI('myrecorder')
 #' }
 #' @import shiny
-shinyviewrUI <- function(id){
+shinyviewrUI <- function(id, width = '100%', height = '400px'){
   # Create a namespace function using the provided id
   ns <- NS(id)
 
   #set up output
-  viewr_widgetOutput(ns('myCamera'))
+  viewr_widgetOutput(ns('myCamera'), width = width, height = height)
 }
 
 

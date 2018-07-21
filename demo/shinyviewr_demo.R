@@ -14,7 +14,7 @@ ui <- fluidPage(
   hr(),
   fluidRow(
     column(width = 8,
-           shinyviewrUI("myCamera")),
+           shinyviewrUI("myCamera", height = '200px')),
     column(width = 3, offset = 1,
            h2("Taken Photo"),
            imageOutput("snapshot")

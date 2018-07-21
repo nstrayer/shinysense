@@ -4,13 +4,14 @@
 \alias{shinyviewrUI}
 \title{A webcam view and snapshot function. Will send a 3d array (width, height, colors+opacity) back to your computer of the frame when you click take photo.}
 \usage{
-shinyviewrUI(id)
+shinyviewrUI(id, width = "100\%", height = "400px")
 }
 \arguments{
 \item{id}{the id you will use to keep track of this component in your app}
 
-\item{...}{additional tags to \code{\link{div}} to display before plot is
-displayed}
+\item{width, height}{Must be a valid CSS unit (like \code{'100\%'},
+\code{'400px'}, \code{'auto'}) or a number, which will be coerced to a
+string and have \code{'px'} appended. (Taken from htmlwidgets docs).}
 }
 \value{
 A video overlay and a 'shutter' button.
