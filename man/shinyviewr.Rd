@@ -4,7 +4,7 @@
 \alias{shinyviewr}
 \title{Gather recorded data from UI.}
 \usage{
-shinyviewr(input, output, session)
+shinyviewr(input, output, session, outputWidth = 200, outputHeight = 150)
 }
 \arguments{
 \item{input}{you can ignore this as it is taken care of by shiny}
@@ -12,6 +12,10 @@ shinyviewr(input, output, session)
 \item{output}{you can ignore this as it is taken care of by shiny}
 
 \item{session}{you can ignore this as it is taken care of by shiny}
+
+\item{outputWidth}{How many pixels wide you want your returned photos. Defaults to 200px}
+
+\item{outputHeight}{How many pixels hight you want your returned photos. Defaults to 150px}
 }
 \description{
 Upon completion of line draw, returns a reactive variable that contains a vector of the y coordinates of what the user has drawn. This also includes the start point specified with `draw_start`

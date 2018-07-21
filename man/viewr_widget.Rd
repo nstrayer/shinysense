@@ -4,7 +4,8 @@
 \alias{viewr_widget}
 \title{<Add Title>}
 \usage{
-viewr_widget(message, width = NULL, height = NULL, elementId = NULL)
+viewr_widget(outputWidth, outputHeight, width = NULL, height = NULL,
+  elementId = NULL)
 }
 \description{
 <Add Description>

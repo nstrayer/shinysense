@@ -5,11 +5,12 @@
 #' @import htmlwidgets
 #'
 #' @export
-viewr_widget <- function(message, width = NULL, height = NULL, elementId = NULL) {
+viewr_widget <- function(outputWidth, outputHeight, width = NULL, height = NULL, elementId = NULL) {
 
   # forward options using x
   x = list(
-    message = message
+    outputWidth = outputWidth,
+    outputHeight = outputHeight
   )
 
   # create widget

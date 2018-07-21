@@ -26,16 +26,18 @@ shinyviewrUI <- function(id){
 #' @param input you can ignore this as it is taken care of by shiny
 #' @param output you can ignore this as it is taken care of by shiny
 #' @param session you can ignore this as it is taken care of by shiny
+#' @param outputWidth How many pixels wide you want your returned photos. Defaults to 200px
+#' @param outputHeight How many pixels hight you want your returned photos. Defaults to 150px
 #' @export
 #' @examples
 #' \dontrun{
 #'  drawChart <- shiny::callModule(shinyviewr, "myCamera")
 #'  }
 #' @importFrom jsonlite toJSON
-shinyviewr <- function(input, output, session){
+shinyviewr <- function(input, output, session, outputWidth = 200, outputHeight = 150){
 
   output$myCamera <- renderViewr_widget(
-    viewr_widget(message= 'take me out')
+    viewr_widget(outputWidth = outputWidth, outputHeight = outputHeight)
   )
 
   result <- reactive({
