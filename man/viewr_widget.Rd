@@ -2,11 +2,22 @@
 % Please edit documentation in R/viewr_widget.R
 \name{viewr_widget}
 \alias{viewr_widget}
-\title{<Add Title>}
+\title{Widget form of viewr.}
 \usage{
 viewr_widget(outputWidth, outputHeight, width = NULL, height = NULL,
   elementId = NULL)
 }
+\arguments{
+\item{outputWidth}{The number of pixels in width desired from the output frame}
+
+\item{outputHeight}{The number of pixels in height desired from the output frame.}
+
+\item{width}{How many pixels wide the embeded widget should be (usually left as \code{NULL} to be automatically decided by the function.)}
+
+\item{height}{How many pixels high the embedded widget should be (again, usually left as \code{NULL}).}
+
+\item{elementID}{Explicit ID of the widget. Like \code{width} and \code{height} this is usually left as \code{NULL} for R to automatically Assign.}
+}
 \description{
-<Add Description>
+This is an internal function for use in the function \code{shinviewr}. It is an htmlwidget that loads a webcam feed to the page. Getting images back from it requires some manipulation that \code{shinyviewr} takes care of.
 }

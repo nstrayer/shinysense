@@ -2,7 +2,7 @@
 % Please edit documentation in R/shinyviewr.R
 \name{shinyviewrUI}
 \alias{shinyviewrUI}
-\title{A webcam view and snapshot function. Will send a 3d array back to your computer of the frame when you click take photo.}
+\title{A webcam view and snapshot function. Will send a 3d array (width, height, colors+opacity) back to your computer of the frame when you click take photo.}
 \usage{
 shinyviewrUI(id)
 }
@@ -16,7 +16,7 @@ displayed}
 A video overlay and a 'shutter' button.
 }
 \description{
-A webcam view and snapshot function. Will send a 3d array back to your computer of the frame when you click take photo.
+A webcam view and snapshot function. Will send a 3d array (width, height, colors+opacity) back to your computer of the frame when you click take photo.
 }
 \examples{
 \dontrun{

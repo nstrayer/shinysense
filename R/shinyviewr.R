@@ -1,4 +1,4 @@
-#' A webcam view and snapshot function. Will send a 3d array back to your computer of the frame when you click take photo.
+#' A webcam view and snapshot function. Will send a 3d array (width, height, colors+opacity) back to your computer of the frame when you click take photo.
 #' @param id the id you will use to keep track of this component in your app
 #' @param ... additional tags to \code{\link{div}} to display before plot is
 #' displayed
