@@ -16,13 +16,14 @@ HTMLWidgets.widget({
       .style('font-size', '24px')
       .style('font-family', 'Optima');
 
-    const video = container.append('center')
+    const video = container
+      .append('center')
+        .style('height', "calc(100% - 40px)")
+        .style('width', '100%')
       .append('video')
-      .attr('width', width)
-      .attr('height', height-shutter_height)
       .attr('autoplay', true)
       .attr('playsinline', true)
-      .style('max-width', '100%')
+      .style('height', '100%')
       .node();
 
     const canvas = container
