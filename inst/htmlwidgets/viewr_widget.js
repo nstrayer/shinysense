@@ -10,7 +10,8 @@ HTMLWidgets.widget({
     const shutter_height = 40;
     const shutter = container.append('center').append('button')
       .text('Take Photo!')
-      .style('width', '80%')
+      .style('width', '50%')
+      .style('max-width', '300px')
       .style('height', `${shutter_height}px`)
       .style('font-size', '24px')
       .style('font-family', 'Optima');
@@ -49,7 +50,6 @@ HTMLWidgets.widget({
             .then(function(stream) {
                video.src = window.URL.createObjectURL(stream);
                video.play();
-
                shutter.on('click', () => {
 
                  // draw current video frame to the invisible canvas element
@@ -67,9 +67,7 @@ HTMLWidgets.widget({
       },
 
        resize: function(width, height) {
-        console.log(video)
         // TODO: code to re-render the widget with a new size
-
       }
 
     };
