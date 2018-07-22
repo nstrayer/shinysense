@@ -35,7 +35,7 @@ shinyviewrUI <- function(id, width = '100%', height = '400px'){
 #'  drawChart <- shiny::callModule(shinyviewr, "myCamera")
 #'  }
 #' @importFrom jsonlite toJSON
-shinyviewr <- function(input, output, session, outputWidth = 200, outputHeight = 150){
+shinyviewr <- function(input, output, session, outputWidth = NULL, outputHeight = NULL){
 
   output$myCamera <- renderViewr_widget(
     viewr_widget(outputWidth = outputWidth, outputHeight = outputHeight)

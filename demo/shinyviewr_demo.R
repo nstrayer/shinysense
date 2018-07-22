@@ -26,7 +26,8 @@ ui <- fluidPage(
 server <- function(input, output) {
 
   #server side call of the drawr module
-  myCamera <- callModule(shinyviewr,"myCamera", outputWidth = 300, outputHeight = 200)
+  myCamera <- callModule(shinyviewr,"myCamera", outputWidth = 500, outputHeight = 500)
+  # myCamera <- callModule(shinyviewr,"myCamera")
 
   #logic for what happens after a user has drawn their values. Note this will fire on editing again too.
   observeEvent(myCamera(), {

@@ -2,15 +2,15 @@
 #'
 #' This is an internal function for use in the function \code{shinviewr}. It is an htmlwidget that loads a webcam feed to the page. Getting images back from it requires some manipulation that \code{shinyviewr} takes care of.
 #'
-#' @param outputWidth The number of pixels in width desired from the output frame
-#' @param outputHeight The number of pixels in height desired from the output frame.
+#' @param outputWidth The number of pixels in width desired from the output frame. Defaults to the size of the container
+#' @param outputHeight The number of pixels in height desired from the output frame. Defaults to size of container.
 #' @param width How many pixels wide the embeded widget should be (usually left as \code{NULL} to be automatically decided by the function.)
 #' @param height How many pixels high the embedded widget should be (again, usually left as \code{NULL}).
 #' @param elementID Explicit ID of the widget. Like \code{width} and \code{height} this is usually left as \code{NULL} for R to automatically Assign.
 #' @import htmlwidgets
 #'
 #' @export
-viewr_widget <- function(outputWidth, outputHeight, width = NULL, height = NULL, elementId = NULL) {
+viewr_widget <- function(outputWidth = NULL, outputHeight = NULL, width = NULL, height = NULL, elementId = NULL) {
 
   # forward options using x
   x = list(

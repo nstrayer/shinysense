@@ -39,7 +39,9 @@ HTMLWidgets.widget({
     return {
 
       renderValue: function(x) {
-        const {outputWidth, outputHeight} = x;
+
+        const outputWidth = x.outputWidth === null ? width: x.outputWidth;
+        const outputHeight = x.outputHeight === null ? height: x.outputHeight;
 
         canvas
           .attr('width', outputWidth)
@@ -47,7 +49,12 @@ HTMLWidgets.widget({
 
         if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
           navigator.mediaDevices
-            .getUserMedia({ video: true })
+            .getUserMedia({
+              video: {
+                width: outputWidth,
+                height: outputHeight
+              }
+            })
             .then(function(stream) {
                video.src = window.URL.createObjectURL(stream);
                video.play();
