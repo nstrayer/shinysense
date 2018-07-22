@@ -27,15 +27,18 @@ shinyviewrUI <- function(id, width = '100%', height = '400px'){
 #' @param input you can ignore this as it is taken care of by shiny
 #' @param output you can ignore this as it is taken care of by shiny
 #' @param session you can ignore this as it is taken care of by shiny
-#' @param outputWidth How many pixels wide you want your returned photos. Defaults to 200px
-#' @param outputHeight How many pixels hight you want your returned photos. Defaults to 150px
+#' @param outputWidth, outputHeight How many pixels wide you want your returned photos/the view of the webcam.
+#'   When left unfilled or set to \code{NULL} this will attempt to fill whatever size your UI element is. For many image
+#'   related tasks you want the output to be a square. So setting this to something like 300x300 is a good idea.
+#' @return A reactive function that will return a 3D array with dimensions \code{(height, width, channels (RGBA))} corresponding to the
+#'   image taken by the webcam when shutter was pressed. The RGBA are all in the range of 0-1.
 #' @export
 #' @examples
 #' \dontrun{
 #'  drawChart <- shiny::callModule(shinyviewr, "myCamera")
 #'  }
 #' @importFrom jsonlite toJSON
-shinyviewr <- function(input, output, session, outputWidth = NULL, outputHeight = NULL){
+shinyviewr <- function(input, output, session, outputWidth = NULL, outputHeight = NULL, alphaChannel = TRUE ){
 
   output$myCamera <- renderViewr_widget(
     viewr_widget(outputWidth = outputWidth, outputHeight = outputHeight)
@@ -45,11 +48,12 @@ shinyviewr <- function(input, output, session, outputWidth = NULL, outputHeight 
     if(is.null(input$myCamera_photo)){
       return(NULL)
     }
-    input$myCamera_photo %>%
+    snapshot <- input$myCamera_photo %>%
       str_remove('data:image/png;base64,') %>%
       str_replace(' ', '+') %>%
       base64enc::base64decode() %>%
-      png::readPNG()
+      png::readPNG() %>%
+      .[,,-4]
   })
   return(result)
 }
