@@ -4,13 +4,13 @@
 \alias{viewr_widget}
 \title{Widget form of viewr.}
 \usage{
-viewr_widget(outputWidth, outputHeight, width = NULL, height = NULL,
-  elementId = NULL)
+viewr_widget(outputWidth = NULL, outputHeight = NULL, width = NULL,
+  height = NULL, elementId = NULL)
 }
 \arguments{
-\item{outputWidth}{The number of pixels in width desired from the output frame}
+\item{outputWidth}{The number of pixels in width desired from the output frame. Defaults to the size of the container}
 
-\item{outputHeight}{The number of pixels in height desired from the output frame.}
+\item{outputHeight}{The number of pixels in height desired from the output frame. Defaults to size of container.}
 
 \item{width}{How many pixels wide the embeded widget should be (usually left as \code{NULL} to be automatically decided by the function.)}
 

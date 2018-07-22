@@ -16,4 +16,5 @@ Imports:
     shiny,
     htmlwidgets,
     png,
-    base64enc
+    base64enc,
+    d3r
