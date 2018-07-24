@@ -81,7 +81,12 @@ HTMLWidgets.widget({
                 height: outputHeight
               }
             })
-            .then(startStream);
+            .then(startStream)
+            .catch(error => {
+              container.append('div')
+              .html(`<h3>Uh oh! Something went wrong.</h3> <p>Either you are not on a seccure site (either localhost or and https url), you don't have any cameras attached to your computer, or you didn't enable camera permissions (I understand).</p>`);
+              console.log('my error', error);
+            });
         }
 
         canvas
