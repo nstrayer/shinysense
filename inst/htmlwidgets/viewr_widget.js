@@ -28,7 +28,7 @@ HTMLWidgets.widget({
     const video = container
       .append('center')
         .style('height', "calc(100% - 40px)")
-        .style('width', '100%')shutter_text
+        .style('width', '100%')
       .append('video')
       .attr('autoplay', true)
       .attr('playsinline', true)
