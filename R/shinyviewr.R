@@ -48,12 +48,18 @@ shinyviewr <- function(input, output, session, outputWidth = NULL, outputHeight 
     if(is.null(input$myCamera_photo)){
       return(NULL)
     }
+
     snapshot <- input$myCamera_photo %>%
       str_remove('data:image/png;base64,') %>%
       str_replace(' ', '+') %>%
       base64enc::base64decode() %>%
       png::readPNG() %>%
       .[,,-4]
+
+    # send message to javascript to kill the sending message
+    session$sendCustomMessage("photoReceived", 'yay!');
+
+    snapshot
   })
   return(result)
 }

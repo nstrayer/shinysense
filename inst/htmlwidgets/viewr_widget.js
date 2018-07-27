@@ -8,21 +8,27 @@ HTMLWidgets.widget({
 
     const container = d3.select(el).html('');
     const shutter_height = 40;
+    const shutter_text = 'Take Photo!';
 
     const shutterHolder = container.append('center');
 
     const shutter = shutterHolder.append('button')
-      .text('Take Photo!')
+      .text(shutter_text)
       .style('width', '50%')
       .style('max-width', '300px')
       .style('height', `${shutter_height}px`)
       .style('font-size', '24px')
       .style('font-family', 'Optima');
 
+    const sendingAnimation = container
+      .append('div')
+      .text('Sending Photo to Shiny')
+      .style('display', 'none');
+
     const video = container
       .append('center')
         .style('height', "calc(100% - 40px)")
-        .style('width', '100%')
+        .style('width', '100%')shutter_text
       .append('video')
       .attr('autoplay', true)
       .attr('playsinline', true)
@@ -38,6 +44,12 @@ HTMLWidgets.widget({
       .style('height', `${video.height}px`);
 
     const ctx = canvas.node().getContext('2d');
+
+    // Handle message from shiny saying photo was received.
+    Shiny.addCustomMessageHandler("photoReceived", (message) => {
+      // Replace shutter text with default.
+      shutter.text(shutter_text);
+    });
 
     let videoStream;
 
@@ -55,6 +67,8 @@ HTMLWidgets.widget({
             ctx.drawImage(video, 0, 0, outputWidth, outputHeight);
 
             // send the current canvas state to shiny as a base64 encoded string
+            shutter.text('Sending photo to server...');
+
             Shiny.onInputChange(
               el.id + "_photo",
               canvas.node().toDataURL("image/png")
