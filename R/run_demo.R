@@ -1,7 +1,8 @@
 #' Run demo apps
 #' Load and play with simple demo apps using the different senses available in shinysense. Currently supports
-#' `draw_distribution` which allows the user to draw a beta distribution and get its parameters.
-#' @param demo_name Name of demo app to run. Options `{'draw_distribution'}`.
+#' `draw_distribution` which allows the user to draw a beta distribution and get its parameters.`swipr` which demos basic
+#' usage of cards and decision recording with `shinyswipr`.
+#' @param demo_name Name of demo app to run. Options `{'draw_distribution', 'swipr'}`.
 #'
 #' @return Shiny app instance
 #' @export
