@@ -1,4 +1,4 @@
-// !preview r2d3 data = tibble(x = 1:20, y = sin(x)), options = list(draw_start = 10, x_range = c(0,20), y_range = c(-5,5), line_style = list(stroke = 'orangered')), dependencies = c('d3-jetpack', here::here('inst/r2d3/drawr/helpers.js')),
+// !preview r2d3 data = tibble(x = 1:50, y = sin(x)), options = list(draw_start = 30, x_range = c(0,50), y_range = c(-5,5), line_style = list(stroke = 'orangered')), dependencies = c('d3-jetpack'),
 
 const margin = {left: 45, right: 10, top: 20, bottom: 20};
 
@@ -37,18 +37,24 @@ r2d3.onResize(function(width, height) {
   state.w = width - margin.left - margin.right;
   state.h = height - margin.top - margin.bottom;
 
-  start_drawer(state);
+  start_drawer(state, reset = false);
 });
 
 
 // Main function that draws current state of viz
-function start_drawer(state){
+function start_drawer(state, reset = true){
   const scales = setup_scales(state);
 
   draw_true_line(state, scales);
 
   // Cover hidden portion with a rectangle
   const line_hider = setup_line_hider(state.svg, state.options.draw_start, scales);
+  if(reset){
+    state.drawable_points = state.data
+      .filter(d => d.x >= state.options.draw_start)
+      .map((d,i) => ({x: d.x, y: i === 0 ? d.y: null})); // Keep first point pinned
+    line_hider.reset();
+  }
 
   draw_user_line(state, scales);
 
@@ -57,14 +63,30 @@ function start_drawer(state){
     const drag_y = scales.y.invert(d3.event.y);
     fill_in_closest_point(state.drawable_points, drag_x, drag_y);
     draw_user_line(state, scales);
+  };
+
+  const on_end = function(){
     // Check if all points are drawn so we can reveal line
-    const num_unfilled = d3.sum(state.drawable_points.map(d => d.y === null ? 1: 0));
-    if(num_unfilled === 0){
+    const line_status = get_user_line_status(state.drawable_points);
+
+    if(line_status === 'finished'){
       line_hider.reveal();
     }
   };
 
-  setup_draw_watcher(state.svg, scales, on_drag);
+  setup_draw_watcher(state.svg, scales, on_drag, on_end);
+}
+
+function get_user_line_status(drawable_points){
+  const num_points = drawable_points.length;
+  const num_filled = d3.sum(drawable_points.map(d => d.y === null ? 0: 1));
+  if(num_filled === 1){
+    return 'unstarted';
+  } else if(num_points === num_filled){
+    return 'finished';
+  } else {
+    return 'in_progress';
+  }
 }
 
 function draw_true_line({svg, data}, scales){
@@ -76,8 +98,16 @@ function draw_true_line({svg, data}, scales){
 }
 
 function draw_user_line({svg, drawable_points}, scales){
+  const user_line = state.svg.selectAppend("path.user_line");
+
+  // Only draw line if there's something to draw.
+  if(get_user_line_status(drawable_points) === 'unstarted'){
+    user_line.remove();
+    return;
+  }
+
   // Draw user hidden line
-  state.svg.selectAppend("path.user_line")
+  user_line
       .datum(drawable_points)
       .at(default_line_attrs)
       .attr('stroke', 'steelblue')
@@ -103,7 +133,7 @@ function fill_in_closest_point(drawable_points, drag_x, drag_y){
   drawable_points[closest_index].y = drag_y;
 }
 
-function setup_draw_watcher(svg, scales, on_drag){
+function setup_draw_watcher(svg, scales, on_drag, on_end){
 
   svg.selectAppend('rect.drag_watcher')
     .at({
@@ -112,7 +142,11 @@ function setup_draw_watcher(svg, scales, on_drag){
       fill: 'grey',
       fillOpacity: 0.3,
     })
-    .call(d3.drag().on("drag", on_drag));
+    .call(
+      d3.drag()
+        .on("drag", on_drag)
+        .on("end", on_end)
+    );
 }
 
 function setup_line_hider(svg, draw_start, scales){
@@ -127,16 +161,28 @@ function setup_line_hider(svg, draw_start, scales){
       fill: 'white',
     });
 
+  const reset = () => {
+     rect
+      .translate([0,0])
+      .attr('fill-opacity', 1)
+      .classed('hidden', false);
+  };
+
   const reveal = () => {
     rect
       .transition()
       .duration(2000)
-      .translate([rect_width, 0]);
+      .translate([rect_width, 0])
+      .transition()
+      .duration(0)
+      .attr('fill-opacity', 0)
+      .attr('classed', 'hidden');
   };
 
   return {
     rect,
     reveal,
+    reset,
   }
 }
 
