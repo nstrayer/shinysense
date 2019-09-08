@@ -26,3 +26,11 @@ function add_axis_label(label, y_axis = true){
             .html(label);
   };
 }
+
+
+function split_data(data, draw_start){
+  return {
+    before_draw: data.filter(d => d.x < draw_start),
+    after_draw: data.filter(d => d.x >= draw_start),
+  };
+}
