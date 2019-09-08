@@ -4,9 +4,9 @@
 \alias{drawr_widget}
 \title{Creates and embeds a nice you draw it chart}
 \usage{
-drawr_widget(data, draw_start, raw_draw = FALSE, x_key = "x", y_key = "y",
-  y_min = NA, y_max = NA, width = NULL, height = NULL,
-  elementId = NULL)
+drawr_widget(data, draw_start, raw_draw = FALSE, x_key = "x",
+  y_key = "y", y_min = NA, y_max = NA, width = NULL,
+  height = NULL, elementId = NULL)
 }
 \arguments{
 \item{data}{dataframe containing data you want to plot in two of its columns}

@@ -4,8 +4,8 @@
 \alias{shinyviewr}
 \title{Gather recorded data from UI.}
 \usage{
-shinyviewr(input, output, session, outputWidth = NULL, outputHeight = NULL,
-  alphaChannel = TRUE)
+shinyviewr(input, output, session, outputWidth = NULL,
+  outputHeight = NULL, alphaChannel = TRUE)
 }
 \arguments{
 \item{input}{you can ignore this as it is taken care of by shiny}
