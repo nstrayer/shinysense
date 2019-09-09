@@ -31,7 +31,10 @@ server <- function(input, output) {
     data,
     x_col = time,
     y_col = metric,
-    draw_start = 20
+    # free_draw = TRUE,
+    draw_start = 20,
+    y_range = c(-5,5),
+    drawn_line_color = 'green'
   )
 
   output$displayDrawn <- renderTable(drawr_widget())
