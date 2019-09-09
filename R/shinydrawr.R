@@ -8,12 +8,15 @@
 #' @examples
 #' shinydrawrUI('myrecorder')
 #' @import shiny
-shinydrawrUI <- function(id){
+shinydrawr_UI <- function(id, height = '400px'){
   # Create a namespace function using the provided id
   ns <- NS(id)
 
   #set up output
-  drawr_widgetOutput(ns('myDrawr'))
+  shiny::tagList(
+    r2d3::d3Output(ns("shinydrawr"), height = height)
+  )
+
 }
 
 
@@ -43,19 +46,40 @@ shinydrawrUI <- function(id){
 #'     y_key = "metric")
 #'  }
 #' @importFrom jsonlite toJSON
-shinydrawr <- function(input, output, session,
-                       data,
-                       draw_start,
-                       raw_draw = FALSE,
-                       x_key = "x",
-                       y_key = "y",
-                       y_min = NA,
-                       y_max = NA) {
+shinydrawr <- function(
+  input, output, session,
+  data,
+  x_col,
+  y_col,
+  draw_start
+) {
+  message_loc <- session$ns('drawr_message')
 
-  output$myDrawr <- renderDrawr_widget(
-    drawr_widget(data = data, draw_start = draw_start, x_key = x_key, y_key = y_key, y_min = y_min, y_max = y_max)
-  )
+  drawn_data <- reactiveVal()
 
-  result <- reactive({ input$myDrawr_drawnData })
-  return(result)
+  output$shinydrawr <- r2d3::renderD3({
+
+    shinysense::drawr(
+      data = data,
+      x_col = !!rlang::enquo(x_col),
+      y_col = !!rlang::enquo(y_col),
+      title = 'My Drawr Chart',
+      draw_start = draw_start,
+      shiny_message_loc = message_loc
+    )
+  })
+
+  observeEvent(input$drawr_message, {
+
+    drawn_ys <- input$drawr_message
+
+    drawn_data(
+      data %>%
+        filter(!!rlang::enquo(x_col) >= draw_start) %>%
+        mutate(drawn = drawn_ys)
+    )
+
+  })
+
+  return(drawn_data)
 }

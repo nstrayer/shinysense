@@ -13,12 +13,13 @@
 #' @param data_line_color CSS valid color for data line. Defaults to `"steelblue"`.
 #' @param x_axis_buffer Scaler for how much to pad ends of x axis if not specifying range directly. Defaults to 2% (`0.02`).
 #' @param y_axis_buffer Scaler for how much to pad ends of y axis if not specifying range directly. Defaults to 10% (`0.1`).
+#' @param shiny_message_loc A string containing the destination to target for shiny message passing. Used by `shinydrawr`, and can be ignored unless you're making your own shiny interface.
 #'
 #' @return Interactive you-draw-it plot.
 #' @export
 #'
 #' @examples
-#' drawr(data = tibble(x = 1:50, y = sin(x)), x_col = x, y_col = y, draw_start = 25)
+#' drawr(data = dplyr::tibble(x = 1:50, y = sin(x)), x_col = x, y_col = y, title = 'My Drawr Chart', draw_start = 25)
 drawr <- function(
   data,
   x_col,
@@ -32,7 +33,8 @@ drawr <- function(
   drawn_line_color = 'orangered',
   data_line_color = 'steelblue',
   x_axis_buffer = 0.02,
-  y_axis_buffer = 0.1
+  y_axis_buffer = 0.1,
+  shiny_message_loc = NULL
 ){
   x_col_quo <- rlang::enquo(x_col)
   y_col_quo <- rlang::enquo(y_col)
@@ -72,7 +74,8 @@ drawr <- function(
       line_style = line_style,
       data_line_color = data_line_color,
       drawn_line_color = drawn_line_color,
-      title = title
+      title = title,
+      shiny_message_loc = shiny_message_loc
     )
   )
 }

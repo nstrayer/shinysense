@@ -1,4 +1,4 @@
-// !preview r2d3 data = tibble(x = 1:50, y = sin(x)), options = list(draw_start = 0, pin_start = FALSE, x_range = c(0,50), y_range = c(-5,5), line_style = list(strokeWidth = 4), data_line_color = 'steelblue', drawn_line_color = 'orangered', x_name = 'my_x_col', y_name = 'my_y_col', title = 'My Drawr Plot'), dependencies = c('d3-jetpack'),
+// !preview r2d3 data = tibble(x = 1:50, y = sin(x)), options = list(draw_start = 0, pin_start = FALSE, x_range = c(0,50), y_range = c(-5,5), line_style = list(strokeWidth = 4), data_line_color = 'steelblue', drawn_line_color = 'orangered', x_name = 'my_x_col', y_name = 'my_y_col', title = 'My Drawr Plot', shiny_message_loc = 'my_shiny_app'), dependencies = c('d3-jetpack'),
 
 const system_font = `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"`;
 
@@ -76,6 +76,19 @@ function start_drawer(state, reset = true){
       // User has completed line drawing
 
       if(state.reveal_line)  line_hider.reveal();
+
+      if(state.options.shiny_message_loc){
+        // Make sure shiny is available before sending message
+        if(typeof Shiny !== 'undefined'){
+          // Send drawn points off to server
+          Shiny.onInputChange(
+            state.options.shiny_message_loc,
+            state.drawable_points.map(d => d.y)
+          );
+        } else {
+          console.log(`Sending message to ${state.options.shiny_message_loc}`);
+        }
+      }
     }
   };
 
