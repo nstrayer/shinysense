@@ -1,6 +1,11 @@
 // !preview r2d3 data = NULL, container = 'div', options = list(shiny_message_loc = 'my_shiny_app'), dependencies = "d3-jetpack"
+const system_font = `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"`;
 
-const {shiny_message_loc, shiny_ready_loc = 'ready_for_photo', output_size} = options;
+const {
+  shiny_message_loc,
+  shiny_ready_loc = 'ready_for_photo',
+  output_size,
+} = options;
 
 const image_size = Object.assign({width: 300, height: 300}, output_size);
 
@@ -11,13 +16,25 @@ const shutter_text = {
 
 const is_shiny_app = typeof Shiny !== 'undefined';
 
+// ================================================================
+// Setup DOM elements
+// ================================================================
+
+// Add flex styling to container so things center align
+div.st({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+});
+
 const shutter = div.selectAppend('button')
   .text(shutter_text.ready)
   .st({
     width: '80%',
     height: '40px',
     fontSize: '24px',
-    fontFamily: 'Optima'
+    borderRadius: '8px',
+    fontFamily: system_font
   });
 
 const camera_stream = div.selectAppend('video')
@@ -46,7 +63,10 @@ const photo_holder = div.selectAppend('canvas.photo_holder')
 
 shutter.on('click', function(){
 
-  shutter.text(shutter_text.taking);
+  if(is_shiny_app){
+    shutter.text(shutter_text.taking);
+  }
+
   // Append a snapshot of video canvas element context
   photo_holder
     .getContext('2d')
