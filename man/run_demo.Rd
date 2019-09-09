@@ -7,10 +7,12 @@ Load and play with simple demo apps using the different senses available in shin
 `draw_distribution` which allows the user to draw a beta distribution and get its parameters.`swipr` which demos basic
 usage of cards and decision recording with `shinyswipr`.}
 \usage{
-run_demo(demo_name)
+run_demo(demo_name, show_code = TRUE)
 }
 \arguments{
-\item{demo_name}{Name of demo app to run. Options `{'draw_distribution', 'swipr'}`.}
+\item{demo_name}{Name of demo app to run. Options `{'shinydrawr', 'shinyviewr', 'shinyswipr'}`.}
+
+\item{show_code}{See the underlying code for the demo app? Defaults to `TRUE`./}
 }
 \value{
 Shiny app instance
@@ -22,5 +24,5 @@ Load and play with simple demo apps using the different senses available in shin
 usage of cards and decision recording with `shinyswipr`.
 }
 \examples{
-run_demo('draw_distribution')
+run_demo('shinydrawr')
 }

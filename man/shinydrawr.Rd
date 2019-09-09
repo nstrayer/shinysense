@@ -6,8 +6,8 @@
 \usage{
 shinydrawr(input, output, session, data, x_col, y_col = NULL,
   free_draw = FALSE, draw_start = NULL, title = NULL,
-  pin_start = TRUE, x_range = NULL, y_range = NULL,
-  line_style = NULL, drawn_line_color = "orangered",
+  pin_start = TRUE, x_range = NULL, y_range = NULL, x_lab = NULL,
+  y_lab = NULL, line_style = NULL, drawn_line_color = "orangered",
   data_line_color = "steelblue", x_axis_buffer = 0.02,
   y_axis_buffer = 0.1)
 }
@@ -31,6 +31,10 @@ shinydrawr(input, output, session, data, x_col, y_col = NULL,
 \item{x_range}{Two element array of min and max of x range. Otherwise defaults to min and max of data.}
 
 \item{y_range}{Two element array of min and max of y range. Otherwise defaults to min and max of data.}
+
+\item{x_lab}{Text to label x axis, defaults to name of column used for x-axis}
+
+\item{y_lab}{Text to label y axis, defaults to name of column, or in free-draw case, to just `'y'`.}
 
 \item{line_style}{List containing any styling that is desired for the default line. For options see [MDN SVG line](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/line). Make sure to camelCase all attributes.}
 
