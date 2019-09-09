@@ -43,6 +43,9 @@ shinyviewr_new <- function(
   output_width = 300,
   output_height = 300
 ){
+  # Setup unique message passing ids for shiny and js
+  photo_send_loc <- session$ns('viewr_message')
+  photo_recieved_loc <- session$ns('photo_recieved')
 
   output$shinyviewr <- r2d3::renderD3({
     r2d3::r2d3(
@@ -51,7 +54,8 @@ shinyviewr_new <- function(
       container = 'div',
       dependencies = 'd3-jetpack',
       options = list(
-        shiny_message_loc = session$ns('viewr_message'),
+        shiny_message_loc = photo_send_loc,
+        shiny_ready_loc = photo_recieved_loc,
         output_size = list(
           width = output_width,
           height = output_height
@@ -63,12 +67,17 @@ shinyviewr_new <- function(
   shiny::reactive({
     shiny::req(input$viewr_message)
 
-    input$viewr_message %>%
+    raster_image <- input$viewr_message %>%
       str_remove('data:image/png;base64,') %>%
       str_replace(' ', '+') %>%
       base64enc::base64decode() %>%
       png::readPNG() %>%
       .[,,-4] %>%
       as.raster()
+
+    # send message to javascript to let it know we got image
+    session$sendCustomMessage(photo_recieved_loc, 'yay!');
+
+    raster_image
   })
 }

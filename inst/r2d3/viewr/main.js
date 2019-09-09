@@ -1,6 +1,6 @@
 // !preview r2d3 data = NULL, container = 'div', options = list(shiny_message_loc = 'my_shiny_app'), dependencies = "d3-jetpack"
 
-const {shiny_message_loc, output_size} = options;
+const {shiny_message_loc, shiny_ready_loc = 'ready_for_photo', output_size} = options;
 
 const image_size = Object.assign({width: 300, height: 300}, output_size);
 
@@ -57,26 +57,20 @@ shutter.on('click', function(){
 
   // Send to shiny if needed.
   if(is_shiny_app){
-    Shiny.onInputChange(
-      shiny_message_loc,
-      photo_data
-    );
+    Shiny.onInputChange(shiny_message_loc, photo_data);
   }
 });
 
-
  // Attach the video stream to the video element and autoplay.
 navigator.mediaDevices
-  .getUserMedia({
-    video: image_size
-  })
+  .getUserMedia({ video: image_size })
   .then(stream => camera_stream.srcObject = stream );
 
 // Wait for a message from shiny letting us know it got the image.
 if(is_shiny_app){
   // Handle message from shiny saying photo was received.
   Shiny.addCustomMessageHandler(
-    "photoReceived",
+    shiny_ready_loc,
     message => {
       // Replace shutter text with default.
       shutter.text(shutter_text.ready);
