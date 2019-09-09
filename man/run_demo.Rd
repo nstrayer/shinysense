@@ -4,12 +4,13 @@
 \alias{run_demo}
 \title{Run demo apps
 Load and play with simple demo apps using the different senses available in shinysense. Currently supports
-`draw_distribution` which allows the user to draw a beta distribution and get its parameters.}
+`draw_distribution` which allows the user to draw a beta distribution and get its parameters.`swipr` which demos basic
+usage of cards and decision recording with `shinyswipr`.}
 \usage{
 run_demo(demo_name)
 }
 \arguments{
-\item{demo_name}{Name of demo app to run. Options `{'draw_distribution'}`.}
+\item{demo_name}{Name of demo app to run. Options `{'draw_distribution', 'swipr'}`.}
 }
 \value{
 Shiny app instance
@@ -17,7 +18,8 @@ Shiny app instance
 \description{
 Run demo apps
 Load and play with simple demo apps using the different senses available in shinysense. Currently supports
-`draw_distribution` which allows the user to draw a beta distribution and get its parameters.
+`draw_distribution` which allows the user to draw a beta distribution and get its parameters.`swipr` which demos basic
+usage of cards and decision recording with `shinyswipr`.
 }
 \examples{
 run_demo('draw_distribution')

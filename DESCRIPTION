@@ -17,4 +17,5 @@ Imports:
     htmlwidgets,
     png,
     base64enc,
-    d3r
+    d3r,
+    rlang
