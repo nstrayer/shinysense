@@ -1,10 +1,10 @@
-// !preview r2d3 data = tibble(x = 1:50, y = sin(x)), options = list(draw_start = 0, pin_start = FALSE, x_range = c(0,50), y_range = c(-5,5), line_style = list(stroke = 'orangered')), dependencies = c('d3-jetpack'),
+// !preview r2d3 data = tibble(x = 1:50, y = sin(x)), options = list(draw_start = 0, pin_start = FALSE, x_range = c(0,50), y_range = c(-5,5), line_style = list(strokeWidth = 4), data_line_color = 'steelblue', drawn_line_color = 'orangered', x_name = 'my_x_col', y_name = 'my_y_col'), dependencies = c('d3-jetpack'),
 
-const margin = {left: 45, right: 10, top: 20, bottom: 20};
+const margin = {left: 50, right: 10, top: 20, bottom: 20};
 
 const default_line_attrs = Object.assign({
   fill: "none",
-  stroke: "steelblue",
+  stroke: options.data_line_color || 'steelblue',
   strokeWidth: 4,
   strokeLinejoin: "round",
   strokeLinecap: "round",
@@ -71,7 +71,8 @@ function start_drawer(state, reset = true){
     const line_status = get_user_line_status(state.drawable_points, state.reveal_line);
 
     if(line_status === 'finished'){
-      console.log('Finished drawing');
+      // User has completed line drawing
+
       if(state.reveal_line)  line_hider.reveal();
     }
   };
@@ -115,7 +116,7 @@ function draw_true_line({svg, data}, scales){
       .attr("d", scales.line_drawer);
 }
 
-function draw_user_line({svg, drawable_points}, scales){
+function draw_user_line({svg, drawable_points, options}, scales){
   const user_line = state.svg.selectAppend("path.user_line");
 
   // Only draw line if there's something to draw.
@@ -128,7 +129,7 @@ function draw_user_line({svg, drawable_points}, scales){
   user_line
       .datum(drawable_points)
       .at(default_line_attrs)
-      .attr('stroke', 'steelblue')
+      .attr('stroke', options.drawn_line_color)
       .attr("d", scales.line_drawer);
 }
 
@@ -159,7 +160,7 @@ function setup_draw_watcher(svg, scales, on_drag, on_end){
       height: scales.y.range()[0],
       width: scales.x.range()[1],
       fill: 'grey',
-      fillOpacity: 0.3,
+      fillOpacity: 0,
     })
     .call(
       d3.drag()
@@ -237,7 +238,7 @@ function add_axis_label(label, y_axis = true){
 
 // Setup scales for visualization
 function setup_scales(state){
-  const {w, h, data} = state;
+  const {w, h, data, options} = state;
 
   const x = d3.scaleLinear()
       .domain(state.options.x_range || d3.extent(data, d => d.x))
@@ -251,12 +252,12 @@ function setup_scales(state){
   state.svg.selectAppend("g.x_axis")
     .translate([0, h])
     .call(d3.axisBottom().scale(x).ticks(5))
-    .call(add_axis_label('X axis', y_axis = false));
+    .call(add_axis_label(options.x_name, y_axis = false));
 
   // Draw y axis
   state.svg.selectAppend("g.y_axis")
     .call(d3.axisLeft().scale(y))
-    .call(add_axis_label('Y axis', y_axis = true));
+    .call(add_axis_label(options.y_name, y_axis = true));
 
   const line_drawer = d3.line()
     .defined(d => d.y !== null)
