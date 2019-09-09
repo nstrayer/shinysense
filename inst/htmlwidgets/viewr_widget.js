@@ -59,8 +59,11 @@ HTMLWidgets.widget({
 
         const outputWidth = x.outputWidth === null ? width: x.outputWidth;
         const outputHeight = x.outputHeight === null ? height: x.outputHeight;
+
+        navigator.mediaDevices;
+
         function startStream(stream) {
-          video.src = window.URL.createObjectURL(stream);
+          video.srcObject = stream
           video.play();
           shutter.on('click', () => {
             // draw current video frame to the invisible canvas element
