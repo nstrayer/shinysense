@@ -26,8 +26,8 @@ server <- function(input, output) {
   camera_snapshot <- callModule(
     shinyviewr_new,
     'my_camera',
-    output_width = 300,
-    output_height = 300
+    output_width = 250,
+    output_height = 250
   )
 
   output$snapshot <- renderPlot({
