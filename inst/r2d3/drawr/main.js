@@ -264,7 +264,7 @@ function setup_scales(state){
   // Draw x axis
   state.svg.selectAppend("g.x_axis")
     .translate([0, h])
-    .call(d3.axisBottom().scale(x).ticks(5).tickSizeOuter(0))
+    .call(d3.axisBottom().scale(x).tickSizeOuter(0))
     .call(add_axis_label(options.x_name, y_axis = false));
 
   // Draw y axis
