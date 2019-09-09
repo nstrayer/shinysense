@@ -4,10 +4,12 @@
 \alias{drawr}
 \title{Drawr}
 \usage{
-drawr(data, x_col, y_col, draw_start, title = NULL, pin_start = TRUE,
+drawr(data, x_col, y_col = NULL, free_draw = FALSE,
+  draw_start = NULL, title = NULL, pin_start = TRUE,
   x_range = NULL, y_range = NULL, line_style = NULL,
   drawn_line_color = "orangered", data_line_color = "steelblue",
-  x_axis_buffer = 0.02, y_axis_buffer = 0.1)
+  x_axis_buffer = 0.02, y_axis_buffer = 0.1,
+  shiny_message_loc = NULL)
 }
 \arguments{
 \item{data}{Tibble to draw}
@@ -16,7 +18,9 @@ drawr(data, x_col, y_col, draw_start, title = NULL, pin_start = TRUE,
 
 \item{y_col}{Name of column for y axis}
 
-\item{draw_start}{Where on the x axis to start obscuring data for drawing?}
+\item{free_draw}{Do you just want the user to draw data on a supplied x-range? I.e. no revealed line?}
+
+\item{draw_start}{Where on the x axis to start obscuring data for drawing? Defaults to very start of data.}
 
 \item{title}{Text for title, if desired.}
 
@@ -35,6 +39,8 @@ drawr(data, x_col, y_col, draw_start, title = NULL, pin_start = TRUE,
 \item{x_axis_buffer}{Scaler for how much to pad ends of x axis if not specifying range directly. Defaults to 2% (`0.02`).}
 
 \item{y_axis_buffer}{Scaler for how much to pad ends of y axis if not specifying range directly. Defaults to 10% (`0.1`).}
+
+\item{shiny_message_loc}{A string containing the destination to target for shiny message passing. Used by `shinydrawr`, and can be ignored unless you're making your own shiny interface.}
 }
 \value{
 Interactive you-draw-it plot.
@@ -43,5 +49,12 @@ Interactive you-draw-it plot.
 Drawr
 }
 \examples{
-drawr(data = tibble(x = 1:50, y = sin(x)), x_col = x, y_col = y, draw_start = 25)
+\dontrun{
+drawr(
+  data = dplyr::tibble(x = 1:50, y = sin(x)),
+  x_col = x, y_col = y,
+  title = 'My Drawr Chart',
+  draw_start = 25
+)
+}
 }
