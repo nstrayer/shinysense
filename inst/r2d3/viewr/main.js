@@ -1,7 +1,4 @@
-// !preview r2d3 dependencies = "d3-jetpack"
-//
-// r2d3: https://rstudio.github.io/r2d3
-//
+// !preview r2d3 data = NULL, dependencies = "d3-jetpack"
 
 const container = d3.select('#htmlwidget_container').html('');
 const shutter = container.append('center').append('button')
