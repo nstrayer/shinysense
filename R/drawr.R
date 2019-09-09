@@ -4,6 +4,7 @@
 #' @param x_col Name of column for x axis
 #' @param y_col Name of column for y axis
 #' @param draw_start Where on the x axis to start obscuring data for drawing?
+#' @param title Text for title, if desired.
 #' @param pin_start Pin start of drawn line to end of shown data? Defaults to `TRUE`.
 #' @param x_range Two element array of min and max of x range. Otherwise defaults to min and max of data.
 #' @param y_range Two element array of min and max of y range. Otherwise defaults to min and max of data.
@@ -23,6 +24,7 @@ drawr <- function(
   x_col,
   y_col,
   draw_start,
+  title = NULL,
   pin_start = TRUE,
   x_range = NULL,
   y_range = NULL,
@@ -69,7 +71,8 @@ drawr <- function(
       y_name = rlang::as_name(y_col_quo),
       line_style = line_style,
       data_line_color = data_line_color,
-      drawn_line_color = drawn_line_color
+      drawn_line_color = drawn_line_color,
+      title = title
     )
   )
 }

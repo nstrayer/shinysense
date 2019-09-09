@@ -1,6 +1,8 @@
-// !preview r2d3 data = tibble(x = 1:50, y = sin(x)), options = list(draw_start = 0, pin_start = FALSE, x_range = c(0,50), y_range = c(-5,5), line_style = list(strokeWidth = 4), data_line_color = 'steelblue', drawn_line_color = 'orangered', x_name = 'my_x_col', y_name = 'my_y_col'), dependencies = c('d3-jetpack'),
+// !preview r2d3 data = tibble(x = 1:50, y = sin(x)), options = list(draw_start = 0, pin_start = FALSE, x_range = c(0,50), y_range = c(-5,5), line_style = list(strokeWidth = 4), data_line_color = 'steelblue', drawn_line_color = 'orangered', x_name = 'my_x_col', y_name = 'my_y_col', title = 'My Drawr Plot'), dependencies = c('d3-jetpack'),
 
-const margin = {left: 50, right: 10, top: 20, bottom: 20};
+const system_font = `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"`;
+
+const margin = {left: 55, right: 10, top: options.title ? 50: 15, bottom: 25};
 
 const default_line_attrs = Object.assign({
   fill: "none",
@@ -78,6 +80,18 @@ function start_drawer(state, reset = true){
   };
 
   setup_draw_watcher(state.svg, scales, on_drag, on_end);
+
+  // Do we have a title?
+  if(state.options.title){
+    state.svg.append('text')
+      .at({
+        y: -margin.top/2,
+        dominantBaseline: 'middle',
+        fontSize: '1.5rem',
+      })
+      .style('font-family', system_font)
+      .text(state.options.title);
+  }
 }
 
 function setup_drawable_points(state){
@@ -209,14 +223,13 @@ function setup_line_hider(svg, draw_start, scales){
 
 function add_axis_label(label, y_axis = true){
 
-  const bump_axis = y_axis ? 'y': 'x';
+  const bump_axis = y_axis ? 'x': 'y';
 
   const axis_label_style = {
-    [bump_axis]: -2,
+    [bump_axis]: bump_axis == 'y' ? 3: -2,
     textAnchor: 'end',
     fontWeight: '500',
-    fontSize: '0.8rem',
-    fill: 'dimgrey',
+    fontSize: '0.9rem',
   };
 
   return g => {
@@ -251,12 +264,12 @@ function setup_scales(state){
   // Draw x axis
   state.svg.selectAppend("g.x_axis")
     .translate([0, h])
-    .call(d3.axisBottom().scale(x).ticks(5))
+    .call(d3.axisBottom().scale(x).ticks(5).tickSizeOuter(0))
     .call(add_axis_label(options.x_name, y_axis = false));
 
   // Draw y axis
   state.svg.selectAppend("g.y_axis")
-    .call(d3.axisLeft().scale(y))
+    .call(d3.axisLeft().scale(y).tickSizeOuter(0))
     .call(add_axis_label(options.y_name, y_axis = true));
 
   const line_drawer = d3.line()
@@ -270,4 +283,3 @@ function setup_scales(state){
     line_drawer,
   };
 }
-
