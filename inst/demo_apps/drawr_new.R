@@ -33,8 +33,9 @@ server <- function(input, output) {
     y_col = metric,
     # free_draw = TRUE,
     draw_start = 20,
-    y_range = c(-5,5),
-    drawn_line_color = 'green'
+    # y_range = c(-5,5),
+    drawn_line_color = 'green',
+    y_lab = 'Super cool'
   )
 
   output$displayDrawn <- renderTable(drawr_widget())

@@ -35,6 +35,8 @@ shinydrawr_UI <- function(id, height = '400px'){
 #' @param pin_start Pin start of drawn line to end of shown data? Defaults to `TRUE`.
 #' @param x_range Two element array of min and max of x range. Otherwise defaults to min and max of data.
 #' @param y_range Two element array of min and max of y range. Otherwise defaults to min and max of data.
+#' @param x_lab Text to label x axis, defaults to name of column used for x-axis
+#' @param y_lab Text to label y axis, defaults to name of column, or in free-draw case, to just `'y'`.
 #' @param line_style List containing any styling that is desired for the default line. For options see [MDN SVG line](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/line). Make sure to camelCase all attributes.
 #' @param drawn_line_color CSS valid color for user-drawn line. Defaults to `"orangered"`.
 #' @param data_line_color CSS valid color for data line. Defaults to `"steelblue"`.
@@ -64,6 +66,8 @@ shinydrawr <- function(
   pin_start = TRUE,
   x_range = NULL,
   y_range = NULL,
+  x_lab = NULL,
+  y_lab = NULL,
   line_style = NULL,
   drawn_line_color = 'orangered',
   data_line_color = 'steelblue',
@@ -89,15 +93,17 @@ shinydrawr <- function(
       free_draw = free_draw,
       draw_start = draw_start,
       shiny_message_loc = message_loc,
-      title,
-      pin_start,
-      x_range,
-      y_range,
-      line_style,
-      drawn_line_color,
-      data_line_color,
-      x_axis_buffer,
-      y_axis_buffer
+      title = title,
+      pin_start = pin_start,
+      x_range = x_range,
+      y_range = y_range,
+      x_lab = x_lab,
+      y_lab = y_lab,
+      line_style = line_style,
+      drawn_line_color = drawn_line_color,
+      data_line_color = data_line_color,
+      x_axis_buffer = x_axis_buffer,
+      y_axis_buffer = y_axis_buffer
     )
   })
 
