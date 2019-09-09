@@ -1,4 +1,4 @@
-// !preview r2d3 data = tibble(x = 1:50, y = sin(x)), options = list(draw_start = 30, x_range = c(0,50), y_range = c(-5,5), line_style = list(stroke = 'orangered')), dependencies = c('d3-jetpack'),
+// !preview r2d3 data = tibble(x = 1:50, y = sin(x)), options = list(draw_start = 0, pin_start = FALSE, x_range = c(0,50), y_range = c(-5,5), line_style = list(stroke = 'orangered')), dependencies = c('d3-jetpack'),
 
 const margin = {left: 45, right: 10, top: 20, bottom: 20};
 
@@ -9,6 +9,7 @@ const default_line_attrs = Object.assign({
   strokeLinejoin: "round",
   strokeLinecap: "round",
 }, options.line_style);
+
 
 let state = {
   data: data,
@@ -25,9 +26,9 @@ let state = {
 r2d3.onRender(function(data, svg, width, height, options) {
   state.data = data;
   state.options = options;
-  state.drawable_points = state.data
-    .filter(d => d.x >= state.options.draw_start)
-    .map((d,i) => ({x: d.x, y: i === 0 ? d.y: null})); // Keep first point pinned
+
+  // Are we drawing real data to reveal?
+  state.reveal_line = state.data[0].y !== undefined;
 
   start_drawer(state);
 });
@@ -45,15 +46,15 @@ r2d3.onResize(function(width, height) {
 function start_drawer(state, reset = true){
   const scales = setup_scales(state);
 
-  draw_true_line(state, scales);
+  if(state.reveal_line){
+    draw_true_line(state, scales);
+  }
 
   // Cover hidden portion with a rectangle
   const line_hider = setup_line_hider(state.svg, state.options.draw_start, scales);
+
   if(reset){
-    state.drawable_points = state.data
-      .filter(d => d.x >= state.options.draw_start)
-      .map((d,i) => ({x: d.x, y: i === 0 ? d.y: null})); // Keep first point pinned
-    line_hider.reset();
+    state.drawable_points = setup_drawable_points(state);
   }
 
   draw_user_line(state, scales);
@@ -61,26 +62,43 @@ function start_drawer(state, reset = true){
   const on_drag = function(){
     const drag_x = scales.x.invert(d3.event.x);
     const drag_y = scales.y.invert(d3.event.y);
-    fill_in_closest_point(state.drawable_points, drag_x, drag_y);
+    fill_in_closest_point(state, drag_x, drag_y);
     draw_user_line(state, scales);
   };
 
   const on_end = function(){
     // Check if all points are drawn so we can reveal line
-    const line_status = get_user_line_status(state.drawable_points);
+    const line_status = get_user_line_status(state.drawable_points, state.reveal_line);
 
     if(line_status === 'finished'){
-      line_hider.reveal();
+      console.log('Finished drawing');
+      if(state.reveal_line)  line_hider.reveal();
     }
   };
 
   setup_draw_watcher(state.svg, scales, on_drag, on_end);
 }
 
-function get_user_line_status(drawable_points){
+function setup_drawable_points(state){
+
+  if(state.reveal_line){
+    return state.data
+      .filter(d => d.x >= state.options.draw_start)
+      .map((d,i) => ({
+        x: d.x,
+        y: i === 0 ? d.y: null
+      }));
+   } else {
+     return state.data.map(d => ({x: d.x, y: null}));
+   }
+
+}
+
+function get_user_line_status(drawable_points, reveal_line){
   const num_points = drawable_points.length;
   const num_filled = d3.sum(drawable_points.map(d => d.y === null ? 0: 1));
-  if(num_filled === 1){
+  const num_starting_filled = reveal_line ? 1: 0;
+  if(num_filled === num_starting_filled){
     return 'unstarted';
   } else if(num_points === num_filled){
     return 'finished';
@@ -101,7 +119,7 @@ function draw_user_line({svg, drawable_points}, scales){
   const user_line = state.svg.selectAppend("path.user_line");
 
   // Only draw line if there's something to draw.
-  if(get_user_line_status(drawable_points) === 'unstarted'){
+  if(get_user_line_status(drawable_points, state.reveal_line) === 'unstarted'){
     user_line.remove();
     return;
   }
@@ -114,13 +132,14 @@ function draw_user_line({svg, drawable_points}, scales){
       .attr("d", scales.line_drawer);
 }
 
-function fill_in_closest_point(drawable_points, drag_x, drag_y){
+function fill_in_closest_point({drawable_points, options}, drag_x, drag_y){
    // find closest point on data to draw
   let last_dist = Infinity;
   let current_dist;
   // If nothing triggers break statement than closest point is last point
   let closest_index = drawable_points.length - 1;
-  for(let i = 1; i < drawable_points.length; i++){
+  let i = options.pin_start ? 1: 0;
+  for(; i < drawable_points.length; i++){
     current_dist = Math.abs(drawable_points[i].x - drag_x);
     // If distances start going up we've passed the closest point
     if(last_dist - current_dist < 0) {
@@ -153,9 +172,10 @@ function setup_line_hider(svg, draw_start, scales){
   // Cover hidden portion with a rectangle
   const start_pos = scales.x(draw_start);
   const rect_width = scales.x.range()[1] - start_pos + 5;
+  const covering_all_data = scales.x(draw_start) === scales.x.range()[0];
   const rect = svg.selectAppend('rect.line_hider')
     .at({
-      x: scales.x(draw_start),
+      x: scales.x(draw_start) + (covering_all_data ? 2: 0),
       height: scales.y.range()[0],
       width: rect_width,
       fill: 'white',
