@@ -79,7 +79,6 @@ const photo_holder = div.selectAppend('canvas.photo_holder')
 // ================================================================
 // Camera hookup
 // ================================================================
-let camera_stream; // global variable that we attach camera to.
 
 // Look for available cameras
 if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
@@ -107,7 +106,7 @@ if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
         camera_chooser
           .on('change', function(d){
             const selected_camera_id = this.value;
-            attach_camera_stream(camera_stream, selected_camera_id);
+            attach_camera_stream(selected_camera_id);
           });
       }
   })
@@ -117,36 +116,34 @@ if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
 }
 
 // Attach the video stream to the video element and autoplay.
-function attach_camera_stream(camera_stream, camera_id = null){
+function attach_camera_stream(camera_id = null){
+
+  // Older browsers don't use srcObject but just plain src so check for that.
+  const is_new_browser = "srcObject" in video_element;
+
+  // Grab current stream (if any from video element)
+  const current_stream = video_element[is_new_browser ? 'srcObject': 'src'];
+
   // Shut off old stream if it exists
-  if (typeof camera_stream !== 'undefined') {
-    camera_stream
+  if (current_stream) {
+    current_stream
       .getTracks()
       .forEach(track => track.stop());
   }
 
-  // If we have been given a camera_id to attach to, go to that one
-  // if no id specified just go to default.
-  const request_constraints = {
-    video: image_size,
-  };
+  // If no camera specified just go to default
+  const request_constraints = { video: image_size };
 
+  // Otherwise, add a desired camera id to constraints object
   if(camera_id){
     request_constraints.video.deviceId = {exact: camera_id};
-    console.log(`Attaching ${camera_id}`);
   }
 
   // Setup new stream
   navigator.mediaDevices
     .getUserMedia(request_constraints)
-    .then(stream => {
-      camera_stream = stream;
-      // Older browsers may not have srcObject
-      if ("srcObject" in video_element) {
-        video_element.srcObject = camera_stream;
-      } else {
-        video_element.src = window.URL.createObjectURL(camera_stream);
-      }
+    .then(new_stream => {
+      video_element[is_new_browser ? 'srcObject': 'src'] = new_stream;
     });
 }
 
