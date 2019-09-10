@@ -26,7 +26,6 @@ shinymovrUI <- function(id,
   movrjs <- .get_script("movr.js", "js")
   movr_css <- .get_script("movr.css", "css")
 
-
   tagList(
     singleton(
       tags$head( # load external scripts.
