@@ -1,52 +1,108 @@
-// !preview r2d3 data = NULL, dependencies = "d3-jetpack"
+// !preview r2d3 data = NULL, container = 'div', options = list(shiny_message_loc = 'my_shiny_app'), dependencies = "d3-jetpack"
+const system_font = `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"`;
 
-const container = d3.select('#htmlwidget_container').html('');
-const shutter = container.append('center').append('button')
-  .text('Take Photo!')
+const {
+  shiny_message_loc,
+  shiny_ready_loc = 'ready_for_photo',
+  output_size,
+} = options;
+
+const image_size = Object.assign({width: 300, height: 300}, output_size);
+
+const shutter_text = {
+  taking: 'Sending photo...',
+  ready: 'Take photo!',
+};
+
+const is_shiny_app = typeof Shiny !== 'undefined';
+
+// ================================================================
+// Setup DOM elements
+// ================================================================
+
+// Add flex styling to container so things center align
+div.st({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+});
+
+const shutter = div.selectAppend('button')
+  .text(shutter_text.ready)
   .st({
     width: '80%',
     height: '40px',
     fontSize: '24px',
-    fontFamily: 'Optima'
+    borderRadius: '8px',
+    fontFamily: system_font,
   });
 
-const video = container.append('center')
-  .append('video')
+const camera_stream = div.selectAppend('video')
   .at({
-    width: 380,
-    height: 380,
+    width: image_size.width,
+    height: image_size.height,
     autoplay: true,
     playsinline: true,
   })
   .st({
+    width: `${image_size.width}px`,
+    height:`${image_size.height}px`,
+    objectFit: 'cover',
     maxWidth: '100%',
     maxHeight: '80%',
+    marginTop: '0.5rem',
   }).node();
-const photoDeck = container.append('div')
-  .classed('photoDeck', true)
-  .st({
-    display: 'flex',
-    flexWrap: 'wrap',
-    width: `${width}px`,
- });
+
+const photo_holder = div.selectAppend('canvas.photo_holder')
+   .at(image_size)
+   .st({
+      width: `${image_size.width}px`,
+      height:`${image_size.height}px`,
+      display: 'none',
+    })
+    .node();
+
+// ================================================================
+// Camera hookup
+// ================================================================
+
+ // Attach the video stream to the video element and autoplay.
+navigator.mediaDevices
+  .getUserMedia({ video: image_size })
+  .then(stream => camera_stream.srcObject = stream );
 
 
-if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
- navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
- video.src = window.URL.createObjectURL(stream);
- video.play();
+// ================================================================
+// Shutter watcher
+// ================================================================
+shutter.on('click', function(){
 
- shutter.on('click', () => {
-  const canvas = photoDeck.append('canvas').st({
-    width: '180px',
-    height: '100px',
-    magin: '10px',
-  });
-  const ctx = canvas.node().getContext('2d');
-  ctx.drawImage(video, 0,0, 180, 140);
+  if(is_shiny_app){
+    shutter.text(shutter_text.taking);
+  }
+
+  // Append a snapshot of video canvas element context
+  photo_holder
+    .getContext('2d')
+    .drawImage(camera_stream, 0, 0, image_size.width, image_size.height);
+
+  // Grab photo data as a dataurl
+  const photo_data = photo_holder.toDataURL("image/png");
+
+  // Send to shiny if needed.
+  if(is_shiny_app){
+    Shiny.onInputChange(shiny_message_loc, photo_data);
+  }
 });
 
- });
+
+// Wait for a message from shiny letting us know it got the image.
+if(is_shiny_app){
+  // Handle message from shiny saying photo was received.
+  Shiny.addCustomMessageHandler(
+    shiny_ready_loc,
+    message => {
+      // Replace shutter text with default.
+      shutter.text(shutter_text.ready);
+    });
 }
-
-
