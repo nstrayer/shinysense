@@ -120,7 +120,9 @@ if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
 function attach_camera_stream(camera_stream, camera_id = null){
   // Shut off old stream if it exists
   if (typeof camera_stream !== 'undefined') {
-    stop_camera_stream(camera_stream);
+    camera_stream
+      .getTracks()
+      .forEach(track => track.stop());
   }
 
   // If we have been given a camera_id to attach to, go to that one
@@ -148,14 +150,6 @@ function attach_camera_stream(camera_stream, camera_id = null){
     });
 }
 
-// kills all currently running video streams
-function stop_camera_stream(stream){
-  stream
-    .getTracks()
-    .forEach(track => {
-      track.stop();
-    });
-}
 
 // Initiate camera stream to default camera.
 attach_camera_stream();
