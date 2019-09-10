@@ -34,7 +34,7 @@ const shutter = div.selectAppend('button')
     height: '40px',
     fontSize: '24px',
     borderRadius: '8px',
-    fontFamily: system_font
+    fontFamily: system_font,
   });
 
 const camera_stream = div.selectAppend('video')
@@ -50,6 +50,7 @@ const camera_stream = div.selectAppend('video')
     objectFit: 'cover',
     maxWidth: '100%',
     maxHeight: '80%',
+    marginTop: '0.5rem',
   }).node();
 
 const photo_holder = div.selectAppend('canvas.photo_holder')
@@ -61,6 +62,19 @@ const photo_holder = div.selectAppend('canvas.photo_holder')
     })
     .node();
 
+// ================================================================
+// Camera hookup
+// ================================================================
+
+ // Attach the video stream to the video element and autoplay.
+navigator.mediaDevices
+  .getUserMedia({ video: image_size })
+  .then(stream => camera_stream.srcObject = stream );
+
+
+// ================================================================
+// Shutter watcher
+// ================================================================
 shutter.on('click', function(){
 
   if(is_shiny_app){
@@ -81,10 +95,6 @@ shutter.on('click', function(){
   }
 });
 
- // Attach the video stream to the video element and autoplay.
-navigator.mediaDevices
-  .getUserMedia({ video: image_size })
-  .then(stream => camera_stream.srcObject = stream );
 
 // Wait for a message from shiny letting us know it got the image.
 if(is_shiny_app){
