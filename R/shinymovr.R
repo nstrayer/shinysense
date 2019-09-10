@@ -1,4 +1,7 @@
 #' Use shiny on your mobile phone to gather accelorameter data for whatever your heart could desire.
+#'
+#' Note that this has been recently hamstrung by browser's attempts to better secure user data. It still works on mobile devices but motion detection needs to be enabled in the devices settings.
+#'
 #' @param id the id you will use to keep track of this component in your app
 #' @param resting_msg the string displayed when the button is not pressed. Defaults to "Turn On"
 #' @param button_width width of the button in a valid css string. E.g. needs to have pixels appended to it.

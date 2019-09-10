@@ -86,10 +86,4 @@ server <- function(input, output) {
 }
 
 # Run the application
-shinyApp(ui = ui, server = server, options = list(
-  "host" = "0.0.0.0",
-  "port" = 1410,
-  "display.mode" = "showcase"
-))
-# runApp(appDir = "/Users/nick/rpackages/shinysense/demo/movr_demo.R", display.mode = "showcase")
-# shinyApp(ui = ui, server = server)
+shinyApp(ui = ui, server = server)

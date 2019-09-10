@@ -11,14 +11,6 @@ error_div.innerHTML = `
 error_div.style.color = 'darkred';
 error_div.style.display = 'none';
 
-//const error_message = div.selectAppend('div.error_message')
-//  .html().style('display', 'none');
-//
-//function show_error(){
-//  record_button.style('display', 'none');
-//  error_message.style('display', 'block');
-//}
-
 const add_g = (d) => ['x', 'y', 'z'].includes(d) ? `g${d}`: d;
 
 const pick_fields = (obj, fields, prepend) => fields
@@ -93,13 +85,6 @@ function movr_recorder({
   // if the browser doesn't suport the motion capture give an error
   function error_handler(e){
     error_div.style.display = 'block';
-   // const error_msg = 'looks like no device motion is supported on this device :(';
-   // console.log(e);
-   // if(graceful_fail){
-   //     console.log(error_msg);
-   // } else {
-   //    alert(error_msg);
-   // }
   }
 
   function log_data(data){
@@ -121,8 +106,7 @@ function movr_recorder({
 }
 
 $(document).on('shiny:connected', event => {
-  console.log("shiny is connected.");
-
+  //console.log("shiny is connected.");
 
     //watch for message from server saying it's ready.
   Shiny.addCustomMessageHandler("initialize_movr", params => {
@@ -134,9 +118,6 @@ $(document).on('shiny:connected', event => {
       const destination = params.destination + "movement";
       Shiny.onInputChange(destination, JSON.stringify(data))
     };
-
-    // select dom element we're targeting
-    //const target = document.getElementById(params.id);
 
     // call recorder
     movr_recorder(Object.assign(
