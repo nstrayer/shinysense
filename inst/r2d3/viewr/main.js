@@ -14,6 +14,8 @@ const shutter_text = {
   ready: 'Take photo!',
 };
 
+const no_camera_message = "Shiny can't get access to cameras. This is a privacy consideration. Make sure you are trying from a secure (https, or localhost) site.";
+
 const is_shiny_app = typeof Shiny !== 'undefined';
 
 // ================================================================
@@ -39,6 +41,15 @@ const shutter = div.selectAppend('button')
 
 const camera_chooser = div.selectAppend('select.camera_chooser')
   .style('display', 'none');
+
+const no_camera_alert = div.selectAppend('p')
+  .text(no_camera_message)
+  .st({
+    display: 'none',
+    maxWidth: '300px',
+    color: 'darkred',
+    fontWeight: 'bold'
+  });
 
 const camera_stream = div.selectAppend('video')
   .at({
@@ -71,7 +82,7 @@ const photo_holder = div.selectAppend('canvas.photo_holder')
 
 // Look for available cameras
 if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
-  alert("Shiny can't get access to cameras. This is a privacy consideration. Make sure you are trying from a secure (https, or localhost) site.");
+  no_camera_alert.style('display', 'block');
   return;
 } else {
   // List cameras and microphones.
