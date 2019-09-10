@@ -37,6 +37,9 @@ const shutter = div.selectAppend('button')
     fontFamily: system_font,
   });
 
+const camera_chooser = div.selectAppend('select.camera_chooser')
+  .style('display', 'none');
+
 const camera_stream = div.selectAppend('video')
   .at({
     width: image_size.width,
@@ -66,11 +69,59 @@ const photo_holder = div.selectAppend('canvas.photo_holder')
 // Camera hookup
 // ================================================================
 
- // Attach the video stream to the video element and autoplay.
-navigator.mediaDevices
-  .getUserMedia({ video: image_size })
-  .then(stream => camera_stream.srcObject = stream );
+// Look for available cameras
+if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+  alert("Shiny can't get access to cameras. This is a privacy consideration. Make sure you are trying from a secure (https, or localhost) site.");
+  return;
+} else {
+  // List cameras and microphones.
+  navigator.mediaDevices
+    .enumerateDevices()
+    .then(function(devices) {
+      const available_cameras = devices
+        .filter(device => device.kind === 'videoinput')
+        .map(({deviceId, label}) => ({ id: deviceId, name: label }));
 
+      if(available_cameras.length > 1){
+        // Show chooser if we have more than one camera
+        camera_chooser
+          .style('display', 'block')
+          .selectAll('option')
+          .data(available_cameras)
+          .enter().append('option')
+          .attr('value', d => d.id)
+          .text(d => d.name);
+
+        camera_chooser
+          .on('change', function(d){
+            const selected_camera_id = this.value;
+            attach_camera_stream(selected_camera_id);
+          });
+      }
+  })
+  .catch(function(err) {
+    console.log(err.name + ": " + err.message);
+  });
+}
+
+// Attach the video stream to the video element and autoplay.
+function attach_camera_stream(camera_id = null){
+  // If we have been given a camera_id to attach to, go to that one
+  // if no id specified just go to default.
+  const video_constraints = Object.assign(
+    image_size,
+    camera_id ? {deviceID: camera_id} : {}
+  );
+
+  navigator.mediaDevices
+    .getUserMedia({
+      video: video_constraints
+    })
+    .then(stream => camera_stream.srcObject = stream );
+}
+
+// Initiate camera stream to default camera.
+attach_camera_stream();
 
 // ================================================================
 // Shutter watcher
