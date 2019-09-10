@@ -143,7 +143,12 @@ function attach_camera_stream(camera_stream, camera_id = null){
     .getUserMedia(request_constraints)
     .then(stream => {
       camera_stream = stream;
-      video_element.srcObject = camera_stream;
+      // Older browsers may not have srcObject
+      if ("srcObject" in video_element) {
+        video_element.srcObject = camera_stream;
+      } else {
+        video_element.src = window.URL.createObjectURL(camera_stream);
+      }
     });
 }
 
