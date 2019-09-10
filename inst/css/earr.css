@@ -1,0 +1,34 @@
+.recordButton {
+    background-color: steelblue;
+    color: white;
+    display: block;
+    /*height: 40px;*/
+    line-height: 40px;
+    text-decoration: none;
+    border-radius: 25px;
+    /*margin-left: 5px;*/
+    /*margin: auto;*/
+    /*width: 100px;*/
+    padding-top:5px;
+    padding-bottom:10px;
+    max-width: 200px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.recordButton * {
+    padding: 5px 5px;
+}
+
+.pulsing {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #001F3F;
+  }
+  100% {
+    background-color: #FF4136;
+  }
+}

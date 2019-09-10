@@ -10,12 +10,11 @@ Description: shinysense is a collection of modules written for shiny that allows
 License: MIT
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 6.0.1.9000
 Imports:
     jsonlite,
     shiny,
     htmlwidgets,
     png,
     base64enc,
-    d3r,
-    rlang
+    d3r

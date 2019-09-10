@@ -4,49 +4,29 @@
 \alias{shinydrawr}
 \title{Gather recorded data from UI.}
 \usage{
-shinydrawr(input, output, session, data, x_col, y_col = NULL,
-  free_draw = FALSE, draw_start = NULL, title = NULL,
-  pin_start = TRUE, x_range = NULL, y_range = NULL, x_lab = NULL,
-  y_lab = NULL, line_style = NULL, drawn_line_color = "orangered",
-  data_line_color = "steelblue", x_axis_buffer = 0.02,
-  y_axis_buffer = 0.1)
+shinydrawr(input, output, session, data, draw_start, raw_draw = FALSE,
+  x_key = "x", y_key = "y", y_min = NA, y_max = NA)
 }
 \arguments{
-\item{input, output, session}{you can ignore this as it is taken care of by shiny}
+\item{input}{you can ignore this as it is taken care of by shiny}
+
+\item{output}{you can ignore this as it is taken care of by shiny}
+
+\item{session}{you can ignore this as it is taken care of by shiny}
 
 \item{data}{dataframe containing data you want to plot in two of its columns}
 
-\item{x_col}{Name of column for x axis}
+\item{draw_start}{position on the x-axis the true data is blocked off and the user is to draw from.}
 
-\item{y_col}{Name of column for y axis. Can be left empty if `free_draw = TRUE`.}
+\item{raw_draw}{set to true if you want to not draw any line, just let the user draw everything. Auto sets draw_start to begining of data.}
 
-\item{free_draw}{Do you just want the user to draw data on a supplied x-range? I.e. no revealed line?}
+\item{x_key}{name of the x column.}
 
-\item{draw_start}{If doing a revealed line, where on the x axis to start obscuring data for drawing?}
+\item{y_key}{name of the y column.}
 
-\item{title}{Text for title, if desired.}
+\item{y_min}{value of the lowest possible value the user is allowed to draw, defaults to lowest seen in data.}
 
-\item{pin_start}{Pin start of drawn line to end of shown data? Defaults to `TRUE`.}
-
-\item{x_range}{Two element array of min and max of x range. Otherwise defaults to min and max of data.}
-
-\item{y_range}{Two element array of min and max of y range. Otherwise defaults to min and max of data.}
-
-\item{x_lab}{Text to label x axis, defaults to name of column used for x-axis}
-
-\item{y_lab}{Text to label y axis, defaults to name of column, or in free-draw case, to just `'y'`.}
-
-\item{line_style}{List containing any styling that is desired for the default line. For options see [MDN SVG line](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/line). Make sure to camelCase all attributes.}
-
-\item{drawn_line_color}{CSS valid color for user-drawn line. Defaults to `"orangered"`.}
-
-\item{data_line_color}{CSS valid color for data line. Defaults to `"steelblue"`.}
-
-\item{x_axis_buffer}{Scaler for how much to pad ends of x axis if not specifying range directly. Defaults to 2% (`0.02`).}
-
-\item{y_axis_buffer}{Scaler for how much to pad ends of y axis if not specifying range directly. Defaults to 10% (`0.1`).}
-
-\item{shiny_message_loc}{A string containing the destination to target for shiny message passing. Used by `shinydrawr`, and can be ignored unless you're making your own shiny interface.}
+\item{y_max}{value of the highest possible value the user is allowed to draw, defaults to highest seen in data.}
 }
 \description{
 Upon completion of line draw, returns a reactive variable that contains a vector of the y coordinates of what the user has drawn. This also includes the start point specified with `draw_start`
@@ -54,13 +34,11 @@ Upon completion of line draw, returns a reactive variable that contains a vector
 }
 \examples{
 \dontrun{
-callModule(
-  shinydrawr,
-  'drawr_widget',
-  data,
-  x_col = time,
-  y_col = metric,
-  draw_start = 20
-)
-}
+ drawChart <- shiny::callModule(shinydrawr,
+    "outbreak_stats",
+    random_data,
+    draw_start = 15,
+    x_key = "time",
+    y_key = "metric")
+ }
 }
