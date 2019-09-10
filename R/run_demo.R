@@ -1,6 +1,6 @@
 #' Run demo apps
 #' Load and play with simple demo apps using the different senses available in shinysense. See `demo_name` parameter for available demos.
-#' @param demo_name Name of demo app to run. Options `{'shinydrawr', 'shinyviewr', 'shinyswipr', 'shinymovr'}`.
+#' @param demo_name Name of demo app to run. Options `{'shinydrawr', 'shinyviewr', 'shinyswipr', 'shinymovr', 'shinylistenr'}`.
 #' @param show_code See the underlying code for the demo app? Defaults to `TRUE`./
 #'
 #' @return Shiny app instance
@@ -10,7 +10,7 @@
 #' run_demo('shinydrawr')
 run_demo <- function(demo_name, show_code = TRUE){
 
-  available_demos <- c('shinydrawr', 'shinyviewr', 'shinyswipr', 'shinymovr')
+  available_demos <- c('shinydrawr', 'shinyviewr', 'shinyswipr', 'shinymovr', 'shinylistenr')
   if(!(demo_name %in% available_demos)){
     stop(glue::glue("{demo_name} is not an available demo. Available demos are: {paste(available_demos, collapse = ', ')}."))
   }
