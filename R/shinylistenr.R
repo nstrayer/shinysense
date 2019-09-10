@@ -4,8 +4,8 @@
 #' @return A blue button that you press to initiate or stop recording of sound.
 #' @export
 #' @examples
-#' shinyearrUI('myrecorder')
-shinyearrUI <- function(id) {
+#' shinylistenr_UI('myrecorder')
+shinylistenr_UI <- function(id) {
   ns <- NS(id)
 
   #Grab the external javascript and css
@@ -27,7 +27,7 @@ shinyearrUI <- function(id) {
 #' Gather recorded data from UI.
 #'
 #' Exports a reactive array of length 256, corresponding to a fourier transform of the sound waves of your recoding. This is a frequently used format for running various speech recognition algorithms on. Future edditions will allow access to the raw data.
-#'     This is the server component of shinyearr. You never directly use this function but instead call it through the shiny function `callModule()`. See the example for how to do this.
+#'     This is the server component of shinylistenr. You never directly use this function but instead call it through the shiny function `callModule()`. See the example for how to do this.
 #'
 #' @param input you can ignore this as it is taken care of by shiny
 #' @param output you can ignore this as it is taken care of by shiny
@@ -35,9 +35,9 @@ shinyearrUI <- function(id) {
 #' @export
 #' @examples
 #' \dontrun{
-#' shiny::callModule(shinyearr, "myrecorder")
+#' shiny::callModule(shinylistenr, "myrecorder")
 #' }
-shinyearr <- function(input, output, session){
+shinylistenr <- function(input, output, session){
 
   #the id of our given recorder button. We send this to javascript.
   button_id <- gsub("-", "", session$ns(""))
