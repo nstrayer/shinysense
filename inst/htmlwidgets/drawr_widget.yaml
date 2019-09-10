@@ -1,6 +1,0 @@
-dependencies:
-  - name: drawr
-    version: 1.0.3
-    src: htmlwidgets/libs
-    script:
-      - drawr.js
