@@ -29,7 +29,6 @@ ui <- fluidPage(
   downloadButton('downloadData', 'download your data'),
   hr(),
   p("If this is exciting to you make sure to head over to the project's", a(href = "https://github.com/nstrayer/shinylistenr/tree/master/demo", "github page"), "where you can find all the code.")
-
 )
 
 # Define server logic required to draw a histogram

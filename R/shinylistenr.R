@@ -8,19 +8,9 @@
 shinylistenr_UI <- function(id) {
   ns <- NS(id)
 
-  #Grab the external javascript and css
-  earjs  <- .get_script("earr.js", "js")
-  earcss <- .get_script("earr.css", "css")
-
-  tagList(
-    singleton(
-      tags$head( #load external scripts.
-        tags$script(HTML(earjs)),
-        tags$style(HTML(earcss))
-      )
-    ),
-    div(id=ns("recordButton"), class = "recordButton", span("Start Recording"))
-  ) #end tag list.
+    r2d3::d3Output(ns("shinylistenr"), height = 'auto')
+  # tagList(
+  # ) #end tag list.
 }
 
 
@@ -32,21 +22,37 @@ shinylistenr_UI <- function(id) {
 #' @param input you can ignore this as it is taken care of by shiny
 #' @param output you can ignore this as it is taken care of by shiny
 #' @param session you can ignore this as it is taken care of by shiny
+#' @param button_text Text displayed on button before or after recording. Defaults to `"Record Audio"`.
+#' @param while_recording_text Text displayed on button while recording is in progress. Defaults to `"Stop Recording"`.
 #' @export
 #' @examples
 #' \dontrun{
 #' shiny::callModule(shinylistenr, "myrecorder")
 #' }
-shinylistenr <- function(input, output, session){
+shinylistenr <- function(
+  input, output, session,
+  button_text = 'Record Audio',
+  while_recording_text = 'Stop Recording'
+){
 
-  #the id of our given recorder button. We send this to javascript.
-  button_id <- gsub("-", "", session$ns(""))
 
-  #Send over a message to the javascript to initialize the recoder code
-  observe({ session$sendCustomMessage(type = "initialize_recorder", message = button_id) })
+  output$shinylistenr <- r2d3::renderD3({
+    r2d3::r2d3(
+      system.file("r2d3/listenr/main.js", package = "shinysense"),
+      data = list(
+        button_text = button_text,
+        while_recording_text = while_recording_text,
+        shiny_message_loc = session$ns('listenr_data')
+      ),
+      container = 'div',
+      dependencies = 'd3-jetpack',
+      css = system.file("r2d3/listenr/styles.css", package = "shinysense")
+    )
+  })
+
 
   # The user's data, parsed into a data frame
-  result <- reactive({ input$recordingEnded })
+  result <- reactive({ input$listenr_data })
 
   return(result)
 }
