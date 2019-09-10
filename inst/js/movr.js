@@ -1,5 +1,24 @@
 /*global Shiny */
 // we need the gx gy gz fields, not the plain x,y,z so we can check and add this if neccesary when picking.
+
+const error_div = document.createElement('div');
+error_div.innerHTML = `
+    <p>It looks like no device motion is supported on this device :( </p>
+    <p>If you're on an iOS device with iOS-12, you can enable device orientation in Settings > Safari > Motion & Orientation Access.</p>
+    <p>If you're on an iOS device with iOS-13 you can switch to Chrome.</p>
+    <p>If you're on an Android device, this function hasn't been tested so if you could comment on <a href="https://github.com/nstrayer/shinysense/issues/33">this issue</a> on github with your device name and software that would be wonderful!
+`;
+error_div.style.color = 'darkred';
+error_div.style.display = 'none';
+
+//const error_message = div.selectAppend('div.error_message')
+//  .html().style('display', 'none');
+//
+//function show_error(){
+//  record_button.style('display', 'none');
+//  error_message.style('display', 'block');
+//}
+
 const add_g = (d) => ['x', 'y', 'z'].includes(d) ? `g${d}`: d;
 
 const pick_fields = (obj, fields, prepend) => fields
@@ -73,13 +92,14 @@ function movr_recorder({
 
   // if the browser doesn't suport the motion capture give an error
   function error_handler(e){
-    const error_msg = 'looks like no device motion is supported on this device :(';
-    console.log(e);
-    if(graceful_fail){
-        console.log(error_msg);
-    } else {
-       alert(error_msg);
-    }
+    error_div.style.display = 'block';
+   // const error_msg = 'looks like no device motion is supported on this device :(';
+   // console.log(e);
+   // if(graceful_fail){
+   //     console.log(error_msg);
+   // } else {
+   //    alert(error_msg);
+   // }
   }
 
   function log_data(data){
@@ -106,6 +126,8 @@ $(document).on('shiny:connected', event => {
 
     //watch for message from server saying it's ready.
   Shiny.addCustomMessageHandler("initialize_movr", params => {
+    const record_btn = document.getElementById(params.id);
+    record_btn.parentNode.appendChild(error_div);
 
     // callback for sending data back to server
     const sendToShiny = (data) => {
@@ -114,11 +136,11 @@ $(document).on('shiny:connected', event => {
     };
 
     // select dom element we're targeting
-    const target = document.getElementById(params.id);
+    //const target = document.getElementById(params.id);
 
     // call recorder
     movr_recorder(Object.assign(
-      {target, after_recording: sendToShiny},
+      {target: record_btn, after_recording: sendToShiny},
       params
     )
   );
