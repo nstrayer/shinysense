@@ -10,8 +10,8 @@
 #' @return A blue button that you press to initiate or stop recording of acceloration data.
 #' @export
 #' @examples
-#' shinymovrUI('movrButton', resting_msg = 'Click me to record', button_width = '200px')
-shinymovrUI <- function(id,
+#' shinymovr_UI('movrButton', resting_msg = 'Click me to record', button_width = '200px')
+shinymovr_UI <- function(id,
                         resting_msg = 'Turn On',
                         button_width = '130px',
                         button_height = '50px',

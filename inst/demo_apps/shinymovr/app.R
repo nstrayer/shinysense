@@ -13,7 +13,7 @@ ui <- fluidPage(
       style = "height:100%;",
       column(
         4, offset = 1,
-        shinymovrUI("movr_button")
+        shinymovr_UI("movr_button")
       ),
       column(
         6,
