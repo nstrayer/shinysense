@@ -9,7 +9,7 @@ ui <- fluidPage(
   fluidRow(
     column(
       width = 8,
-      shinyviewr_new_UI("my_camera", height = '400px')
+      shinyviewr_UI("my_camera", height = '400px')
     ),
     column(
       width = 3,
@@ -24,7 +24,7 @@ ui <- fluidPage(
 server <- function(input, output) {
 
   camera_snapshot <- callModule(
-    shinyviewr_new,
+    shinyviewr,
     'my_camera',
     output_width = 250,
     output_height = 250
@@ -34,7 +34,6 @@ server <- function(input, output) {
     req(camera_snapshot())
     plot(camera_snapshot(), main = 'My Photo!')
   })
-
 }
 
 # Run the application

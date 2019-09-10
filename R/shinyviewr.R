@@ -1,8 +1,8 @@
 #' A webcam view and snapshot function. Will send a 3d array (width, height, colors+opacity) back to your computer of the frame when you click take photo.
 #' @param id the id you will use to keep track of this component in your app
-#' @param width,height Must be a valid CSS unit (like \code{'100\%'},
+#' @param height Must be a valid CSS unit (like \code{'100\%'},
 #'   \code{'400px'}, \code{'auto'}) or a number, which will be coerced to a
-#'   string and have \code{'px'} appended. (Taken from htmlwidgets docs).
+#'   string and have \code{'px'} appended.
 #' @return A video overlay and a 'shutter' button.
 #' @export
 #' @examples
@@ -10,12 +10,12 @@
 #' shinyviewrUI('myrecorder')
 #' }
 #' @import shiny
-shinyviewrUI <- function(id, width = '100%', height = '400px'){
+shinyviewr_UI <- function(id, height = '400px'){
   # Create a namespace function using the provided id
   ns <- NS(id)
 
   #set up output
-  viewr_widgetOutput(ns('myCamera'), width = width, height = height)
+  r2d3::d3Output(ns("shinyviewr"), height = height)
 }
 
 
@@ -27,7 +27,7 @@ shinyviewrUI <- function(id, width = '100%', height = '400px'){
 #' @param input you can ignore this as it is taken care of by shiny
 #' @param output you can ignore this as it is taken care of by shiny
 #' @param session you can ignore this as it is taken care of by shiny
-#' @param outputWidth, outputHeight How many pixels wide you want your returned photos/the view of the webcam.
+#' @param output_width, output_height How many pixels wide or tall you want your returned photos/the view of the webcam.
 #'   When left unfilled or set to \code{NULL} this will attempt to fill whatever size your UI element is. For many image
 #'   related tasks you want the output to be a square. So setting this to something like 300x300 is a good idea.
 #' @return A reactive function that will return a 3D array with dimensions \code{(height, width, channels (RGBA))} corresponding to the
@@ -35,31 +35,48 @@ shinyviewrUI <- function(id, width = '100%', height = '400px'){
 #' @export
 #' @examples
 #' \dontrun{
-#'  drawChart <- shiny::callModule(shinyviewr, "myCamera")
-#'  }
-#' @importFrom jsonlite toJSON
-shinyviewr <- function(input, output, session, outputWidth = NULL, outputHeight = NULL, alphaChannel = TRUE ){
+#' camera_snapshot <- callModule( shinyviewr, 'my_camera' )
+#' }
+shinyviewr <- function(
+  input, output, session,
+  output_width = 300,
+  output_height = 300
+){
+  # Setup unique message passing ids for shiny and js
+  photo_send_loc <- session$ns('viewr_message')
+  photo_recieved_loc <- session$ns('photo_recieved')
 
-  output$myCamera <- renderViewr_widget(
-    viewr_widget(outputWidth = outputWidth, outputHeight = outputHeight)
-  )
+  output$shinyviewr <- r2d3::renderD3({
+    r2d3::r2d3(
+      system.file("r2d3/viewr/main.js", package = "shinysense"),
+      data = NULL,
+      container = 'div',
+      dependencies = 'd3-jetpack',
+      options = list(
+        shiny_message_loc = photo_send_loc,
+        shiny_ready_loc = photo_recieved_loc,
+        output_size = list(
+          width = output_width,
+          height = output_height
+        )
+      )
+    )
+  })
 
-  result <- reactive({
-    if(is.null(input$myCamera_photo)){
-      return(NULL)
-    }
+  shiny::reactive({
+    shiny::req(input$viewr_message)
 
-    snapshot <- input$myCamera_photo %>%
+    raster_image <- input$viewr_message %>%
       str_remove('data:image/png;base64,') %>%
       str_replace(' ', '+') %>%
       base64enc::base64decode() %>%
       png::readPNG() %>%
-      .[,,-4]
+      .[,,-4] %>%
+      as.raster()
 
-    # send message to javascript to kill the sending message
-    session$sendCustomMessage("photoReceived", 'yay!');
+    # send message to javascript to let it know we got image
+    session$sendCustomMessage(photo_recieved_loc, 'yay!');
 
-    snapshot
+    raster_image
   })
-  return(result)
 }
