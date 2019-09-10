@@ -81,15 +81,11 @@ const photo_holder = div.selectAppend('canvas.photo_holder')
 // ================================================================
 let camera_stream; // global variable that we attach camera to.
 
-
 // Look for available cameras
 if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
   no_camera_alert.style('display', 'block');
   return;
 } else {
-
-  const supports = navigator.mediaDevices.getSupportedConstraints();
-
   // List cameras and microphones.
   navigator.mediaDevices
     .enumerateDevices()
@@ -176,7 +172,7 @@ shutter.on('click', function(){
   // Append a snapshot of video canvas element context
   photo_holder
     .getContext('2d')
-    .drawImage(camera_stream, 0, 0, image_size.width, image_size.height);
+    .drawImage(video_element, 0, 0, image_size.width, image_size.height);
 
   // Grab photo data as a dataurl
   const photo_data = photo_holder.toDataURL("image/png");
