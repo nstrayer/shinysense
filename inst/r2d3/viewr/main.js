@@ -51,7 +51,7 @@ const no_camera_alert = div.selectAppend('p')
     fontWeight: 'bold'
   });
 
-const camera_stream = div.selectAppend('video')
+const video_element = div.selectAppend('video')
   .at({
     width: image_size.width,
     height: image_size.height,
@@ -79,12 +79,17 @@ const photo_holder = div.selectAppend('canvas.photo_holder')
 // ================================================================
 // Camera hookup
 // ================================================================
+let camera_stream; // global variable that we attach camera to.
+
 
 // Look for available cameras
 if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
   no_camera_alert.style('display', 'block');
   return;
 } else {
+
+  const supports = navigator.mediaDevices.getSupportedConstraints();
+
   // List cameras and microphones.
   navigator.mediaDevices
     .enumerateDevices()
@@ -106,7 +111,7 @@ if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
         camera_chooser
           .on('change', function(d){
             const selected_camera_id = this.value;
-            attach_camera_stream(selected_camera_id);
+            attach_camera_stream(camera_stream, selected_camera_id);
           });
       }
   })
@@ -116,19 +121,39 @@ if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
 }
 
 // Attach the video stream to the video element and autoplay.
-function attach_camera_stream(camera_id = null){
+function attach_camera_stream(camera_stream, camera_id = null){
+  // Shut off old stream if it exists
+  if (typeof camera_stream !== 'undefined') {
+    stop_camera_stream(camera_stream);
+  }
+
   // If we have been given a camera_id to attach to, go to that one
   // if no id specified just go to default.
-  const video_constraints = Object.assign(
-    image_size,
-    camera_id ? {deviceID: camera_id} : {}
-  );
+  const request_constraints = {
+    video: image_size,
+  };
 
+  if(camera_id){
+    request_constraints.video.deviceId = {exact: camera_id};
+    console.log(`Attaching ${camera_id}`);
+  }
+
+  // Setup new stream
   navigator.mediaDevices
-    .getUserMedia({
-      video: video_constraints
-    })
-    .then(stream => camera_stream.srcObject = stream );
+    .getUserMedia(request_constraints)
+    .then(stream => {
+      camera_stream = stream;
+      video_element.srcObject = camera_stream;
+    });
+}
+
+// kills all currently running video streams
+function stop_camera_stream(stream){
+  stream
+    .getTracks()
+    .forEach(track => {
+      track.stop();
+    });
 }
 
 // Initiate camera stream to default camera.
