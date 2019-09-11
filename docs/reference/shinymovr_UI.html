@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Access data from user's cameras: Server function — shinyviewr • shinysense</title>
+<title>Access data from user's accelerometers: UI function — shinymovr_UI • shinysense</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,14 +32,12 @@
 
 
 
-<meta property="og:title" content="Access data from user's cameras: Server function — shinyviewr" />
+<meta property="og:title" content="Access data from user's accelerometers: UI function — shinymovr_UI" />
 
-<meta property="og:description" content="Upon completion of line draw, returns a reactive variable that contains a
-vector of the y coordinates of what the user has drawn. This also includes
-the start point specified with `draw_start` This is the server component of
-shinyviewr. You never directly use this function but instead call it through
-the shiny function `callModule()`. See the example for how to do this. Paired
-with the UI function shinyviewr_UI." />
+<meta property="og:description" content="Use shiny on your mobile phone to gather accelorameter data for whatever your
+heart could desire. Note that this has been recently hamstrung by browser's
+attempts to better secure user data. It still works on mobile devices but
+motion detection needs to be enabled in the devices settings." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -103,61 +101,65 @@ with the UI function shinyviewr_UI." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Access data from user's cameras: Server function</h1>
+    <h1>Access data from user's accelerometers: UI function</h1>
     
-    <div class="hidden name"><code>shinyviewr.Rd</code></div>
+    <div class="hidden name"><code>shinymovr_UI.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Upon completion of line draw, returns a reactive variable that contains a
-vector of the y coordinates of what the user has drawn. This also includes
-the start point specified with `draw_start` This is the server component of
-shinyviewr. You never directly use this function but instead call it through
-the shiny function `callModule()`. See the example for how to do this. Paired
-with the UI function <code><a href='shinyviewr_UI.html'>shinyviewr_UI</a></code>.</p>
+    <p>Use shiny on your mobile phone to gather accelorameter data for whatever your
+heart could desire. Note that this has been recently hamstrung by browser's
+attempts to better secure user data. It still works on mobile devices but
+motion detection needs to be enabled in the devices settings.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>shinyviewr</span>(<span class='no'>input</span>, <span class='no'>output</span>, <span class='no'>session</span>, <span class='kw'>output_width</span> <span class='kw'>=</span> <span class='fl'>300</span>,
-  <span class='kw'>output_height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>shinymovr_UI</span>(<span class='no'>id</span>, <span class='kw'>resting_msg</span> <span class='kw'>=</span> <span class='st'>"Turn On"</span>, <span class='kw'>button_width</span> <span class='kw'>=</span> <span class='st'>"130px"</span>,
+  <span class='kw'>button_height</span> <span class='kw'>=</span> <span class='st'>"50px"</span>, <span class='kw'>button_color</span> <span class='kw'>=</span> <span class='st'>"steelblue"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>input, output, session</th>
-      <td><p>you can ignore these as it is taken care of by
-<code><a href='https://rdrr.io/pkg/shiny/man/callModule.html'>shiny::callModule()</a></code></p></td>
+      <th>id</th>
+      <td><p>the id you will use to keep track of this component in your app</p></td>
     </tr>
     <tr>
-      <th>output_width</th>
-      <td><p>How many pixels wide want your returned photos/the view
-of the webcam. Defaults to <code>300</code>.</p></td>
+      <th>resting_msg</th>
+      <td><p>the string displayed when the button is not pressed.
+Defaults to "Turn On"</p></td>
     </tr>
     <tr>
-      <th>output_height</th>
-      <td><p>How many pixels tall want your returned photos/the view
-of the webcam. If left unspecified, defaults to a square image,
-<code>output_width</code> value.</p></td>
+      <th>button_width</th>
+      <td><p>width of the button in a valid css string. E.g. needs to
+have pixels appended to it.</p></td>
+    </tr>
+    <tr>
+      <th>button_height</th>
+      <td><p>height of the button, again in valid css string.</p></td>
+    </tr>
+    <tr>
+      <th>button_color</th>
+      <td><p>valid css string to control the button color.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A reactive function that will return a 3D array with dimensions
-  <code>(height, width, channels (RGBA))</code> corresponding to the image taken by
-  the webcam when shutter was pressed. The RGBA are all in the range of 0-1.</p>
+    <p>A blue button that you press to initiate or stop recording of
+  acceloration data.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='shinyviewr_UI.html'>shinyviewr_UI</a></code></p></div>
+    <div class='dont-index'><p><code><a href='shinymovr.html'>shinymovr</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>camera_snapshot</span> <span class='kw'>&lt;-</span> <span class='fu'>callModule</span>( <span class='no'>shinyviewr</span>, <span class='st'>'my_camera'</span>, <span class='kw'>output_width</span> <span class='kw'>=</span> <span class='fl'>350</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>shinymovr_UI</span>(
+  <span class='st'>'movr_button'</span>,
+  <span class='kw'>resting_msg</span> <span class='kw'>=</span> <span class='st'>'Click me to record'</span>,
+  <span class='kw'>button_width</span> <span class='kw'>=</span> <span class='st'>'200px'</span>)</div><div class='output co'>#&gt; &lt;button id="movr_button-movr" class="movr-button" style="background-color: steelblue; width: 200px; height:50px"&gt;Click me to record&lt;/button&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

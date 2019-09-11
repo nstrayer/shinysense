@@ -9,7 +9,7 @@ ui <- fixedPage(
   h1("Stats Quotes"),
   p("This is a simple demo of the R package shinyswipr. Swipe on the quote card below to store your rating. What each direction (up, down, left, right) mean is up to you. (We won't tell.)"),
   hr(),
-  shinyswiprUI( "quote_swiper",
+  shinyswipr_UI( "quote_swiper",
                 h4("Swipe Me!"),
                 hr(),
                 h4("Quote:"),
