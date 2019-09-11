@@ -4,8 +4,8 @@
 \alias{shinyviewr}
 \title{Gather recorded data from UI.}
 \usage{
-shinyviewr(input, output, session, outputWidth = NULL, outputHeight = NULL,
-  alphaChannel = TRUE)
+shinyviewr(input, output, session, output_width = 300,
+  output_height = 300)
 }
 \arguments{
 \item{input}{you can ignore this as it is taken care of by shiny}
@@ -14,7 +14,7 @@ shinyviewr(input, output, session, outputWidth = NULL, outputHeight = NULL,
 
 \item{session}{you can ignore this as it is taken care of by shiny}
 
-\item{outputWidth, }{outputHeight How many pixels wide you want your returned photos/the view of the webcam.
+\item{output_width, }{output_height How many pixels wide or tall you want your returned photos/the view of the webcam.
 When left unfilled or set to \code{NULL} this will attempt to fill whatever size your UI element is. For many image
 related tasks you want the output to be a square. So setting this to something like 300x300 is a good idea.}
 }
@@ -28,6 +28,6 @@ Upon completion of line draw, returns a reactive variable that contains a vector
 }
 \examples{
 \dontrun{
- drawChart <- shiny::callModule(shinyviewr, "myCamera")
- }
+camera_snapshot <- callModule( shinyviewr, 'my_camera' )
+}
 }
