@@ -5,7 +5,7 @@
 </p>
 
 <p align = 'center'>
-  <img src = "inst/images/shinysense_wide.png?raw=true"/>
+  <img src = "https://github.com/nstrayer/shinysense/raw/master/inst/images/shinysense_wide.png?raw=true" height=120/>
 </p>
 
 # `shinysense`
