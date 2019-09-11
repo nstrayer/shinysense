@@ -77,9 +77,17 @@ drawr <- function(data,
       dplyr::select(data, x = !!x_col_quo, y = !!y_col_quo)
   }
 
+  # Grab the limits of data range
+  x_min <- min(plot_data$x)
+  x_max <- max(plot_data$x)
+
+  if(!free_draw){
+    y_min <- min(plot_data$y)
+    y_max <- max(plot_data$y)
+  }
+
+
   if (is.null(x_range)) {
-    x_min <- min(plot_data$x)
-    x_max <- max(plot_data$x)
     x_buffer <- (x_max - x_min) * x_axis_buffer
     x_range <- c(x_min - x_buffer, x_max + x_buffer)
   }
@@ -92,8 +100,6 @@ drawr <- function(data,
 
   # If user hasnt requested free draw build the y-range
   if (!free_draw) {
-    y_min <- min(plot_data$y)
-    y_max <- max(plot_data$y)
 
     # If no range supplied, build one from data
     if (no_y_range) {
