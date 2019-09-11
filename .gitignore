@@ -3,3 +3,4 @@
 .RData
 .Ruserdata
 **/node_modules/
+inst/doc

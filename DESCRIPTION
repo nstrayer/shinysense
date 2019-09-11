@@ -20,3 +20,7 @@ Imports:
     d3r,
     rlang,
     glue
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

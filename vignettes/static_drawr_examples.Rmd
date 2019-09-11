@@ -1,0 +1,108 @@
+---
+title: "Static drawr examples"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{static_drawr_examples}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 7
+)
+```
+
+```{r setup}
+library(shinysense)
+library(dplyr)
+```
+
+
+
+You can embedd you-draw-it style charts in your rmarkdown reports or plain standalone HTML documents by using [`shinysense::drawr`](http://nickstrayer.me/shinysense/reference/drawr.html). The options work almost identical to how they do in [`shinydrawr`](http://nickstrayer.me/shinysense/reference/shinydrawr.html). 
+
+To demo this let's generate a simple timeseries dataset for our charts: 
+
+```{r}
+plot_data <- tibble(
+  x = 1:50, 
+  value = sin(x)
+)
+
+plot_data
+```
+
+
+Now we can get into building our plots. We can start with the defaults.
+
+```{r}
+# Standard mode
+drawr(
+  plot_data,
+  x_col = x,
+  y_col = value,
+  draw_start = 25 # Start obscuring data after x = 25
+)
+```
+
+You can do things like change the colors of the lines:
+
+```{r}
+drawr(
+  plot_data,
+  x_col = x,
+  y_col = value,
+  draw_start = 25,
+  data_line_color = 'red',
+  drawn_line_color = 'green'
+)
+```
+
+
+You can customize the axes ranges:
+
+```{r}
+drawr(
+  plot_data,
+  x_col = x,
+  y_col = value,
+  draw_start = 25,
+  x_range = c(-5, 55),
+  y_range = c(-5, 5)
+)
+```
+
+You can give your plot a title and custom axis labels.
+
+```{r}
+drawr(
+  plot_data,
+  x_col = x,
+  x_lab = 'time',
+  y_col = value,
+  y_lab = 'dollars',
+  title = 'Guess the pattern!',
+  draw_start = 35
+)
+```
+
+
+You can even just have the user draw for fun. (Makes more sense when used with `shinydrawr` where data can be retreived)
+
+
+```{r}
+drawr(
+  plot_data,
+  free_draw = TRUE,
+  x_col = x,
+  title = 'Free Drawr',
+  y_range = c(-5,5),
+)
+```
+
+
+For more information on all the options available visit the [shinysense website's documentation](http://nickstrayer.me/shinysense/reference/drawr.html) or simply run `?drawr` in your R console. 
+
