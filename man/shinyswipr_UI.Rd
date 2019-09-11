@@ -2,7 +2,7 @@
 % Please edit documentation in R/shinyswipr.R
 \name{shinyswipr_UI}
 \alias{shinyswipr_UI}
-\title{Add a swipable card component to shiny app: UI function}
+\title{Add a swipable card to shiny app: UI function}
 \usage{
 shinyswipr_UI(id, ...)
 }
