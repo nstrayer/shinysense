@@ -2,7 +2,7 @@
 % Please edit documentation in R/shinymovr.R
 \name{shinymovr}
 \alias{shinymovr}
-\title{Gather recorded data from UI.}
+\title{Access data from user's accelerometers: Server function}
 \usage{
 shinymovr(input, output, session, movements = c("x", "y", "z", "gamma",
   "beta", "alpha"), orientations = c("alpha", "beta", "gamma"),
@@ -10,25 +10,34 @@ shinymovr(input, output, session, movements = c("x", "y", "z", "gamma",
   normalized = TRUE)
 }
 \arguments{
-\item{input}{you can ignore this as it is taken care of by shiny}
-
-\item{output}{you can ignore this as it is taken care of by shiny}
-
-\item{session}{you can ignore this as it is taken care of by shiny}
+\item{input, output, session}{you can ignore these as it is taken care of by
+\code{shiny::callModule()}}
 
 \item{movements}{list of desired movement directions from sensor}
 
-\item{orientations}{list of desired orientation directions from sensor (good when not used on phone)}
+\item{orientations}{list of desired orientation directions from sensor (good
+when not used on phone)}
 
-\item{time_limit}{number of seconds for data gathering, defaults to until button pressed again.}
+\item{time_limit}{number of seconds for data gathering, defaults to until
+button pressed again.}
 
 \item{recording_message}{text for the button when recording is taking place.}
 
-\item{normalized}{Do you want the data for each output normalized by this samples mean and standard deviation? Defaults to true.}
+\item{normalized}{Do you want the data for each output normalized by this
+samples mean and standard deviation? Defaults to true.}
+}
+\value{
+Reactive variable that will update as new data comes in.
 }
 \description{
-Contains a reactive variable that will update as new data comes in.
+Use shiny on your mobile phone to gather accelorameter data for whatever your
+heart could desire. Note that this has been recently hamstrung by browser's
+attempts to better secure user data. It still works on mobile devices but
+motion detection needs to be enabled in the devices settings.
 }
 \examples{
- movrData <- callModule(shinymovr)
+ movrData <- callModule(shinymovr, 'movr_button')
+}
+\seealso{
+\code{\link{shinymovr_UI}}
 }

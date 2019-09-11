@@ -5,20 +5,18 @@
 \title{Access data from user's cameras: Server function}
 \usage{
 shinyviewr(input, output, session, output_width = 300,
-  output_height = 300)
+  output_height = NULL)
 }
 \arguments{
-\item{input}{you can ignore this as it is taken care of by shiny}
+\item{input, output, session}{you can ignore these as it is taken care of by
+\code{shiny::callModule()}}
 
-\item{output}{you can ignore this as it is taken care of by shiny}
+\item{output_width}{How many pixels wide want your returned photos/the view
+of the webcam. Defaults to \code{300}.}
 
-\item{session}{you can ignore this as it is taken care of by shiny}
-
-\item{output_width, output_height}{How many pixels wide or tall you want your
-returned photos/the view of the webcam. When left unfilled or set to
-\code{NULL} this will attempt to fill whatever size your UI element is. For
-many image related tasks you want the output to be a square. So setting
-this to something like 300x300 is a good idea.}
+\item{output_height}{How many pixels tall want your returned photos/the view
+of the webcam. If left unspecified, defaults to a square image,
+\code{output_width} value.}
 }
 \value{
 A reactive function that will return a 3D array with dimensions
@@ -35,7 +33,7 @@ with the UI function \code{\link{shinyviewr_UI}}.
 }
 \examples{
 \dontrun{
-camera_snapshot <- callModule( shinyviewr, 'my_camera' )
+camera_snapshot <- callModule( shinyviewr, 'my_camera', output_width = 350)
 }
 
 }
