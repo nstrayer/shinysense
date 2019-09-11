@@ -7,7 +7,13 @@
 shinyswipr(input, output, session)
 }
 \arguments{
-\item{input, output, session}{you can ignore these as it is taken care of by
+\item{input}{you can ignore these as it is taken care of by
+\code{shiny::callModule()}}
+
+\item{output}{you can ignore these as it is taken care of by
+\code{shiny::callModule()}}
+
+\item{session}{you can ignore these as it is taken care of by
 \code{shiny::callModule()}}
 }
 \description{

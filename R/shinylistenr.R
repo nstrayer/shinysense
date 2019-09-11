@@ -1,41 +1,44 @@
-#' Make a record button for UI.
+#' Access data from user's microphone: UI version
 #'
+#' @seealso \code{\link{shinylistenr}}
 #' @param id the id you will use to keep track of this component in your app
 #' @return A blue button that you press to initiate or stop recording of sound.
-#' @export
 #' @examples
-#' shinylistenr_UI('myrecorder')
+#' \dontrun{
+#' shinylistenr_UI("recorder")
+#' }
+#' @export
 shinylistenr_UI <- function(id) {
   ns <- NS(id)
-
-    r2d3::d3Output(ns("shinylistenr"), height = 'auto')
-  # tagList(
-  # ) #end tag list.
+  r2d3::d3Output(ns("shinylistenr"), height = 'auto')
 }
 
 
-#' Gather recorded data from UI.
+#' Access data from user's microphone: server version
 #'
-#' Exports a reactive array of length 256, corresponding to a fourier transform of the sound waves of your recoding. This is a frequently used format for running various speech recognition algorithms on. Future edditions will allow access to the raw data.
-#'     This is the server component of shinylistenr. You never directly use this function but instead call it through the shiny function `callModule()`. See the example for how to do this.
+#' Exports a reactive array of length 256, corresponding to a fourier transform
+#' of the sound waves of your recoding. This is a frequently used format for
+#' running various speech recognition algorithms on. Future edditions will allow
+#' access to the raw data. You
+#' never directly use this function but instead call it through the shiny
+#' function `callModule()`. See the example for how to do this.
 #'
-#' @param input you can ignore this as it is taken care of by shiny
-#' @param output you can ignore this as it is taken care of by shiny
-#' @param session you can ignore this as it is taken care of by shiny
-#' @param button_text Text displayed on button before or after recording. Defaults to `"Record Audio"`.
-#' @param while_recording_text Text displayed on button while recording is in progress. Defaults to `"Stop Recording"`.
+#' @seealso \code{\link{shinylistenr_UI}}
+#' @inheritParams shinyviewr
+#' @param button_text Text displayed on button before or after recording.
+#'   Defaults to `"Record Audio"`.
+#' @param while_recording_text Text displayed on button while recording is in
+#'   progress. Defaults to `"Stop Recording"`.
 #' @export
 #' @examples
 #' \dontrun{
-#' shiny::callModule(shinylistenr, "myrecorder")
+#' callModule(shinylistenr, "myrecorder")
 #' }
-shinylistenr <- function(
-  input, output, session,
-  button_text = 'Record Audio',
-  while_recording_text = 'Stop Recording'
-){
-
-
+shinylistenr <- function(input,
+                         output,
+                         session,
+                         button_text = 'Record Audio',
+                         while_recording_text = 'Stop Recording') {
   output$shinylistenr <- r2d3::renderD3({
     r2d3::r2d3(
       system.file("r2d3/listenr/main.js", package = "shinysense"),
@@ -50,9 +53,10 @@ shinylistenr <- function(
     )
   })
 
-
   # The user's data, parsed into a data frame
-  result <- reactive({ input$listenr_data })
+  result <- reactive({
+    input$listenr_data
+  })
 
   return(result)
 }

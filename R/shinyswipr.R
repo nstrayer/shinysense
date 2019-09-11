@@ -43,8 +43,7 @@ shinyswipr_UI <- function(id, ...) {
 #' See the example for how to do this.
 #'
 #' @seealso \code{\link{shinyswipr_UI}}
-#' @param input,output,session you can ignore these as it is taken care of by
-#'   \code{shiny::callModule()}
+#' @inheritParams shinyviewr
 #'
 #' @examples
 #' \dontrun{

@@ -18,4 +18,5 @@ Imports:
     png,
     base64enc,
     d3r,
-    rlang
+    rlang,
+    glue

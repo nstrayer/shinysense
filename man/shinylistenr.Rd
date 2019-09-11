@@ -2,28 +2,40 @@
 % Please edit documentation in R/shinylistenr.R
 \name{shinylistenr}
 \alias{shinylistenr}
-\title{Gather recorded data from UI.}
+\title{Access data from user's microphone: server version}
 \usage{
 shinylistenr(input, output, session, button_text = "Record Audio",
   while_recording_text = "Stop Recording")
 }
 \arguments{
-\item{input}{you can ignore this as it is taken care of by shiny}
+\item{input}{you can ignore these as it is taken care of by
+\code{shiny::callModule()}}
 
-\item{output}{you can ignore this as it is taken care of by shiny}
+\item{output}{you can ignore these as it is taken care of by
+\code{shiny::callModule()}}
 
-\item{session}{you can ignore this as it is taken care of by shiny}
+\item{session}{you can ignore these as it is taken care of by
+\code{shiny::callModule()}}
 
-\item{button_text}{Text displayed on button before or after recording. Defaults to `"Record Audio"`.}
+\item{button_text}{Text displayed on button before or after recording.
+Defaults to `"Record Audio"`.}
 
-\item{while_recording_text}{Text displayed on button while recording is in progress. Defaults to `"Stop Recording"`.}
+\item{while_recording_text}{Text displayed on button while recording is in
+progress. Defaults to `"Stop Recording"`.}
 }
 \description{
-Exports a reactive array of length 256, corresponding to a fourier transform of the sound waves of your recoding. This is a frequently used format for running various speech recognition algorithms on. Future edditions will allow access to the raw data.
-    This is the server component of shinylistenr. You never directly use this function but instead call it through the shiny function `callModule()`. See the example for how to do this.
+Exports a reactive array of length 256, corresponding to a fourier transform
+of the sound waves of your recoding. This is a frequently used format for
+running various speech recognition algorithms on. Future edditions will allow
+access to the raw data. You
+never directly use this function but instead call it through the shiny
+function `callModule()`. See the example for how to do this.
 }
 \examples{
 \dontrun{
-shiny::callModule(shinylistenr, "myrecorder")
+callModule(shinylistenr, "myrecorder")
 }
+}
+\seealso{
+\code{\link{shinylistenr_UI}}
 }

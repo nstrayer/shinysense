@@ -10,7 +10,13 @@ shinymovr(input, output, session, movements = c("x", "y", "z", "gamma",
   normalized = TRUE)
 }
 \arguments{
-\item{input, output, session}{you can ignore these as it is taken care of by
+\item{input}{you can ignore these as it is taken care of by
+\code{shiny::callModule()}}
+
+\item{output}{you can ignore these as it is taken care of by
+\code{shiny::callModule()}}
+
+\item{session}{you can ignore these as it is taken care of by
 \code{shiny::callModule()}}
 
 \item{movements}{list of desired movement directions from sensor}

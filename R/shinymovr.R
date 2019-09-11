@@ -64,8 +64,7 @@ shinymovr_UI <- function(id,
 #' motion detection needs to be enabled in the devices settings.
 #'
 #' @seealso \code{\link{shinymovr_UI}}
-#' @param input,output,session you can ignore these as it is taken care of by
-#'   \code{shiny::callModule()}
+#' @inheritParams shinyviewr
 #' @param movements list of desired movement directions from sensor
 #' @param orientations list of desired orientation directions from sensor (good
 #'   when not used on phone)

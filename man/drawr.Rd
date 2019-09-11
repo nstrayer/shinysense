@@ -2,7 +2,7 @@
 % Please edit documentation in R/drawr.R
 \name{drawr}
 \alias{drawr}
-\title{Drawr}
+\title{Display a lineplot that lets user's draw data: Widget version}
 \usage{
 drawr(data, x_col, y_col = NULL, free_draw = FALSE,
   draw_start = NULL, title = NULL, pin_start = TRUE,
@@ -18,39 +18,57 @@ drawr(data, x_col, y_col = NULL, free_draw = FALSE,
 
 \item{y_col}{Name of column for y axis}
 
-\item{free_draw}{Do you just want the user to draw data on a supplied x-range? I.e. no revealed line?}
+\item{free_draw}{Do you just want the user to draw data on a supplied
+x-range? I.e. no revealed line?}
 
-\item{draw_start}{Where on the x axis to start obscuring data for drawing? Defaults to very start of data.}
+\item{draw_start}{Where on the x axis to start obscuring data for drawing?
+Defaults to very start of data.}
 
 \item{title}{Text for title, if desired.}
 
-\item{pin_start}{Pin start of drawn line to end of shown data? Defaults to `TRUE`.}
+\item{pin_start}{Pin start of drawn line to end of shown data? Defaults to
+\code{TRUE}.}
 
-\item{x_range}{Two element array of min and max of x range. Otherwise defaults to min and max of data.}
+\item{x_range}{Two element array of min and max of x range. Otherwise
+defaults to min and max of data.}
 
-\item{y_range}{Two element array of min and max of y range. Otherwise defaults to min and max of data.}
+\item{y_range}{Two element array of min and max of y range. Otherwise
+defaults to min and max of data.}
 
 \item{x_lab}{Text to label x axis, defaults to name of column used for x-axis}
 
-\item{y_lab}{Text to label y axis, defaults to name of column, or in free-draw case, to just `'y'`.}
+\item{y_lab}{Text to label y axis, defaults to name of column, or in
+free-draw case, to just \code{'y'}.}
 
-\item{line_style}{List containing any styling that is desired for the default line. For options see [MDN SVG line](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/line). Make sure to camelCase all attributes.}
+\item{line_style}{List containing any styling that is desired for the default
+line. For options see
+\href{https://developer.mozilla.org/en-US/docs/Web/SVG/Element/line}{MDN:
+SVG line}. Make sure to camelCase all attributes.}
 
-\item{drawn_line_color}{CSS valid color for user-drawn line. Defaults to `"orangered"`.}
+\item{drawn_line_color}{CSS valid color for user-drawn line. Defaults to
+\code{"orangered"}.}
 
-\item{data_line_color}{CSS valid color for data line. Defaults to `"steelblue"`.}
+\item{data_line_color}{CSS valid color for data line. Defaults to
+\code{"steelblue"}.}
 
-\item{x_axis_buffer}{Scaler for how much to pad ends of x axis if not specifying range directly. Defaults to 2% (`0.02`).}
+\item{x_axis_buffer}{Scaler for how much to pad ends of x axis if not
+specifying range directly. Defaults to 2\% (\code{0.02}).}
 
-\item{y_axis_buffer}{Scaler for how much to pad ends of y axis if not specifying range directly. Defaults to 10% (`0.1`).}
+\item{y_axis_buffer}{Scaler for how much to pad ends of y axis if not
+specifying range directly. Defaults to 10\% (\code{0.1}).}
 
-\item{shiny_message_loc}{A string containing the destination to target for shiny message passing. Used by `shinydrawr`, and can be ignored unless you're making your own shiny interface.}
+\item{shiny_message_loc}{A string containing the destination to target for
+shiny message passing. Used by \code{shinydrawr}, and can be ignored unless
+you're making your own shiny interface.}
 }
 \value{
 Interactive you-draw-it plot.
 }
 \description{
-Makes a draw chart that can go into an rmarkdown or a shiny app.
+Makes a static you-draw-it chart that can go into an rmarkdown or work as a
+standalone html plot. Inspired by the New York Times article
+\href{https://www.nytimes.com/interactive/2015/05/28/upshot/you-draw-it-how-family-income-affects-childrens-college-chances.html}{You
+Draw It: How Family Income Predicts Children’s College}
 }
 \examples{
 \dontrun{
@@ -61,4 +79,7 @@ drawr(
   draw_start = 25
 )
 }
+}
+\seealso{
+\code{\link{shinydrawr}}
 }

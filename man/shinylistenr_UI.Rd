@@ -2,7 +2,7 @@
 % Please edit documentation in R/shinylistenr.R
 \name{shinylistenr_UI}
 \alias{shinylistenr_UI}
-\title{Make a record button for UI.}
+\title{Access data from user's microphone: UI version}
 \usage{
 shinylistenr_UI(id)
 }
@@ -13,8 +13,13 @@ shinylistenr_UI(id)
 A blue button that you press to initiate or stop recording of sound.
 }
 \description{
-Make a record button for UI.
+Access data from user's microphone: UI version
 }
 \examples{
-shinylistenr_UI('myrecorder')
+\dontrun{
+shinylistenr_UI("recorder")
+}
+}
+\seealso{
+\code{\link{shinylistenr}}
 }
