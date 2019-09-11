@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">shinysense</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -69,124 +69,90 @@
 </h1></div>
 <p>A series of <a href="https://www.rstudio.com/resources/webinars/understanding-shiny-modules/">shiny modules</a> to help shiny sense the world around it.</p>
 <p>It’s called <code>shinysense</code> because <code>shinyinputs</code> seemed kinda lame.</p>
+<div id="senses-present" class="section level2">
+<h2 class="hasAnchor">
+<a href="#senses-present" class="anchor"></a>Senses present:</h2>
+<p>Currently the package supports the following ‘senses’.</p>
+<div id="touch" class="section level3">
+<h3 class="hasAnchor">
+<a href="#touch" class="anchor"></a>Touch</h3>
+<ul>
+<li>
+<code>drawr</code> &amp; <code>shinydrawr</code>: Draws a line chart that obscures the end of the results, the user then draws what they think the rest of the chart is and then the rest of the chart is revealed.
+<ul>
+<li>Blatently stolen from the New York Times article <a href="https://www.nytimes.com/interactive/2017/01/15/us/politics/you-draw-obama-legacy.html">You Draw It: What Got Better or Worse During Obama’s Presidency</a>.</li>
+</ul>
+</li>
+<li>
+<code>shinyswipr</code>: Embeds a card that can be swiped in different directions, the swipe direction is returned to shiny.</li>
+</ul>
+</div>
+<div id="vision" class="section level3">
+<h3 class="hasAnchor">
+<a href="#vision" class="anchor"></a>Vision</h3>
+<ul>
+<li>
+<code>shinyviewr</code>: Record images from a webcam or any other camera connected to browser viewing app.</li>
+</ul>
+</div>
+<div id="hearing" class="section level3">
+<h3 class="hasAnchor">
+<a href="#hearing" class="anchor"></a>Hearing</h3>
+<ul>
+<li>
+<code>shinylistenr</code>: Records audio on a button press and returns the fast-fourier transformed signal to the server.</li>
+</ul>
+</div>
+<div id="motion" class="section level3">
+<h3 class="hasAnchor">
+<a href="#motion" class="anchor"></a>Motion</h3>
+<ul>
+<li>
+<code>shinymovr</code>: Capture and return accelerometer data from your phone or tablet.</li>
+</ul>
+</div>
+</div>
+<div id="testing-it-out" class="section level2">
+<h2 class="hasAnchor">
+<a href="#testing-it-out" class="anchor"></a>Testing it out</h2>
+<p>Every sense included in the package has a demo app. To run the demo app you can run the included function <code><a href="reference/run_demo.html">run_demo()</a></code> and pass it the name of the function you want to see.</p>
+<p>E.g.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">shinysense<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/shinysense/man/run_demo.html">run_demo</a></span>(<span class="st">'shinyviewr'</span>)</a></code></pre></div>
+<p>This will run a basic demo application that includes the code behind the app. Giving you a jumping off point for including the function in your app!</p>
+</div>
 <div id="how-do-i-use-it" class="section level2">
 <h2 class="hasAnchor">
 <a href="#how-do-i-use-it" class="anchor"></a>How do I use it?</h2>
 <p><code>shinysense</code> is not currently on CRAN. To install it use the <code>devtools</code> github function.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"nstrayer/shinysense"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"nstrayer/shinysense"</span>)</a></code></pre></div>
 <p>Once the app is installed just included it in your shiny app the way you usually would:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co">#my super cool shiny app</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(shiny)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(shinysense)</a></code></pre></div>
-<p>There currently is no website for the documentation to reside in, but all the functions are documented. To figure out how to use these see the demo code posted below or just in R do the standard documentation search.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co">#I have no idea how these ridiculous functions work!</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">?shinydrawr</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">?shinydrawrUI</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#oh, I still have no idea.</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co">#my super cool shiny app</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(shiny)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(shinysense)</a></code></pre></div>
 </div>
-<div id="senses-present" class="section level2">
+<div id="naming-scheme" class="section level2">
 <h2 class="hasAnchor">
-<a href="#senses-present" class="anchor"></a>Senses present:</h2>
-</div>
-<div id="shinyswipr" class="section level2">
-<h2 class="hasAnchor">
-<a href="#shinyswipr" class="anchor"></a><code>shinyswipr</code>
-</h2>
-<p>Embeds a card that can be swiped in different directions, the swipe direction is returned to shiny. <a href="https://nickstrayer.shinyapps.io/shinysense_swipr_demo/">Demo.</a> <a href="https://github.com/nstrayer/shinysense/blob/master/demo/swipr_demo.R">Code</a></p>
+<a href="#naming-scheme" class="anchor"></a>Naming Scheme</h2>
+<p>The names of the functions follow a few general rules.</p>
 <ul>
-<li>Used in our app <a href="https://jhubiostatistics.shinyapps.io/papr/"><code>papr</code>.</a>
-</li>
+<li><p>The shiny-based functions are all prefixed with <code>shiny</code>. E.g. <code>shinyswipr</code>, <code>shinydrawr</code>…</p></li>
+<li><p>Of those shiny-based functions there are two functions per sense, the server function (just plain name), and the UI function, which has <code>_UI</code> appended to the end.</p></li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># ui.R</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw"><a href="reference/shinyswiprUI.html">shinyswiprUI</a></span>( </a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">  <span class="st">"quote_swiper"</span>,</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">  <span class="kw"><a href="https://rdrr.io/pkg/shiny/man/builder.html">div</a></span>( </a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">    <span class="co"># Content can be any ui elements you want. </span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">    <span class="kw"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">textOutput</a></span>(<span class="st">"quote"</span>)</a>
-<a class="sourceLine" id="cb4-7" data-line-number="7">  )</a>
-<a class="sourceLine" id="cb4-8" data-line-number="8">)</a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co"># server.R</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co"># Reactive function containing swipe direction as character </span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co"># card_swipe() == 'Up' etc. </span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13">card_swipe &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/shiny/man/callModule.html">callModule</a></span>(shinyswipr, <span class="st">"quote_swiper"</span>)</a></code></pre></div>
-</div>
-<div id="shinydrawr" class="section level2">
-<h2 class="hasAnchor">
-<a href="#shinydrawr" class="anchor"></a><code>shinydrawr</code>
-</h2>
-<p>Draws a line chart that obscures the end of the results, the user then draws what they think the rest of the chart is and then the rest of the chart is revealed. <a href="https://nstrayer.shinyapps.io/drawr_demo/">Demo.</a> <a href="https://github.com/nstrayer/shinysense/blob/master/demo/drawr_demo.R">Code.</a></p>
+<p><em>Note that if you used shinysense in earlier versions, this naming scheme was inconsistant, I sincerely appologize for any frustration this may cause!</em></p>
 <ul>
-<li>See <a href="http://livefreeordichotomize.com/2017/07/27/new-and-improved-draw-charts-in-shinysense/">this blog post</a> on how to use draw charts inside and outside of shiny.</li>
-<li>Blatently stolen from the New York Times article <a href="https://www.nytimes.com/interactive/2017/01/15/us/politics/you-draw-obama-legacy.html">You Draw It: What Got Better or Worse During Obama’s Presidency</a>.</li>
-</ul>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># ui.R</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="reference/shinydrawrUI.html">shinydrawrUI</a></span>(<span class="st">"outbreak_stats"</span>)</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co"># server.R</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">drawChart &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/shiny/man/callModule.html">callModule</a></span>(</a>
-<a class="sourceLine" id="cb5-6" data-line-number="6">    shinydrawr,</a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">    <span class="st">"outbreak_stats"</span>,</a>
-<a class="sourceLine" id="cb5-8" data-line-number="8">    <span class="dt">data =</span> data,</a>
-<a class="sourceLine" id="cb5-9" data-line-number="9">    <span class="dt">draw_start =</span> cutoff,</a>
-<a class="sourceLine" id="cb5-10" data-line-number="10">    <span class="dt">x_key =</span> <span class="st">"time"</span>,</a>
-<a class="sourceLine" id="cb5-11" data-line-number="11">    <span class="dt">y_key =</span> <span class="st">"metric"</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12">  )</a></code></pre></div>
-</div>
-<div id="shinyearr" class="section level2">
-<h2 class="hasAnchor">
-<a href="#shinyearr" class="anchor"></a><code>shinyearr</code>
-</h2>
-<p>Records audio on a button press and returns the fast-fourier transformed signal to the server.</p>
-<p><a href="https://nickstrayer.shinyapps.io/shinysense_earr_demo/">Demo.</a> <a href="https://github.com/nstrayer/shinysense/blob/master/demo/earr_demo.R">Code.</a></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># ui.R</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw"><a href="reference/shinyearrUI.html">shinyearrUI</a></span>(<span class="st">"my_recorder"</span>)</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co"># server.R</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">recorder &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/shiny/man/callModule.html">callModule</a></span>(shinyearr, <span class="st">"my_recorder"</span>)</a></code></pre></div>
-</div>
-<div id="shinyviewr" class="section level2">
-<h2 class="hasAnchor">
-<a href="#shinyviewr" class="anchor"></a><code>shinyviewr</code>
-</h2>
-<p>Record images from a webcam.</p>
-<p><a href="https://nstrayer.shinyapps.io/viewr_imagenet/">Demo.</a> <a href="https://github.com/nstrayer/shinysense/blob/master/demo/shinyviewr_demo.R">Code.</a></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co">#ui.R</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw"><a href="reference/shinyviewrUI.html">shinyviewrUI</a></span>(<span class="st">"myCamera"</span>, <span class="dt">height =</span> <span class="st">'200px'</span>)<span class="er">)</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#server.R</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5">myCamera &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/shiny/man/callModule.html">callModule</a></span>(shinyviewr,<span class="st">"myCamera"</span>, <span class="dt">outputWidth =</span> <span class="dv">500</span>, <span class="dt">outputHeight =</span> <span class="dv">500</span>)</a></code></pre></div>
-</div>
-<div id="shinymovr" class="section level2">
-<h2 class="hasAnchor">
-<a href="#shinymovr" class="anchor"></a><code>shinymovr</code>
-</h2>
-<p>Capture and return accelerometer data from your phone or tablet.</p>
-<p><a href="https://nstrayer.shinyapps.io/shinymovr/">Demo.</a> <a href="https://github.com/nstrayer/shinysense/blob/master/demo/movr/app.R">Code.</a></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># ui.R</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw"><a href="reference/shinymovrUI.html">shinymovrUI</a></span>(<span class="st">"movr_button"</span>)</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co"># server.R</span></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5">  movement &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/shiny/man/callModule.html">callModule</a></span>(</a>
-<a class="sourceLine" id="cb8-6" data-line-number="6">    shinymovr, <span class="st">"movr_button"</span>,</a>
-<a class="sourceLine" id="cb8-7" data-line-number="7">    <span class="dt">time_limit =</span> <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb8-8" data-line-number="8">    <span class="dt">recording_message =</span> <span class="st">"RECORDING!"</span></a>
-<a class="sourceLine" id="cb8-9" data-line-number="9">  )</a></code></pre></div>
-<div id="helpers" class="section level3">
-<h3 class="hasAnchor">
-<a href="#helpers" class="anchor"></a>Helpers</h3>
+<li>For functions that work outside of shiny there is no <code>shiny</code> prefix.
 <ul>
-<li>
-<code>shinypopup</code> : A lot of times when you’re developing an app using the above senses you need to let your user’s know you’re collecting their data. This module creates a popup that obscures a given section of your app that forces the user to accept your terms before they can go any further.
-<ul>
-<li>Used in <a href="https://jhubiostatistics.shinyapps.io/papr/"><code>papr</code></a> to force people to accept our data use agreement.</li>
-<li>
-<a href="https://nstrayer.shinyapps.io/shinypopup/">Demo.</a> <a href="https://github.com/nstrayer/shinysense/blob/master/demo/popup_demo.R">Code.</a>
-</li>
+<li>Currently this only includes <code>drawr</code> which allows you to embed a you-draw-it chart in a static report, and <code>run_demo</code> which starts up the demo apps for the various senses.</li>
 </ul>
 </li>
 </ul>
 </div>
+<div id="browser-security" class="section level2">
+<h2 class="hasAnchor">
+<a href="#browser-security" class="anchor"></a>Browser security</h2>
+<p>Recently browsers have been making large steps to protect user’s data. This is great, however, it means that it can sometimes be tricky to get these applications working. Almost everything will require a secure connection to work. Secure connection generally means two things: one the website address includes <code>https://</code> at the front, meaning that all data passed between the browser and server is encrypted, or the app is being run locally and acessed with <code>localhost</code>.</p>
+<p>The easiest way to experiment with these functions is to run a local rstudio instance on your laptop or desktop and then run the shiny app in the browser. When hosting an app for public consumption make sure you have an ssl encrypted server (I.e. <code>https</code>).</p>
+<p>A workaround for using Rstudio Server on a remote server that is not secured with <code>https</code> is to do port forwarding with the <code>ssh</code> command. E.g. <code>ssh -L 127.0.0.1:8787: 127.0.0.1:8787 me@my_servers_address</code>. This will allow you to use <code>localhost</code> for your apps.</p>
 </div>
 <div id="nothing-works-what-do-i-do" class="section level2">
 <h2 class="hasAnchor">

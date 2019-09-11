@@ -2,23 +2,26 @@
 % Please edit documentation in R/run_demo.R
 \name{run_demo}
 \alias{run_demo}
-\title{Run demo apps
-Load and play with simple demo apps using the different senses available in shinysense. See `demo_name` parameter for available demos.}
+\title{Run shinysense demo apps}
 \usage{
 run_demo(demo_name, show_code = TRUE)
 }
 \arguments{
-\item{demo_name}{Name of demo app to run. Options `{'shinydrawr', 'shinyviewr', 'shinyswipr', 'shinymovr'}`.}
+\item{demo_name}{Name of demo app to run. Options \{'shinydrawr',
+'shinyviewr', 'shinyswipr', 'shinymovr', 'shinylistenr'\}.}
 
-\item{show_code}{See the underlying code for the demo app? Defaults to `TRUE`./}
+\item{show_code}{See the underlying code for the demo app? Defaults to
+\code{TRUE}.}
 }
 \value{
 Shiny app instance
 }
 \description{
-Run demo apps
-Load and play with simple demo apps using the different senses available in shinysense. See `demo_name` parameter for available demos.
+Run demo apps Load and play with simple demo apps using the different senses
+available in shinysense. See `demo_name` parameter for available demos.
 }
 \examples{
+\dontrun{
 run_demo('shinydrawr')
+}
 }

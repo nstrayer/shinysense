@@ -2,32 +2,41 @@
 % Please edit documentation in R/shinyviewr.R
 \name{shinyviewr}
 \alias{shinyviewr}
-\title{Gather recorded data from UI.}
+\title{Access data from user's cameras: Server function}
 \usage{
 shinyviewr(input, output, session, output_width = 300,
-  output_height = 300)
+  output_height = NULL)
 }
 \arguments{
-\item{input}{you can ignore this as it is taken care of by shiny}
+\item{input, output, session}{you can ignore these as it is taken care of by
+\code{shiny::callModule()}}
 
-\item{output}{you can ignore this as it is taken care of by shiny}
+\item{output_width}{How many pixels wide want your returned photos/the view
+of the webcam. Defaults to \code{300}.}
 
-\item{session}{you can ignore this as it is taken care of by shiny}
-
-\item{output_width, }{output_height How many pixels wide or tall you want your returned photos/the view of the webcam.
-When left unfilled or set to \code{NULL} this will attempt to fill whatever size your UI element is. For many image
-related tasks you want the output to be a square. So setting this to something like 300x300 is a good idea.}
+\item{output_height}{How many pixels tall want your returned photos/the view
+of the webcam. If left unspecified, defaults to a square image,
+\code{output_width} value.}
 }
 \value{
-A reactive function that will return a 3D array with dimensions \code{(height, width, channels (RGBA))} corresponding to the
-  image taken by the webcam when shutter was pressed. The RGBA are all in the range of 0-1.
+A reactive function that will return a 3D array with dimensions
+  \code{(height, width, channels (RGBA))} corresponding to the image taken by
+  the webcam when shutter was pressed. The RGBA are all in the range of 0-1.
 }
 \description{
-Upon completion of line draw, returns a reactive variable that contains a vector of the y coordinates of what the user has drawn. This also includes the start point specified with `draw_start`
-    This is the server component of shinyviewr. You never directly use this function but instead call it through the shiny function `callModule()`. See the example for how to do this.
+Upon completion of line draw, returns a reactive variable that contains a
+vector of the y coordinates of what the user has drawn. This also includes
+the start point specified with `draw_start` This is the server component of
+shinyviewr. You never directly use this function but instead call it through
+the shiny function `callModule()`. See the example for how to do this. Paired
+with the UI function \code{\link{shinyviewr_UI}}.
 }
 \examples{
 \dontrun{
-camera_snapshot <- callModule( shinyviewr, 'my_camera' )
+camera_snapshot <- callModule( shinyviewr, 'my_camera', output_width = 350)
 }
+
+}
+\seealso{
+\code{\link{shinyviewr_UI}}
 }

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Gather recorded data from UI. — shinymovr • shinysense</title>
+<title>Access data from user's accelerometers: Server function — shinymovr • shinysense</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +32,12 @@
 
 
 
-<meta property="og:title" content="Gather recorded data from UI. — shinymovr" />
+<meta property="og:title" content="Access data from user's accelerometers: Server function — shinymovr" />
 
-<meta property="og:description" content="Contains a reactive variable that will update as new data comes in." />
+<meta property="og:description" content="Use shiny on your mobile phone to gather accelorameter data for whatever your
+heart could desire. Note that this has been recently hamstrung by browser's
+attempts to better secure user data. It still works on mobile devices but
+motion detection needs to be enabled in the devices settings." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -66,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">shinysense</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -98,14 +101,17 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Gather recorded data from UI.</h1>
+    <h1>Access data from user's accelerometers: Server function</h1>
     
     <div class="hidden name"><code>shinymovr.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Contains a reactive variable that will update as new data comes in.</p>
+    <p>Use shiny on your mobile phone to gather accelorameter data for whatever your
+heart could desire. Note that this has been recently hamstrung by browser's
+attempts to better secure user data. It still works on mobile devices but
+motion detection needs to be enabled in the devices settings.</p>
     
     </div>
 
@@ -119,15 +125,18 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>input</th>
-      <td><p>you can ignore this as it is taken care of by shiny</p></td>
+      <td><p>you can ignore these as it is taken care of by
+<code><a href='https://rdrr.io/pkg/shiny/man/callModule.html'>shiny::callModule()</a></code></p></td>
     </tr>
     <tr>
       <th>output</th>
-      <td><p>you can ignore this as it is taken care of by shiny</p></td>
+      <td><p>you can ignore these as it is taken care of by
+<code><a href='https://rdrr.io/pkg/shiny/man/callModule.html'>shiny::callModule()</a></code></p></td>
     </tr>
     <tr>
       <th>session</th>
-      <td><p>you can ignore this as it is taken care of by shiny</p></td>
+      <td><p>you can ignore these as it is taken care of by
+<code><a href='https://rdrr.io/pkg/shiny/man/callModule.html'>shiny::callModule()</a></code></p></td>
     </tr>
     <tr>
       <th>movements</th>
@@ -135,11 +144,13 @@
     </tr>
     <tr>
       <th>orientations</th>
-      <td><p>list of desired orientation directions from sensor (good when not used on phone)</p></td>
+      <td><p>list of desired orientation directions from sensor (good
+when not used on phone)</p></td>
     </tr>
     <tr>
       <th>time_limit</th>
-      <td><p>number of seconds for data gathering, defaults to until button pressed again.</p></td>
+      <td><p>number of seconds for data gathering, defaults to until
+button pressed again.</p></td>
     </tr>
     <tr>
       <th>recording_message</th>
@@ -147,19 +158,32 @@
     </tr>
     <tr>
       <th>normalized</th>
-      <td><p>Do you want the data for each output normalized by this samples mean and standard deviation? Defaults to true.</p></td>
+      <td><p>Do you want the data for each output normalized by this
+samples mean and standard deviation? Defaults to true.</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Reactive variable that will update as new data comes in.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='shinymovr_UI.html'>shinymovr_UI</a></code></p></div>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'> <span class='no'>movrData</span> <span class='kw'>&lt;-</span> <span class='fu'>callModule</span>(<span class='no'>shinymovr</span>)</div><div class='output co'>#&gt; <span class='error'>Error in callModule(shinymovr): could not find function "callModule"</span></div></pre>
+    <pre class="examples"><div class='input'> <span class='no'>movrData</span> <span class='kw'>&lt;-</span> <span class='fu'>callModule</span>(<span class='no'>shinymovr</span>, <span class='st'>'movr_button'</span>)</div><div class='output co'>#&gt; <span class='error'>Error in callModule(shinymovr, "movr_button"): could not find function "callModule"</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

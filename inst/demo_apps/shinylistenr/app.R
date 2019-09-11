@@ -36,7 +36,7 @@ server <- function(input, output) {
 
   #object to hold all your recordings in to plot
   rvs <- reactiveValues(
-    recordings = data_frame(value = numeric(), frequency = integer(), num = character(), label = character()),
+    recordings = tibble(value = numeric(), frequency = integer(), num = character(), label = character()),
     counter = 0
   )
 
@@ -55,7 +55,7 @@ server <- function(input, output) {
 
     rvs$counter <- rvs$counter + 1
     rvs$recordings <- rbind(
-      data_frame(value = my_recording, frequency = 1:256, num = paste("recording", rvs$counter), label = input$label),
+      tibble(value = my_recording, frequency = 1:256, num = paste("recording", rvs$counter), label = input$label),
       rvs$recordings
     ) %>% mutate(num = fct_inorder(num))
 
