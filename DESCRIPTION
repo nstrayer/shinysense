@@ -19,7 +19,11 @@ Imports:
     base64enc,
     d3r,
     rlang,
-    glue
+    glue,
+    r2d3,
+    here,
+    dplyr,
+    tidyr
 Suggests: 
     knitr,
     rmarkdown
