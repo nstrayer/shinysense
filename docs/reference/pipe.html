@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Access data from user's accelerometers: Server function — shinymovr • shinysense</title>
+<title>Pipe operator — %&gt;% • shinysense</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,12 +32,9 @@
 
 
 
-<meta property="og:title" content="Access data from user's accelerometers: Server function — shinymovr" />
+<meta property="og:title" content="Pipe operator — %&gt;%" />
 
-<meta property="og:description" content="Use shiny on your mobile phone to gather accelorameter data for whatever your
-heart could desire. Note that this has been recently hamstrung by browser's
-attempts to better secure user data. It still works on mobile devices but
-motion detection needs to be enabled in the devices settings." />
+<meta property="og:description" content="See magrittr::%&amp;gt;% for details." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -113,93 +110,25 @@ motion detection needs to be enabled in the devices settings." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Access data from user's accelerometers: Server function</h1>
+    <h1>Pipe operator</h1>
     
-    <div class="hidden name"><code>shinymovr.Rd</code></div>
+    <div class="hidden name"><code>pipe.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Use shiny on your mobile phone to gather accelorameter data for whatever your
-heart could desire. Note that this has been recently hamstrung by browser's
-attempts to better secure user data. It still works on mobile devices but
-motion detection needs to be enabled in the devices settings.</p>
+    <p>See <code>magrittr::%&gt;%</code> for details.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>shinymovr</span>(<span class='no'>input</span>, <span class='no'>output</span>, <span class='no'>session</span>, <span class='kw'>movements</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>, <span class='st'>"gamma"</span>,
-  <span class='st'>"beta"</span>, <span class='st'>"alpha"</span>), <span class='kw'>orientations</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"alpha"</span>, <span class='st'>"beta"</span>, <span class='st'>"gamma"</span>),
-  <span class='kw'>time_limit</span> <span class='kw'>=</span> -<span class='fl'>1</span>, <span class='kw'>recording_message</span> <span class='kw'>=</span> <span class='st'>"Recording Movement..."</span>,
-  <span class='kw'>normalized</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>input</th>
-      <td><p>you can ignore these as it is taken care of by
-<code><a href='https://rdrr.io/pkg/shiny/man/callModule.html'>shiny::callModule()</a></code></p></td>
-    </tr>
-    <tr>
-      <th>output</th>
-      <td><p>you can ignore these as it is taken care of by
-<code><a href='https://rdrr.io/pkg/shiny/man/callModule.html'>shiny::callModule()</a></code></p></td>
-    </tr>
-    <tr>
-      <th>session</th>
-      <td><p>you can ignore these as it is taken care of by
-<code><a href='https://rdrr.io/pkg/shiny/man/callModule.html'>shiny::callModule()</a></code></p></td>
-    </tr>
-    <tr>
-      <th>movements</th>
-      <td><p>list of desired movement directions from sensor</p></td>
-    </tr>
-    <tr>
-      <th>orientations</th>
-      <td><p>list of desired orientation directions from sensor (good
-when not used on phone)</p></td>
-    </tr>
-    <tr>
-      <th>time_limit</th>
-      <td><p>number of seconds for data gathering, defaults to until
-button pressed again.</p></td>
-    </tr>
-    <tr>
-      <th>recording_message</th>
-      <td><p>text for the button when recording is taking place.</p></td>
-    </tr>
-    <tr>
-      <th>normalized</th>
-      <td><p>Do you want the data for each output normalized by this
-samples mean and standard deviation? Defaults to true.</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <pre class="usage"><span class='no'>lhs</span> <span class='kw'>%&gt;%</span> <span class='no'>rhs</span></pre>
+        
 
-    <p>Reactive variable that will update as new data comes in.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='shinymovr_UI.html'>shinymovr_UI</a></code></p></div>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
- <span class='no'>movrData</span> <span class='kw'>&lt;-</span> <span class='fu'>callModule</span>(<span class='no'>shinymovr</span>, <span class='st'>'movr_button'</span>)
- }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+                </ul>
 
   </div>
 </div>
