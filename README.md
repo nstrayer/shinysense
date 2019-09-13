@@ -46,6 +46,15 @@ shinysense::run_demo('shinyviewr')
 
 This will run a basic demo application that includes the code behind the app. Giving you a jumping off point for including the function in your app!
 
+Available demos include
+
+- `'shinydrawr'`
+- `'shinyviewr'`
+- `'shinyswipr' `
+- `'shinymovr'`
+- `'shinylistenr'`
+- `'draw_your_dist'`: A demo app using `shinydrawr` to fit a beta distribution to a drawn line.
+
 
 ## How do I use it?
 
