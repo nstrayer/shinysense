@@ -33,6 +33,7 @@ Worse During Obama’s Presidency](https://www.nytimes.com/interactive/2017/01/1
 
 ### Motion
 - `shinymovr`: Capture and return accelerometer data from your phone or tablet.
+  - Used in [this cast spells shiny app](https://jhubiostatistics.shinyapps.io/cast_spells/) to classify spell cast motions using deep learning. 
 
 
 ## Testing it out
