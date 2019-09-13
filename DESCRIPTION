@@ -23,7 +23,11 @@ Imports:
     r2d3,
     here,
     dplyr,
-    tidyr
+    tidyr,
+    magrittr,
+    stringr,
+    grDevices,
+    stats
 Suggests: 
     knitr,
     rmarkdown,

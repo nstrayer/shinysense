@@ -16,10 +16,12 @@
 #' @return A blue button that you press to initiate or stop recording of
 #'   acceloration data.
 #' @examples
+#' \dontrun{
 #' shinymovr_UI(
 #'   'movr_button',
 #'   resting_msg = 'Click me to record',
 #'   button_width = '200px')
+#' }
 #' @export
 shinymovr_UI <- function(id,
                          resting_msg = 'Turn On',
@@ -76,7 +78,9 @@ shinymovr_UI <- function(id,
 #'
 #' @return Reactive variable that will update as new data comes in.
 #' @examples
+#' \dontrun{
 #'  movrData <- callModule(shinymovr, 'movr_button')
+#'  }
 #' @export
 shinymovr <- function(input,
                       output,
@@ -117,7 +121,7 @@ shinymovr <- function(input,
       result_columns <- c("time",
                           paste0("m_", movements),
                           paste0("o_", orientations))
-      return(setNames(data.frame(matrix(
+      return(stats::setNames(data.frame(matrix(
         ncol = length(result_columns), nrow = 0
       )), result_columns))
     }
