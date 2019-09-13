@@ -3,7 +3,7 @@ Type: Package
 Title: Lets Shiny Sense The World Around
 Version: 0.2.0
 Author: Nick Strayer
-Maintainer: Nick Strayer <n.strayer@vanderbilt.edu>
+Maintainer: Nick Strayer <nick.strayer@gmail.com>
 Description: shinysense is a collection of modules written for shiny that allows the easy addition of data collection to shiny apps.
     Each sense contains a function that you put in your UI and your Server using the callModule syntax. Once inside of your shiny app they allow data, such as user swipes or microphone input to be used just as any other data would within shiny. 
     The functions are written to be as flexible as possible. This is to allow the end user to use their own creativity to create novel interaction or data collection schemes using the basic building blocks of sense.
