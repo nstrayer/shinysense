@@ -8,7 +8,7 @@ run_demo(demo_name, show_code = TRUE)
 }
 \arguments{
 \item{demo_name}{Name of demo app to run. Options \{'shinydrawr',
-'shinyviewr', 'shinyswipr', 'shinymovr', 'shinylistenr'\}.}
+'shinyviewr', 'shinyswipr', 'shinymovr', 'shinylistenr', 'draw_your_dist'\}.}
 
 \item{show_code}{See the underlying code for the demo app? Defaults to
 \code{TRUE}.}

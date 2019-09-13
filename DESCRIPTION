@@ -26,5 +26,7 @@ Imports:
     tidyr
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    shinythemes,
+    ggplot2
 VignetteBuilder: knitr

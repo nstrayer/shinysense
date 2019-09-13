@@ -4,7 +4,7 @@
 #' available in shinysense. See `demo_name` parameter for available demos.
 #'
 #' @param demo_name Name of demo app to run. Options \{'shinydrawr',
-#'   'shinyviewr', 'shinyswipr', 'shinymovr', 'shinylistenr'\}.
+#'   'shinyviewr', 'shinyswipr', 'shinymovr', 'shinylistenr', 'draw_your_dist'\}.
 #' @param show_code See the underlying code for the demo app? Defaults to
 #'   \code{TRUE}.
 #'
@@ -21,7 +21,8 @@ run_demo <- function(demo_name, show_code = TRUE) {
       'shinyviewr',
       'shinyswipr',
       'shinymovr',
-      'shinylistenr')
+      'shinylistenr',
+      'draw_your_dist')
   if (!(demo_name %in% available_demos)) {
     stop(
       glue::glue(
