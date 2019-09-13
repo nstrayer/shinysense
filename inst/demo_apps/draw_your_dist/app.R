@@ -53,7 +53,7 @@ alpha_range   <- c(0,8)
 beta_range    <- c(0,8)
 initial_betas <- generate_beta_values(num_x = number_xs, param_res, alpha_range, beta_range)
 
-random_data <- data_frame(
+random_data <- tibble(
     prob = seq(0, 1, length.out = number_xs),
     y_value = 0
 )
