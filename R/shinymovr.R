@@ -1,6 +1,6 @@
 #' Access data from user's accelerometers: UI function
 #'
-#' Use shiny on your mobile phone to gather accelorameter data for whatever your
+#' Use shiny on your mobile phone to gather accelerometer data for whatever your
 #' heart could desire. Note that this has been recently hamstrung by browser's
 #' attempts to better secure user data. It still works on mobile devices but
 #' motion detection needs to be enabled in the devices settings.
@@ -14,7 +14,7 @@
 #' @param button_height height of the button, again in valid css string.
 #' @param button_color valid css string to control the button color.
 #' @return A blue button that you press to initiate or stop recording of
-#'   acceloration data.
+#'   acceleration data.
 #' @examples
 #' \dontrun{
 #' shinymovr_UI(

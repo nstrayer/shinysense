@@ -1,4 +1,4 @@
-#' Add a swipable card to shiny app: UI function
+#' Add a swipeable card to shiny app: UI function
 #'
 #' Wraps whatever UI elements are passed to it in a card format that can then be
 #' swiped to the left, right, up, or down with the results of that action being
@@ -36,7 +36,7 @@ shinyswipr_UI <- function(id, ...) {
 }
 
 
-#' Add a swipable card to shiny app: server function
+#' Add a swipeable card to shiny app: server function
 #'
 #' This is the server component of the shiny swipr app. You never directly use
 #' this function but instead call it through the shiny function `callModule()`.
