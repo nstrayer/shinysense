@@ -13,7 +13,7 @@
 #' @return UI portion of the shinydrawr module
 #'
 #' @examples
-#' \dontrun{
+#' if(interactive()){
 #' shinydrawr_UI("drawr_widget", height = '300px')
 #' }
 #' @export
@@ -38,7 +38,7 @@ shinydrawr_UI <- function(id, height = '400px') {
 #' @inheritParams shinyviewr
 #' @inheritParams drawr
 #' @examples
-#' \dontrun{
+#' if(interactive()){
 #' callModule(
 #'   shinydrawr,
 #'   'drawr_widget',

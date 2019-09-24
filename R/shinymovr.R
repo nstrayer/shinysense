@@ -16,7 +16,7 @@
 #' @return A blue button that you press to initiate or stop recording of
 #'   acceleration data.
 #' @examples
-#' \dontrun{
+#' if(interactive()){
 #' shinymovr_UI(
 #'   'movr_button',
 #'   resting_msg = 'Click me to record',
@@ -78,7 +78,7 @@ shinymovr_UI <- function(id,
 #'
 #' @return Reactive variable that will update as new data comes in.
 #' @examples
-#' \dontrun{
+#' if(interactive()){
 #'  movrData <- callModule(shinymovr, 'movr_button')
 #'  }
 #' @export

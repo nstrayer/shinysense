@@ -8,7 +8,7 @@
 #' @param id The id of the current element you are entering
 #' @param ... Any other UI elements you wish to include within the swiping zone.
 #' @examples
-#' \dontrun{
+#' if(interactive()){
 #' shinyswipr_UI(id = "myswipr", h1("This is my title"), p("here is some text"))
 #' }
 #' @export
@@ -46,7 +46,7 @@ shinyswipr_UI <- function(id, ...) {
 #' @inheritParams shinyviewr
 #'
 #' @examples
-#' \dontrun{
+#' if(interactive()){
 #' callModule(shinyswipr, "myswipr")
 #' }
 #' @export

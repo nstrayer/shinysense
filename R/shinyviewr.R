@@ -13,7 +13,7 @@
 #' @return A video overlay and a 'shutter' button.
 #'
 #' @examples
-#' \dontrun{
+#' if(interactive()){
 #' shinyviewrUI('myrecorder')
 #' }
 #'
@@ -52,7 +52,7 @@ shinyviewr_UI <- function(id, height = '400px'){
 #'   the webcam when shutter was pressed. The RGBA are all in the range of 0-1.
 #'
 #' @examples
-#' \dontrun{
+#' if(interactive()){
 #' camera_snapshot <- callModule( shinyviewr, 'my_camera', output_width = 350)
 #' }
 #'
