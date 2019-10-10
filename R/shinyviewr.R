@@ -56,6 +56,7 @@ shinyviewr_UI <- function(id, height = '400px'){
 #' camera_snapshot <- callModule( shinyviewr, 'my_camera', output_width = 350)
 #' }
 #'
+#' @importFrom magrittr "%>%"
 #' @export
 shinyviewr <- function(
   input, output, session,
@@ -93,8 +94,8 @@ shinyviewr <- function(
     shiny::req(input$viewr_message)
 
     raster_image <- input$viewr_message %>%
-      str_remove('data:image/png;base64,') %>%
-      str_replace(' ', '+') %>%
+      gsub('data:image/png;base64,', '', ., fixed=TRUE) %>%
+      gsub(' ', '+', ., fixed=TRUE) %>%
       base64enc::base64decode() %>%
       png::readPNG() %>%
       .[,,-4] %>%
