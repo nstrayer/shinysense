@@ -4,7 +4,7 @@
 #' @param id the id you will use to keep track of this component in your app
 #' @return A blue button that you press to initiate or stop recording of sound.
 #' @examples
-#' \dontrun{
+#' if(interactive()){
 #' shinylistenr_UI("recorder")
 #' }
 #' @export
@@ -17,8 +17,8 @@ shinylistenr_UI <- function(id) {
 #' Access data from user's microphone: server version
 #'
 #' Exports a reactive array of length 256, corresponding to a fourier transform
-#' of the sound waves of your recoding. This is a frequently used format for
-#' running various speech recognition algorithms on. Future edditions will allow
+#' of the sound waves of your recording. This is a frequently used format for
+#' running various speech recognition algorithms on. Future editions will allow
 #' access to the raw data. You
 #' never directly use this function but instead call it through the shiny
 #' function `callModule()`. See the example for how to do this.
@@ -31,7 +31,7 @@ shinylistenr_UI <- function(id) {
 #'   progress. Defaults to `"Stop Recording"`.
 #' @export
 #' @examples
-#' \dontrun{
+#' if(interactive()){
 #' callModule(shinylistenr, "myrecorder")
 #' }
 shinylistenr <- function(input,

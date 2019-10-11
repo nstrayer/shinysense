@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Access data from user's accelerometers: UI function — shinymovr_UI • shinysense</title>
+<title>MIT License • shinysense</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -27,18 +27,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script>
+<link href="pkgdown.css" rel="stylesheet">
+<script src="pkgdown.js"></script>
 
 
 
-<meta property="og:title" content="Access data from user's accelerometers: UI function — shinymovr_UI" />
-
-<meta property="og:description" content="Use shiny on your mobile phone to gather accelorameter data for whatever your
-heart could desire. Note that this has been recently hamstrung by browser's
-attempts to better secure user data. It still works on mobile devices but
-motion detection needs to be enabled in the devices settings." />
-<meta name="twitter:card" content="summary" />
+<meta property="og:title" content="MIT License" />
 
 
 
@@ -56,7 +50,7 @@ motion detection needs to be enabled in the devices settings." />
   </head>
 
   <body>
-    <div class="container template-reference-topic">
+    <div class="container template-title-body">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -68,7 +62,7 @@ motion detection needs to be enabled in the devices settings." />
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">shinysense</a>
+        <a class="navbar-link" href="index.html">shinysense</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
@@ -76,13 +70,13 @@ motion detection needs to be enabled in the devices settings." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
+  <a href="index.html">
     <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -92,7 +86,7 @@ motion detection needs to be enabled in the devices settings." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/static_drawr_examples.html">Static drawr examples</a>
+      <a href="articles/static_drawr_examples.html">Static drawr examples</a>
     </li>
   </ul>
 </li>
@@ -111,84 +105,23 @@ motion detection needs to be enabled in the devices settings." />
       </header>
 
 <div class="row">
-  <div class="col-md-9 contents">
+  <div class="contents col-md-9">
     <div class="page-header">
-    <h1>Access data from user's accelerometers: UI function</h1>
-    
-    <div class="hidden name"><code>shinymovr_UI.Rd</code></div>
+      <h1>MIT License</h1>
     </div>
 
-    <div class="ref-description">
-    
-    <p>Use shiny on your mobile phone to gather accelorameter data for whatever your
-heart could desire. Note that this has been recently hamstrung by browser's
-attempts to better secure user data. It still works on mobile devices but
-motion detection needs to be enabled in the devices settings.</p>
-    
-    </div>
+<div id="mit-license" class="section level1">
 
-    <pre class="usage"><span class='fu'>shinymovr_UI</span>(<span class='no'>id</span>, <span class='kw'>resting_msg</span> <span class='kw'>=</span> <span class='st'>"Turn On"</span>, <span class='kw'>button_width</span> <span class='kw'>=</span> <span class='st'>"130px"</span>,
-  <span class='kw'>button_height</span> <span class='kw'>=</span> <span class='st'>"50px"</span>, <span class='kw'>button_color</span> <span class='kw'>=</span> <span class='st'>"steelblue"</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>id</th>
-      <td><p>the id you will use to keep track of this component in your app</p></td>
-    </tr>
-    <tr>
-      <th>resting_msg</th>
-      <td><p>the string displayed when the button is not pressed.
-Defaults to "Turn On"</p></td>
-    </tr>
-    <tr>
-      <th>button_width</th>
-      <td><p>width of the button in a valid css string. E.g. needs to
-have pixels appended to it.</p></td>
-    </tr>
-    <tr>
-      <th>button_height</th>
-      <td><p>height of the button, again in valid css string.</p></td>
-    </tr>
-    <tr>
-      <th>button_color</th>
-      <td><p>valid css string to control the button color.</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A blue button that you press to initiate or stop recording of
-  acceloration data.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='shinymovr.html'>shinymovr</a></code></p></div>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>shinymovr_UI</span>(
-  <span class='st'>'movr_button'</span>,
-  <span class='kw'>resting_msg</span> <span class='kw'>=</span> <span class='st'>'Click me to record'</span>,
-  <span class='kw'>button_width</span> <span class='kw'>=</span> <span class='st'>'200px'</span>)
-}</div></pre>
-  </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-  </div>
+<p>Copyright (c) 2019 Nicholas Strayer</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
 </div>
+
+  </div>
+
+</div>
+
 
 
       <footer>

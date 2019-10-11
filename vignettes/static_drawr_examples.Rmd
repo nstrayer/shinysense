@@ -22,9 +22,9 @@ library(dplyr)
 
 
 
-You can embedd you-draw-it style charts in your rmarkdown reports or plain standalone HTML documents by using [`shinysense::drawr`](http://nickstrayer.me/shinysense/reference/drawr.html). The options work almost identical to how they do in [`shinydrawr`](http://nickstrayer.me/shinysense/reference/shinydrawr.html). 
+You can embed you-draw-it style charts in your rmarkdown reports or plain standalone HTML documents by using [`shinysense::drawr`](http://nickstrayer.me/shinysense/reference/drawr.html). The options work almost identical to how they do in [`shinydrawr`](http://nickstrayer.me/shinysense/reference/shinydrawr.html). 
 
-To demo this let's generate a simple timeseries dataset for our charts: 
+To demo this let's generate a simple time series dataset for our charts: 
 
 ```{r}
 plot_data <- tibble(
@@ -90,7 +90,7 @@ drawr(
 ```
 
 
-You can even just have the user draw for fun. (Makes more sense when used with `shinydrawr` where data can be retreived)
+You can even just have the user draw for fun. (Makes more sense when used with `shinydrawr` where data can be retrieved)
 
 
 ```{r}

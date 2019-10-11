@@ -22,19 +22,21 @@ have pixels appended to it.}
 }
 \value{
 A blue button that you press to initiate or stop recording of
-  acceloration data.
+  acceleration data.
 }
 \description{
-Use shiny on your mobile phone to gather accelorameter data for whatever your
+Use shiny on your mobile phone to gather accelerometer data for whatever your
 heart could desire. Note that this has been recently hamstrung by browser's
 attempts to better secure user data. It still works on mobile devices but
 motion detection needs to be enabled in the devices settings.
 }
 \examples{
+\dontrun{
 shinymovr_UI(
   'movr_button',
   resting_msg = 'Click me to record',
   button_width = '200px')
+}
 }
 \seealso{
 \code{\link{shinymovr}}

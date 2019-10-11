@@ -1,6 +1,6 @@
 #' Access data from user's accelerometers: UI function
 #'
-#' Use shiny on your mobile phone to gather accelorameter data for whatever your
+#' Use shiny on your mobile phone to gather accelerometer data for whatever your
 #' heart could desire. Note that this has been recently hamstrung by browser's
 #' attempts to better secure user data. It still works on mobile devices but
 #' motion detection needs to be enabled in the devices settings.
@@ -14,12 +14,14 @@
 #' @param button_height height of the button, again in valid css string.
 #' @param button_color valid css string to control the button color.
 #' @return A blue button that you press to initiate or stop recording of
-#'   acceloration data.
+#'   acceleration data.
 #' @examples
+#' if(interactive()){
 #' shinymovr_UI(
 #'   'movr_button',
 #'   resting_msg = 'Click me to record',
 #'   button_width = '200px')
+#' }
 #' @export
 shinymovr_UI <- function(id,
                          resting_msg = 'Turn On',
@@ -76,7 +78,9 @@ shinymovr_UI <- function(id,
 #'
 #' @return Reactive variable that will update as new data comes in.
 #' @examples
+#' if(interactive()){
 #'  movrData <- callModule(shinymovr, 'movr_button')
+#'  }
 #' @export
 shinymovr <- function(input,
                       output,
@@ -117,7 +121,7 @@ shinymovr <- function(input,
       result_columns <- c("time",
                           paste0("m_", movements),
                           paste0("o_", orientations))
-      return(setNames(data.frame(matrix(
+      return(stats::setNames(data.frame(matrix(
         ncol = length(result_columns), nrow = 0
       )), result_columns))
     }

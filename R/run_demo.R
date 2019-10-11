@@ -11,7 +11,7 @@
 #' @return Shiny app instance
 #'
 #' @examples
-#' \dontrun{
+#' if(interactive()){
 #' run_demo('shinydrawr')
 #' }
 #' @export

@@ -13,7 +13,7 @@
 #' @return A video overlay and a 'shutter' button.
 #'
 #' @examples
-#' \dontrun{
+#' if(interactive()){
 #' shinyviewrUI('myrecorder')
 #' }
 #'
@@ -52,7 +52,7 @@ shinyviewr_UI <- function(id, height = '400px'){
 #'   the webcam when shutter was pressed. The RGBA are all in the range of 0-1.
 #'
 #' @examples
-#' \dontrun{
+#' if(interactive()){
 #' camera_snapshot <- callModule( shinyviewr, 'my_camera', output_width = 350)
 #' }
 #'
@@ -92,17 +92,17 @@ shinyviewr <- function(
   shiny::reactive({
     shiny::req(input$viewr_message)
 
-    raster_image <- input$viewr_message %>%
-      str_remove('data:image/png;base64,') %>%
-      str_replace(' ', '+') %>%
+    # Decode the sent message from base 64 into array format.
+    sent_image <- input$viewr_message %>%
+      stringr::str_remove('data:image/png;base64,') %>%
+      stringr::str_replace(' ', '+') %>%
       base64enc::base64decode() %>%
-      png::readPNG() %>%
-      .[,,-4] %>%
-      as.raster()
+      png::readPNG()
 
     # send message to javascript to let it know we got image
     session$sendCustomMessage(photo_recieved_loc, 'yay!');
 
-    raster_image
+    # Convert from array to more useful raster (and remove alpha channel)
+    grDevices::as.raster(sent_image[,,-4])
   })
 }

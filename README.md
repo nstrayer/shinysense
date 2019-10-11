@@ -10,7 +10,7 @@
 
 # `shinysense`
 
-A series of [shiny modules](https://www.rstudio.com/resources/webinars/understanding-shiny-modules/) to help shiny sense the world around it.
+A series of [shiny modules](https://www.RStudio.com/resources/webinars/understanding-shiny-modules/) to help shiny sense the world around it.
 
 It's called `shinysense` because `shinyinputs` seemed kinda lame.
 
@@ -20,7 +20,7 @@ Currently the package supports the following 'senses'.
 
 ### Touch
 - `drawr` & `shinydrawr`: Draws a line chart that obscures the end of the results, the user then draws what they think the rest of the chart is and then the rest of the chart is revealed. 
-  - Blatently stolen from the New York Times article [You Draw It: What Got Better or
+  - Blatantly stolen from the New York Times article [You Draw It: What Got Better or
 Worse During Obama’s Presidency](https://www.nytimes.com/interactive/2017/01/15/us/politics/you-draw-obama-legacy.html).
 - `shinyswipr`: Embeds a card that can be swiped in different directions, the swipe direction is returned to shiny. 
 
@@ -82,7 +82,7 @@ The names of the functions follow a few general rules.
 
 - Of those shiny-based functions there are two functions per sense, the server function (just plain name), and the UI function, which has `_UI` appended to the end. 
 
-_Note that if you used shinysense in earlier versions, this naming scheme was inconsistant, I sincerely appologize for any frustration this may cause!_
+_Note that if you used shinysense in earlier versions, this naming scheme was inconsistent, I sincerely apologize for any frustration this may cause!_
 
 - For functions that work outside of shiny there is no `shiny` prefix. 
   - Currently this only includes `drawr` which allows you to embed a you-draw-it chart in a static report, and `run_demo` which starts up the demo apps for the various senses. 
@@ -90,11 +90,11 @@ _Note that if you used shinysense in earlier versions, this naming scheme was in
 
 ## Browser security
 
-Recently browsers have been making large steps to protect user's data. This is great, however, it means that it can sometimes be tricky to get these applications working. Almost everything will require a secure connection to work. Secure connection generally means two things: one the website address includes `https://` at the front, meaning that all data passed between the browser and server is encrypted, or the app is being run locally and acessed with `localhost`. 
+Recently browsers have been making large steps to protect user's data. This is great, however, it means that it can sometimes be tricky to get these applications working. Almost everything will require a secure connection to work. Secure connection generally means two things: one the website address includes `https://` at the front, meaning that all data passed between the browser and server is encrypted, or the app is being run locally and accessed with `localhost`. 
 
-The easiest way to experiment with these functions is to run a local rstudio instance on your laptop or desktop and then run the shiny app in the browser. When hosting an app for public consumption make sure you have an ssl encrypted server (I.e. `https`).
+The easiest way to experiment with these functions is to run a local RStudio instance on your laptop or desktop and then run the shiny app in the browser. When hosting an app for public consumption make sure you have an ssl encrypted server (I.e. `https`).
 
-A workaround for using Rstudio Server on a remote server that is not secured with `https` is to do port forwarding with the `ssh` command. E.g. `ssh -L 127.0.0.1:8787: 127.0.0.1:8787 me@my_servers_address`. This will allow you to use `localhost` for your apps. 
+A workaround for using RStudio Server on a remote server that is not secured with `https` is to do port forwarding with the `ssh` command. E.g. `ssh -L 127.0.0.1:8787: 127.0.0.1:8787 me@my_servers_address`. This will allow you to use `localhost` for your apps. 
 
 
 ## Nothing works, what do I do?

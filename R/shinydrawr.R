@@ -13,7 +13,7 @@
 #' @return UI portion of the shinydrawr module
 #'
 #' @examples
-#' \dontrun{
+#' if(interactive()){
 #' shinydrawr_UI("drawr_widget", height = '300px')
 #' }
 #' @export
@@ -37,11 +37,8 @@ shinydrawr_UI <- function(id, height = '400px') {
 #' @seealso \code{\link{shinydrawr_UI}}, \code{\link{drawr}}
 #' @inheritParams shinyviewr
 #' @inheritParams drawr
-#' @param shiny_message_loc A string containing the destination to target for
-#'   shiny message passing. Used by `shinydrawr`, and can be ignored unless
-#'   you're making your own shiny interface.
 #' @examples
-#' \dontrun{
+#' if(interactive()){
 #' callModule(
 #'   shinydrawr,
 #'   'drawr_widget',

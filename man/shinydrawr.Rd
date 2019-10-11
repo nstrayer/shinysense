@@ -65,10 +65,6 @@ specifying range directly. Defaults to 2\% (\code{0.02}).}
 
 \item{y_axis_buffer}{Scaler for how much to pad ends of y axis if not
 specifying range directly. Defaults to 10\% (\code{0.1}).}
-
-\item{shiny_message_loc}{A string containing the destination to target for
-shiny message passing. Used by `shinydrawr`, and can be ignored unless
-you're making your own shiny interface.}
 }
 \description{
 Upon completion of line draw, returns a reactive variable that contains a
