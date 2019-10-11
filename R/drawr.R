@@ -41,7 +41,7 @@
 #' @return Interactive you-draw-it plot.
 #'
 #' @examples
-#' \dontrun{
+#' if(interactive()){
 #' drawr(
 #'   data = dplyr::tibble(x = 1:50, y = sin(x)),
 #'   x_col = x, y_col = y,

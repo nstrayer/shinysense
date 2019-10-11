@@ -25,8 +25,8 @@ progress. Defaults to `"Stop Recording"`.}
 }
 \description{
 Exports a reactive array of length 256, corresponding to a fourier transform
-of the sound waves of your recoding. This is a frequently used format for
-running various speech recognition algorithms on. Future edditions will allow
+of the sound waves of your recording. This is a frequently used format for
+running various speech recognition algorithms on. Future editions will allow
 access to the raw data. You
 never directly use this function but instead call it through the shiny
 function `callModule()`. See the example for how to do this.

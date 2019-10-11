@@ -2,7 +2,7 @@
 % Please edit documentation in R/shinyswipr.R
 \name{shinyswipr}
 \alias{shinyswipr}
-\title{Add a swipable card to shiny app: server function}
+\title{Add a swipeable card to shiny app: server function}
 \usage{
 shinyswipr(input, output, session)
 }
