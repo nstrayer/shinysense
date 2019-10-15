@@ -32,7 +32,7 @@ never directly use this function but instead call it through the shiny
 function `callModule()`. See the example for how to do this.
 }
 \examples{
-\dontrun{
+if(interactive()){
 callModule(shinylistenr, "myrecorder")
 }
 }

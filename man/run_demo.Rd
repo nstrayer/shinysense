@@ -21,7 +21,7 @@ Run demo apps Load and play with simple demo apps using the different senses
 available in shinysense. See `demo_name` parameter for available demos.
 }
 \examples{
-\dontrun{
+if(interactive()){
 run_demo('shinydrawr')
 }
 }

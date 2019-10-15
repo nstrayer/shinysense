@@ -71,7 +71,7 @@ standalone html plot. Inspired by the New York Times article
 Draw It: How Family Income Predicts Children’s College}
 }
 \examples{
-\dontrun{
+if(interactive()){
 drawr(
   data = dplyr::tibble(x = 1:50, y = sin(x)),
   x_col = x, y_col = y,

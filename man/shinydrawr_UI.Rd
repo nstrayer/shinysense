@@ -22,7 +22,7 @@ about  button for UI. Wherever this is placed in the UI it will make a line
 chart that can be drawn on.
 }
 \examples{
-\dontrun{
+if(interactive()){
 shinydrawr_UI("drawr_widget", height = '300px')
 }
 }

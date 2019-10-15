@@ -42,7 +42,7 @@ attempts to better secure user data. It still works on mobile devices but
 motion detection needs to be enabled in the devices settings.
 }
 \examples{
-\dontrun{
+if(interactive()){
  movrData <- callModule(shinymovr, 'movr_button')
  }
 }

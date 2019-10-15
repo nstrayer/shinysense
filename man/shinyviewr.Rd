@@ -32,7 +32,7 @@ the shiny function `callModule()`. See the example for how to do this. Paired
 with the UI function \code{\link{shinyviewr_UI}}.
 }
 \examples{
-\dontrun{
+if(interactive()){
 camera_snapshot <- callModule( shinyviewr, 'my_camera', output_width = 350)
 }
 

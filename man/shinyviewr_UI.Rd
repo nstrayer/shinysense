@@ -22,7 +22,7 @@ colors+opacity) back to your computer of the frame when you click take photo.
 Paired with the server function \code{\link{shinyviewr}}.
 }
 \examples{
-\dontrun{
+if(interactive()){
 shinyviewrUI('myrecorder')
 }
 

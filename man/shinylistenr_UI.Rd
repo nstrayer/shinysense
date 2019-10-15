@@ -16,7 +16,7 @@ A blue button that you press to initiate or stop recording of sound.
 Access data from user's microphone: UI version
 }
 \examples{
-\dontrun{
+if(interactive()){
 shinylistenr_UI("recorder")
 }
 }

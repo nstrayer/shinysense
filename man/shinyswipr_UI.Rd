@@ -17,7 +17,7 @@ swiped to the left, right, up, or down with the results of that action being
 sent to the shiny app.
 }
 \examples{
-\dontrun{
+if(interactive()){
 shinyswipr_UI(id = "myswipr", h1("This is my title"), p("here is some text"))
 }
 }

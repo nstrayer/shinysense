@@ -31,7 +31,7 @@ attempts to better secure user data. It still works on mobile devices but
 motion detection needs to be enabled in the devices settings.
 }
 \examples{
-\dontrun{
+if(interactive()){
 shinymovr_UI(
   'movr_button',
   resting_msg = 'Click me to record',
